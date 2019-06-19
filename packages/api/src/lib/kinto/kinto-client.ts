@@ -30,8 +30,7 @@ class KintoClient {
   private client: RestClient;
 
   constructor(url: string, login: string, password: string) {
-    const collectionsResource = `${url}/buckets/wif_public/collections`;
-    this.client = new RestClient(collectionsResource, undefined, {
+    this.client = new RestClient(url, undefined, {
       login,
       password
     });

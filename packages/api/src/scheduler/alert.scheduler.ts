@@ -1,14 +1,10 @@
 import { SentMessageInfo } from "nodemailer";
-import { Observable, of } from "rxjs";
+import { NEVER, Observable, of } from "rxjs";
 import { concatMap, flatMap, map, mergeMap } from "rxjs/operators";
 import { configuration } from "../config";
 import { Alert, DossierRecord } from "../model";
-import {
-  alertService,
-  dossierRecordService,
-  Email,
-  sendEmail
-} from "../service";
+import { alertService, dossierRecordService, sendEmail } from "../service";
+import { logger } from "../util";
 import { handleScheduler } from "./scheduler.service";
 
 export const alertScheduler = {
@@ -30,35 +26,26 @@ export const alertScheduler = {
   }
 };
 
-function buildEmail(alert: Alert): Email {
-  return {
-    to: [{ email: "thomas.glatt@beta.gouv.fr", name: "Thomas" }],
-    // tslint:disable-next-line: object-literal-sort-keys
-    bcc: [],
-    cci: [],
-    subject: "Alert",
-    bodyText: alert.message,
-    attachments: []
-  };
-}
-
 function addAlerts(start: number, end: number): Observable<Alert> {
   return dossierRecordService.allByUpdatedAtBetween(start, end).pipe(
     flatMap((x: DossierRecord[]) => x),
     map((x: DossierRecord) => alertService.getAlerts(x)),
     flatMap((x: Alert[]) => x),
-    mergeMap(
-      (alert: Alert) => alertService.addIfNotExists(alert),
-      undefined,
-      100
-    )
+    mergeMap((alert: Alert) => alertService.addIfNotExists(alert), undefined, 2)
   );
 }
 
 function sendAlertByEmail(alert: Alert) {
   return of(alert).pipe(
     mergeMap(
-      (input: Alert) => sendEmail(buildEmail(input)),
+      (input: Alert) => {
+        const email = input.email;
+        if (!email) {
+          logger.error("", new Error(`alert #${alert.id} has no mail.`));
+          return NEVER;
+        }
+        return sendEmail(email);
+      },
       (input, emailResponse) => ({ alert: input, emailResponse })
     ),
     mergeMap((x: { alert: Alert; emailResponse: SentMessageInfo }) =>

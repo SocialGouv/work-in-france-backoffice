@@ -10,6 +10,7 @@ class DossierRecordRepository {
     const kintoAPI = configuration.dsAPI || "";
     const kintoLogin = configuration.dsApiLogin || "";
     const kintoPassword = configuration.dsApiPasssword || "";
+
     this.collection = kintoClient(
       kintoAPI,
       kintoLogin,

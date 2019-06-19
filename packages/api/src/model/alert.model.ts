@@ -1,63 +1,51 @@
+import { Email } from "../service";
 import { IIdentifiable } from "../util";
 import { DSGroup } from "./dossier-record.model";
+
+export type AlertType =
+  | "closedWithoutDateDebut"
+  | "closedWithoutDateFin"
+  | "closedWithDebutSupFin"
+  | "closedWithSupOneYear"
+  | "closedAndMessageReceived"
+  | "refusedAndMessageReceived"
+  | "withoutContinuationAndMessageReceived"
+  | "receivedAndDelayTooLong"
+  | "initiatedAndDelayTooLong";
 
 export interface Alert extends IIdentifiable {
   ds_key: string;
   url: string;
   group: DSGroup;
-  code: number;
+  alert_type: AlertType;
   message: string;
   instructors_history: string[];
   email_id?: string;
-  email_user: string;
+  email_usager: string;
+  email_instructors: string[];
+  date_debut_apt: string;
+  email?: Email;
   sent: boolean;
 }
 
-export interface AlertType {
-  code: number;
+export interface AlertMessage {
   message: string;
 }
 
-export const alertTypes = {
-  closedWithoutDateDebut: {
-    code: 100,
-    message: "dossier accepté, date de début APT manquante"
-  },
-  closedWithoutDateFin: {
-    code: 101,
-    message: "dossier accepté, date de fin APT manquante"
-  },
+export const alertMaxReceivedTimeInDays = 7;
+export const alertMaxInitiatedTimeInDays = 7;
+
+export const alertMessages = {
+  closedWithoutDateDebut: "dossier accepté, date de début APT manquante",
+  closedWithoutDateFin: "dossier accepté, date de fin APT manquante",
   // tslint:disable-next-line: object-literal-sort-keys
-  closedWithDebutSupFin: {
-    code: 102,
-    message: "dossier accepté, date de fin APT antérieure à Date de début APT"
-  },
-  closedWithSupOneYear: {
-    code: 103,
-    message: "dossier accepté, durée APT supérieure à 12 mois"
-  },
-  closedAndMessageReceived: {
-    code: 104,
-    message: "dossier accepté, message envoyé après acceptation"
-  },
-
-  refusedAndMessageReceived: {
-    code: 200,
-    message: "dossier refusé, message envoyé après refus"
-  },
-
-  withoutContinuationAndMessageReceived: {
-    code: 300,
-    message: "dossier classé sans suite, message après classement sans suite"
-  },
-
-  receivedAndDelayTooLong: {
-    code: 400,
-    message: "durée d'instruction de dossier dépassée"
-  },
-
-  initiatedAndDelayTooLong: {
-    code: 500,
-    message: "durée de construction de dossier dépassée"
-  }
+  closedWithDebutSupFin:
+    "dossier accepté, date de fin APT antérieure à Date de début APT",
+  closedWithSupOneYear: "dossier accepté, durée APT supérieure à 12 mois",
+  closedAndMessageReceived: "dossier accepté, message envoyé après acceptation",
+  refusedAndMessageReceived: "dossier refusé, message envoyé après refus",
+  withoutContinuationAndMessageReceived:
+    "dossier classé sans suite, message après classement sans suite",
+  receivedAndDelayTooLong: "durée d'instruction de dossier dépassée",
+  initiatedAndDelayTooLong: "durée de construction de dossier dépassée"
 };

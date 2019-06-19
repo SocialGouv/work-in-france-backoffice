@@ -6,6 +6,7 @@ import {
   DossierRecord,
   DSCommentaire,
   getDateDebutAPT,
+  getDateDebutAPTValue,
   getDateDebutConstruction,
   getDateDebutInstruction,
   getDateFinAPT,
@@ -16,13 +17,20 @@ import {
   isRefused,
   isWithoutContinuation
 } from "../../model";
-import { Alert, AlertType, alertTypes } from "../../model/alert.model";
+import {
+  Alert,
+  alertMaxInitiatedTimeInDays,
+  alertMaxReceivedTimeInDays,
+  alertMessages,
+  AlertType
+} from "../../model/alert.model";
 import { alertRepository } from "../../repository/alert.repository";
+import { getAlertEmail } from "./alert.email";
 import { exportAlertsInExcel } from "./alert.excel";
 
 const dsContactEmail = "contact@demarches-simplifiees.fr";
-const maxReceivedTimeInDays = 3;
-const maxInitiatedTimeInDays = 3;
+const maxReceivedTimeInDays = alertMaxReceivedTimeInDays;
+const maxInitiatedTimeInDays = alertMaxInitiatedTimeInDays;
 const direcctDomainName = "direccte.gouv.fr";
 
 class AlertService {
@@ -45,10 +53,12 @@ class AlertService {
   }
 
   public addIfNotExists(alert: Alert): Observable<Alert> {
-    return alertRepository.findByDSKeyAndCode(alert.ds_key, alert.code).pipe(
-      filter((x: Alert[]) => x.length === 0),
-      mergeMap(() => alertRepository.add(alert))
-    );
+    return alertRepository
+      .findByDSKeyAndCode(alert.ds_key, alert.alert_type)
+      .pipe(
+        filter((x: Alert[]) => x.length === 0),
+        mergeMap(() => alertRepository.add(alert))
+      );
   }
 
   public getAlerts(dossier: DossierRecord): Alert[] {
@@ -58,59 +68,54 @@ class AlertService {
         alerts,
         dossier,
         isDateDebutAPTNotPresent,
-        alertTypes.closedWithoutDateDebut
+        "closedWithoutDateDebut"
       );
       this.addAlert(
         alerts,
         dossier,
         isDateFinAPTNotPresent,
-        alertTypes.closedWithoutDateFin
+        "closedWithoutDateFin"
       );
       this.addAlert(
         alerts,
         dossier,
         isFinAPTBeforeDebutAPT,
-        alertTypes.closedWithDebutSupFin
+        "closedWithDebutSupFin"
       );
-      this.addAlert(
-        alerts,
-        dossier,
-        isAPTSup12Months,
-        alertTypes.closedWithSupOneYear
-      );
+      this.addAlert(alerts, dossier, isAPTSup12Months, "closedWithSupOneYear");
       this.addAlert(
         alerts,
         dossier,
         isMessageSentAfterProcessedAt,
-        alertTypes.closedAndMessageReceived
+        "closedAndMessageReceived"
       );
     } else if (isRefused(dossier)) {
       this.addAlert(
         alerts,
         dossier,
         isMessageSentAfterProcessedAt,
-        alertTypes.refusedAndMessageReceived
+        "refusedAndMessageReceived"
       );
     } else if (isWithoutContinuation(dossier)) {
       this.addAlert(
         alerts,
         dossier,
         isMessageSentAfterProcessedAt,
-        alertTypes.withoutContinuationAndMessageReceived
+        "withoutContinuationAndMessageReceived"
       );
     } else if (isReceived(dossier)) {
       this.addAlert(
         alerts,
         dossier,
         isReceivedTimeTooLong,
-        alertTypes.receivedAndDelayTooLong
+        "receivedAndDelayTooLong"
       );
     } else if (isInitiated(dossier)) {
       this.addAlert(
         alerts,
         dossier,
         isInitiatedTimeTooLong,
-        alertTypes.initiatedAndDelayTooLong
+        "initiatedAndDelayTooLong"
       );
     }
 
@@ -129,12 +134,15 @@ class AlertService {
         url: getDemarcheSimplifieeUrl(dossier),
         // tslint:disable-next-line: object-literal-sort-keys
         group: dossier.metadata.group,
-        message: alertType.message,
-        code: alertType.code,
+        message: alertMessages[alertType],
+        alert_type: alertType,
         instructors_history: dossier.metadata.instructors_history,
-        email_user: dossier.ds_data.email,
+        email_usager: dossier.ds_data.email,
+        email_instructors: dossier.ds_data.instructeurs,
+        date_debut_apt: getDateDebutAPTValue(dossier),
         sent: false
       };
+      alert.email = getAlertEmail(alert);
       alerts.push(alert);
     }
   }

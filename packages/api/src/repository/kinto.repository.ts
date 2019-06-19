@@ -4,7 +4,11 @@ import { kintoClient, KintoCollection } from "../lib";
 const kintoURL = configuration.kintoURL;
 const kintoLogin = configuration.kintoLogin;
 const kintoPassword = configuration.kintoPassword;
-const client = kintoClient(kintoURL, kintoLogin, kintoPassword);
+const client = kintoClient(
+  `${kintoURL}/buckets/wif_public/collections`,
+  kintoLogin,
+  kintoPassword
+);
 
 export class KintoRepository<T> {
   protected collection: KintoCollection<T>;
