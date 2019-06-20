@@ -56,6 +56,11 @@ spec:
                   name: wif-bo-secret
                   key: DS_API_PASSWORD
 
+            - name: MAIL_ENABLED
+              valueFrom:
+                secretKeyRef:
+                  name: wif-bo-secret
+                  key: MAIL_ENABLED
             - name: MAIL_USE_TLS
               value: "true"
             - name: MAIL_PORT

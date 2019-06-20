@@ -1,5 +1,5 @@
 import { createTransport, SentMessageInfo } from "nodemailer";
-import { from, Observable } from "rxjs";
+import { from, Observable, of } from "rxjs";
 import { configuration } from "../../config";
 import { logger } from "../../util";
 
@@ -34,6 +34,10 @@ const transporter = createTransport({
   }
 });
 
+const fakeSentMessageInfo = {
+  messageId: "fakeSendMessageInfo.messageId"
+};
+
 // https://github.com/nodemailer/nodemailer/blob/master/examples/sendmail.js
 export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   email: Email
@@ -47,5 +51,9 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
     to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
   };
 
-  return from(transporter.sendMail(message));
+  if (configuration.mailEnabled) {
+    return from(transporter.sendMail(message));
+  }
+  logger.info(`[Email] email sending is not enabled.`);
+  return of(fakeSentMessageInfo);
 };
