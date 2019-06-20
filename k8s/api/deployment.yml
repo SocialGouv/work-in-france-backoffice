@@ -44,7 +44,7 @@ spec:
                   name: wif-bo-secret
                   key: KINTO_PASSWORD
             - name: DS_API
-              value: "http://kinto.ds-aggregator:8888/v1"
+              value: "http://kinto.ds-aggregator:8888/v1/buckets/ds_collector/collections"
             - name: DS_API_LOGIN
               valueFrom:
                 secretKeyRef:
