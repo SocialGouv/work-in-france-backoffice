@@ -8,9 +8,6 @@ import { handleScheduler } from "./scheduler.service";
 
 export const validityCheckScheduler = {
   start: () => {
-    if (!configuration.validityCheckEnable) {
-      return;
-    }
     handleScheduler(
       configuration.validityCheckCron,
       "validity-check",
