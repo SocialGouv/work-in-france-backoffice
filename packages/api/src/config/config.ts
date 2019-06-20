@@ -81,7 +81,8 @@ const configByEnvironment: {
 
 export const getConfiguration = (env: typeof process.env) => {
   const environmentType = env.ENVIRONMENT_TYPE as EnvironmentType;
-  const envConfig = configByEnvironment[environmentType](env);
+  const envConfigFn = configByEnvironment[environmentType];
+  const envConfig = envConfigFn(env);
 
   return {
     alertCron: envConfig.alertCron,
