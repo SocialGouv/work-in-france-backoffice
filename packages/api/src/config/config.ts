@@ -1,63 +1,111 @@
-import { config } from "dotenv";
+type EnvironmentType = "prod" | "dev.factory" | "dev.local";
 
-config({ path: "./../../.env" });
-
-const asString = (arg: any): string => {
-  const res = process.env[arg];
+const asString = (
+  env: typeof process.env,
+  arg: string,
+  defaultValue: string
+): string => {
+  const res = env[arg];
   if (!res) {
-    throw new Error(`env variable ${arg} is required`);
+    return defaultValue;
   }
   return res;
 };
 
-const asNumber = (arg: any): number => {
-  const res = process.env[arg];
+const asNumber = (
+  env: typeof process.env,
+  arg: string,
+  defaultValue: number
+): number => {
+  const res = env[arg];
   if (!res) {
-    throw new Error(`env variable ${arg} is required`);
+    return defaultValue;
   }
   return Number.parseInt(res, 10);
 };
 
-const asBoolean = (arg: any): boolean => {
-  const res = process.env[arg];
+const asBoolean = (
+  env: typeof process.env,
+  arg: string,
+  defaultValue: boolean
+): boolean => {
+  const res = env[arg];
   if (!res) {
-    throw new Error(`env variable ${arg} is required`);
+    return defaultValue;
   }
   return "true" === res ? true : false;
 };
 
-export const configuration = {
-  dsAPI: asString("DS_API"),
-  dsApiLogin: asString("DS_API_LOGIN"),
-  dsApiPasssword: asString("DS_API_PASSWORD"),
+const configByEnvironment: {
+  [key in EnvironmentType]: any;
+} = {
+  "dev.factory": () => ({
+    alertCron: "0 0 5 * * *",
+    alertEmailCron: "0 0 6 * * *",
+    mailEnabled: false,
+    monthlyReportCron: "0 0 8 1 * *",
+    monthlyReportEmailRecepient: "work-in-france@beta.gouv.fr",
+    sentryEnabled: false,
+    validityCheckCleanerCron: "0 15 6 * * *",
+    validityCheckCron: "0 15 * * * *"
+  }),
+  "dev.local": (env: typeof process.env) => ({
+    alertCron: asString(env, "ALERT_CRON", "0 0 5 * * *"),
+    alertEmailCron: asString(env, "ALERT_EMAIL_CRON", "0 0 5 * * *"),
+    mailEnabled: asBoolean(env, "MAIL_ENABLED", false),
+    monthlyReportCron: asString(env, "MONTHLY_REPORT_CRON", "0 0 6 * * *"),
+    monthlyReportEmailRecepient: asString(
+      env,
+      "MONTHLY_REPORT_EMAIL_RECEPIENT",
+      "work-in-france@beta.gouv.fr"
+    ),
+    sentryEnabled: asBoolean(env, "SENTRY_ENABLED", false),
+    validityCheckCleanerCron: asString(
+      env,
+      "VALIDITY_CHECK_CLEANER_CRON",
+      "0 15 6 * * *"
+    ),
+    validityCheckCron: asString(env, "VALIDITY_CHECK_CRON", "0 0 * * * *")
+  }),
+  prod: () => ({
+    alertCron: "0 0 5 * * *",
+    alertEmailCron: "0 0 6 * * *",
+    mailEnabled: true,
+    monthlyReportCron: "0 0 8 1 * *",
+    monthlyReportEmailRecepient: "work-in-france@beta.gouv.fr",
+    sentryEnabled: true,
+    validityCheckCleanerCron: "0 15 6 * * *",
+    validityCheckCron: "0 0 * * * *"
+  })
+};
 
-  kintoLogin: asString("KINTO_LOGIN"),
-  kintoPassword: asString("KINTO_PASSWORD"),
-  kintoURL: asString("KINTO_URL"),
+export const getConfiguration = (env: typeof process.env) => {
+  const environmentType = env.ENVIRONMENT_TYPE as EnvironmentType;
+  const envConfig = configByEnvironment[environmentType](env);
 
-  apiPrefix: asString("API_PREFIX"),
-  // tslint:disable-next-line: object-literal-sort-keys
-  apiPort: asNumber("API_PORT"),
-
-  validityCheckEnable: asBoolean("VALIDITY_CHECK_ENABLE"),
-  validityCheckCron: asString("VALIDITY_CHECK_CRON"),
-  validityCheckCleanerCron: asString("VALIDITY_CHECK_CLEANER_CRON"),
-
-  // tslint:disable-next-line: object-literal-sort-keys
-  monthlyReportCron: asString("MONTHLY_REPORT_CRON"),
-  monthlyReportEmailRecepient: asString("MONTHLY_REPORT_EMAIL_RECEPIENT"),
-
-  alertCron: asString(`ALERT_CRON`),
-  alertEmailCron: asString(`ALERT_EMAIL_CRON`),
-
-  mailHost: asString(`MAIL_HOST`),
-  mailPort: asNumber(`MAIL_PORT`),
-  mailFrom: asString("MAIL_FROM"),
-  mailUsername: asString(`MAIL_USERNAME`),
-  mailPassword: asString(`MAIL_PASSWORD`),
-  mailUseTLS: asBoolean(`MAIL_USE_TLS`),
-  mailEnabled: asBoolean(`MAIL_ENABLED`),
-
-  sentryEnabled: asBoolean("SENTRY_ENABLED"),
-  sentryDSN: asString("SENTRY_DSN")
+  return {
+    alertCron: envConfig.alertCron,
+    alertEmailCron: envConfig.alertEmailCron,
+    apiPort: asNumber(env, "API_PORT", 4000),
+    apiPrefix: asString(env, "API_PREFIX", "local"),
+    dsAPI: asString(env, "DS_API", ""),
+    dsApiLogin: asString(env, "DS_API_LOGIN", ""),
+    dsApiPassword: asString(env, "DS_API_PASSWORD", ""),
+    kintoLogin: asString(env, "KINTO_LOGIN", ""),
+    kintoPassword: asString(env, "KINTO_PASSWORD", ""),
+    kintoURL: asString(env, "KINTO_URL", ""),
+    mailEnabled: envConfig.mailEnabled,
+    mailFrom: asString(env, "MAIL_FROM", ""),
+    mailHost: asString(env, "MAIL_HOST", ""),
+    mailPassword: asString(env, "MAIL_PASSWORD", ""),
+    mailPort: asNumber(env, "MAIL_PORT", 465),
+    mailUseTLS: asBoolean(env, "MAIL_USE_TLS", false),
+    mailUsername: asString(env, "MAIL_USERNAME", ""),
+    monthlyReportCron: envConfig.monthlyReportCron,
+    monthlyReportEmailRecepient: envConfig.monthlyReportEmailRecepient,
+    sentryDSN: asString(env, "SENTRY_DSN", ""),
+    sentryEnabled: envConfig.sentryEnabled,
+    validityCheckCleanerCron: envConfig.validityCheckCleanerCron,
+    validityCheckCron: envConfig.validityCheckCron
+  };
 };
