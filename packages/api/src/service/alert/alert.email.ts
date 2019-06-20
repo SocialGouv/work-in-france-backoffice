@@ -114,7 +114,7 @@ const alertEmails: { [key in AlertType]: (alert: Alert) => Email } = {
       subject: `La durée de construction du dossier WorkinFrance nº${getDossierId(
         alert.ds_key
       )} approche ${alertMaxInitiatedTimeInDays} jours / UD0${alert.group.id}`,
-      to: alert.email_instructors.map(a => emailAddress(a))
+      to: alert.email_instructors.map((a: string) => emailAddress(a))
     };
   }
 };
