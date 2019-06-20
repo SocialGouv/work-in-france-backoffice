@@ -45,6 +45,7 @@ export const handleScheduler = (
         error: (err: any) => handleError(scheduler, err)
       });
   });
+  logger.info(`[scheduler] ${scheduler} [${cron}] scheduled!`);
 };
 
 const handleError = (scheduler: string, err: any) => {

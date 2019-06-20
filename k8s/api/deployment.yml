@@ -22,6 +22,11 @@ spec:
           ports:
             - containerPort: ${PORT}
           env:
+            - name: ENVIRONMENT_TYPE
+              valueFrom:
+                secretKeyRef:
+                  name: wif-bo-secret
+                  key: ENVIRONMENT_TYPE
             - name: API_PORT
               value: "${PORT}"
             - name: API_PREFIX
@@ -29,22 +34,11 @@ spec:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: API_PREFIX
-            - name: KINTO_URL
-              value: "http://kinto${HASH_BRANCH_NAME}:8888"
-            - name: KINTO_BUCKET
-              value: "wif-bo"
-            - name: KINTO_LOGIN
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: KINTO_LOGIN
-            - name: KINTO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: KINTO_PASSWORD
             - name: DS_API
-              value: "http://kinto.ds-aggregator:8888/v1"
+              valueFrom:
+                secretKeyRef:
+                  name: wif-bo-secret
+                  key: DS_API
             - name: DS_API_LOGIN
               valueFrom:
                 secretKeyRef:
@@ -55,18 +49,29 @@ spec:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: DS_API_PASSWORD
-
-            - name: MAIL_USE_TLS
-              value: "true"
-            - name: MAIL_PORT
-              value: "465"
-            - name: MAIL_FROM
-              value: "Work In France <contact@work-in-france.fr>"
+            - name: KINTO_LOGIN
+              valueFrom:
+                secretKeyRef:
+                  name: wif-bo-secret
+                  key: KINTO_LOGIN
+            - name: KINTO_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: wif-bo-secret
+                  key: KINTO_PASSWORD
+            - name: KINTO_URL
+              value: "http://kinto${HASH_BRANCH_NAME}:8888"
             - name: MAIL_HOST
               valueFrom:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: MAIL_HOST
+            - name: MAIL_USE_TLS
+              value: "true"
+            - name: MAIL_PORT
+              value: "587"
+            - name: MAIL_FROM
+              value: "Work In France <contact@work-in-france.fr>"
             - name: MAIL_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -77,53 +82,8 @@ spec:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: MAIL_PASSWORD
-
-            - name: SENTRY_ENABLED
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: SENTRY_ENABLED
             - name: SENTRY_DSN
               valueFrom:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: SENTRY_DSN
-
-            - name: VALIDITY_CHECK_ENABLE
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: VALIDITY_CHECK_ENABLE
-            - name: VALIDITY_CHECK_CRON
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: VALIDITY_CHECK_CRON
-            - name: VALIDITY_CHECK_CLEANER_CRON
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: VALIDITY_CHECK_CLEANER_CRON
-
-            - name: MONTHLY_REPORT_CRON
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: MONTHLY_REPORT_CRON
-            - name: MONTHLY_REPORT_EMAIL_RECEPIENT
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: MONTHLY_REPORT_EMAIL_RECEPIENT
-
-            - name: ALERT_CRON
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: ALERT_CRON
-            - name: ALERT_EMAIL_CRON
-              valueFrom:
-                secretKeyRef:
-                  name: wif-bo-secret
-                  key: ALERT_EMAIL_CRON
-

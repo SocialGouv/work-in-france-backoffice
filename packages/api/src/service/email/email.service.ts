@@ -1,5 +1,5 @@
 import { createTransport, SentMessageInfo } from "nodemailer";
-import { from, Observable } from "rxjs";
+import { from, Observable, of } from "rxjs";
 import { configuration } from "../../config";
 import { logger } from "../../util";
 
@@ -20,7 +20,6 @@ export interface Email {
   cci: EmailAddress[];
   subject: string;
   bodyText: string;
-  attachments: Attachment[];
 }
 
 const transporter = createTransport({
@@ -35,26 +34,26 @@ const transporter = createTransport({
   }
 });
 
+const fakeSentMessageInfo = {
+  messageId: "fakeSendMessageInfo.messageId"
+};
+
 // https://github.com/nodemailer/nodemailer/blob/master/examples/sendmail.js
 export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   email: Email
 ) => {
-  logger.info(`[EmailService.sendEmail] subject ${email.subject}`);
+  logger.info(`[EmailService.sendEmail] ${email.subject}`);
   const message = {
-    from: configuration.mailFrom,
-    to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
-    // tslint:disable-next-line: object-literal-sort-keys
     bcc: email.bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
+    from: configuration.mailFrom,
     subject: email.subject,
     text: email.bodyText,
-
-    // An array of attachments
-    attachments: email.attachments.map((a: Attachment) => ({
-      cid: a.path, // should be as unique as possible
-      filename: a.filename,
-      path: a.path
-    }))
+    to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
   };
 
-  return from(transporter.sendMail(message));
+  if (configuration.mailEnabled) {
+    return from(transporter.sendMail(message));
+  }
+  logger.info(`[Email] email sending is not enabled.`);
+  return of(fakeSentMessageInfo);
 };
