@@ -24,3 +24,5 @@ app.on("error", (err, ctx: Koa.Context) => {
 });
 
 app.listen(configuration.apiPort);
+
+logger.info(`server is started!`);
