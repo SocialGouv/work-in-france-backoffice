@@ -20,7 +20,7 @@ export const validityCheckScheduler = {
             ),
             flatMap((x: DossierRecord[]) => x),
             filter(validityCheckService.isValid),
-            mergeMap(validityCheckService.addIfNotExists, undefined, 100),
+            mergeMap(validityCheckService.addIfNotExists, undefined, 2),
             tap((res: ValidityCheck) =>
               logger.info(
                 `[syncValidityChecks] validity check created ${res.ds_key} `
