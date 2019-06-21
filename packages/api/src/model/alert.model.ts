@@ -42,10 +42,11 @@ export const alertMessages = {
   closedWithDebutSupFin:
     "dossier accepté, date de fin APT antérieure à Date de début APT",
   closedWithSupOneYear: "dossier accepté, durée APT supérieure à 12 mois",
-  closedAndMessageReceived: "dossier accepté, message envoyé après acceptation",
-  refusedAndMessageReceived: "dossier refusé, message envoyé après refus",
+  closedAndMessageReceived:
+    "dossier archivé et message envoyé après acceptation",
+  refusedAndMessageReceived: "dossier archivé et message envoyé après refus",
   withoutContinuationAndMessageReceived:
-    "dossier classé sans suite, message après classement sans suite",
+    "dossier archivé et message après classement sans suite",
   receivedAndDelayTooLong: "durée d'instruction de dossier dépassée",
   initiatedAndDelayTooLong: "durée de construction de dossier dépassée"
 };

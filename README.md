@@ -79,17 +79,17 @@ Liste des synchronisations:
 
 ## Règles de détection d'une dossier potentiellement en souffrance
 
-- Règle 2 - `initiated` (en construction)
+- Règle 1 - `initiated` (en construction)
     - en construction depuis trop longtemps
-- Règle 3 - `received` (en instruction)
+- Règle 2 - `received` (en instruction)
     - en instruction depuis trop longtemps
-- Règle 4 - `closed` (accepté)
+- Règle 3 - `closed` (accepté)
     - Date manquante - soit début, soit fin
     - Date de début > Date de fin
     - Durée de APT > 12 mois
-    - Messages de l'usager sans réponse envoyés après la date `processed_at`
-- Règle 5 - `refused` (refusé)
-    - Messages de l'usager sans réponse envoyés après la date `processed_at`
-- Règle 6 - `without_continuation` (sans suite)
-    - Messages de l'usager sans réponse envoyés après la date `processed_at`
+    - Messages de l'usager envoyés après la date `processed_at` et dossier archivé
+- Règle 4 - `refused` (refusé)
+    - Messages de l'usager envoyés après la date `processed_at` et dossier archivé
+- Règle 5 - `without_continuation` (sans suite)
+    - Messages de l'usager envoyés après la date `processed_at` et dossier archivé
 
