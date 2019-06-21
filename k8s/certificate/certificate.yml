@@ -6,14 +6,12 @@ metadata:
 spec:
   secretName: wif-bo-crt-secret
   dnsNames:
-  - wif-bo.${ENVIRONMENT}.social.gouv.fr
   - wif-bo-api.${ENVIRONMENT}.social.gouv.fr
   acme:
     config:
     - http01:
         ingressClass: nginx
       domains:
-      - wif-bo.${ENVIRONMENT}.social.gouv.fr
       - wif-bo-api.${ENVIRONMENT}.social.gouv.fr
   issuerRef:
     name: letsencrypt-prod
