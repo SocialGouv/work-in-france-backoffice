@@ -44,7 +44,7 @@ const configByEnvironment: {
     alertEmailCron: "0 0 6 * * *",
     mailEnabled: false,
     monthlyReportCron: "0 0 8 1 * *",
-    monthlyReportEmailRecepient: "work-in-france@beta.gouv.fr",
+    monthlyReportEmailRecepient: "",
     sentryEnabled: false,
     validityCheckCleanerCron: "0 15 6 * * *",
     validityCheckCron: "0 15 * * * *"
@@ -57,7 +57,7 @@ const configByEnvironment: {
     monthlyReportEmailRecepient: asString(
       env,
       "MONTHLY_REPORT_EMAIL_RECEPIENT",
-      "work-in-france@beta.gouv.fr"
+      ""
     ),
     sentryEnabled: asBoolean(env, "SENTRY_ENABLED", false),
     validityCheckCleanerCron: asString(
@@ -68,7 +68,7 @@ const configByEnvironment: {
     validityCheckCron: asString(env, "VALIDITY_CHECK_CRON", "0 0 * * * *")
   }),
   prod: () => ({
-    alertCron: "0 */15 * * * *",
+    alertCron: "0 */5 * * * *",
     alertEmailCron: "0 0 6 * * *",
     mailEnabled: false,
     monthlyReportCron: "0 0 8 1 * *",
