@@ -1,4 +1,5 @@
 import { Observable } from "rxjs";
+import { DeletedData } from "../lib";
 import { Alert } from "../model";
 import { KintoRepository } from "./kinto.repository";
 
@@ -13,6 +14,10 @@ class AlertRepository extends KintoRepository<Alert> {
 
   public add(alert: Alert): Observable<Alert> {
     return this.collection.add(alert);
+  }
+
+  public deleteAll(): Observable<DeletedData[]> {
+    return this.collection.delete();
   }
 
   public update(alert: Alert): Observable<Alert> {

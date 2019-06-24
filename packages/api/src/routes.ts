@@ -4,10 +4,11 @@ import * as Router from "koa-router";
 import { fileSync } from "tmp";
 import { configuration } from "./config";
 import { extractorService } from "./extract.service";
+import { DeletedData } from "./lib";
 import { monthlyreportService } from "./service";
 import { alertService } from "./service/alert/alert.service";
 import { getMonthlyReportFilename } from "./service/monthly-report/monthly-report.util";
-import { mimeTypes } from "./util";
+import { logger, mimeTypes } from "./util";
 
 const routeOptions: Router.IRouterOptions = {
   prefix: "/api"
@@ -21,7 +22,7 @@ router.post(
   (ctx: Koa.Context) => {
     extractorService.launchGlobalMonthlyReportSynchro();
     ctx.status = 200;
-    ctx.message = "[Monthly Reports] Global synchonisation launched";
+    ctx.body = { message: `[Monthly Reports] Global synchonisation launched` };
   }
 );
 
@@ -50,6 +51,25 @@ router.get(
     ctx.body = readStream;
 
     tempFileName.removeCallback();
+  }
+);
+
+router.delete(
+  `/${configuration.apiPrefix}/alerts`,
+  async (ctx: Koa.Context) => {
+    const res: DeletedData[] = await alertService.deleteAll().toPromise();
+    logger.info(`${res.length} alerts deleted!`);
+    ctx.body = { message: `${res.length} alerts deleted!` };
+    ctx.status = 200;
+  }
+);
+
+router.post(
+  `/${configuration.apiPrefix}/alerts/sync-all`,
+  (ctx: Koa.Context) => {
+    extractorService.launchGlobalAlertSynchro();
+    ctx.status = 200;
+    ctx.body = { message: "[Alerts] Global synchonisation launched" };
   }
 );
 

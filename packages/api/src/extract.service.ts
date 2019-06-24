@@ -1,20 +1,28 @@
 import { addMonths, getMonth, getYear, isBefore } from "date-fns";
 import { Observable, Observer, Subject } from "rxjs";
 import { concatMap, exhaustMap } from "rxjs/operators";
+import { Alert } from "./model";
 import { MonthlyReport } from "./model/monthly-report.model";
+import { addAlerts } from "./scheduler/alert.scheduler";
 import { monthlyreportService } from "./service";
 import { logger } from "./util";
 import { YearMonth } from "./util/interface/year-month";
 
 class ExtractorService {
   private syncAllMonthlyReports$ = new Subject();
+  private syncAllAlerts$ = new Subject();
 
   constructor() {
     this.initAllMonthlyReportSynchro();
+    this.initAllAlertSynchro();
   }
 
   public launchGlobalMonthlyReportSynchro() {
     this.syncAllMonthlyReports$.next();
+  }
+
+  public launchGlobalAlertSynchro() {
+    this.syncAllAlerts$.next();
   }
 
   private allMonthlyReports(): Observable<MonthlyReport> {
@@ -23,6 +31,18 @@ class ExtractorService {
         monthlyreportService.syncMonthlyReports(res.year, res.month)
       )
     );
+  }
+
+  private initAllAlertSynchro() {
+    this.syncAllAlerts$
+      .pipe(concatMap(() => addAlerts(0, new Date().getTime())))
+      .subscribe({
+        error: (error: Error) => logger.error(`[alerts synchro] error`, error),
+        next: (alert: Alert) =>
+          logger.info(
+            `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
+          )
+      });
   }
 
   private initAllMonthlyReportSynchro() {

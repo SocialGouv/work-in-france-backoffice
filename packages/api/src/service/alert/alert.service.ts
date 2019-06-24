@@ -2,6 +2,7 @@ import { differenceInDays, differenceInMonths } from "date-fns";
 import { Observable } from "rxjs";
 import { filter, mergeMap } from "rxjs/operators";
 import { Stream } from "stream";
+import { DeletedData } from "../../lib";
 import {
   DossierRecord,
   DSCommentaire,
@@ -34,6 +35,10 @@ const maxInitiatedTimeInDays = alertMaxInitiatedTimeInDays;
 const direcctDomainName = "direccte.gouv.fr";
 
 class AlertService {
+  public deleteAll(): Observable<DeletedData[]> {
+    return alertRepository.deleteAll();
+  }
+
   public markAsSent(alert: Alert, messageId: string) {
     alert.email_id = messageId;
     alert.sent = true;
