@@ -12,9 +12,11 @@ interface RowAlert {
 }
 
 export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
+  logger.info(`[alert excel] create workbook`);
   const workbook = createWorkbook();
+  logger.info(`[alert excel] create worksheet`);
   const worksheet = workbook.addWorksheet(`Dossiers en souffrance`);
-
+  logger.info(`[alert excel] create columns`);
   worksheet.columns = [
     { header: "Identifiant", key: "ds_key", width: 15 },
     { header: "Groupe", key: "group", width: 20 },
@@ -23,6 +25,7 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
     { header: "Lien", key: "url", width: 30 }
   ];
 
+  logger.info(`[alert excel] start exporting rows`);
   alerts
     .map((alert: Alert) => exportRows(alert))
     .forEach((row: RowAlert) => {

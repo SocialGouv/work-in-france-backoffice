@@ -77,8 +77,11 @@ router.get(
   `/${configuration.apiPrefix}/alerts/download`,
   async (ctx: Koa.Context) => {
     const tempFileName = fileSync();
+    logger.info(`[alert excel] create file write stream ${tempFileName.name}`);
     const writeStream = createWriteStream(tempFileName.name);
+    logger.info(`[alert excel] start writing into write stream`);
     await alertService.writeAlerts(writeStream);
+    logger.info(`[alert excel] end writing into write stream`);
 
     const readStream = createReadStream(tempFileName.name);
     ctx.res.setHeader(
@@ -88,6 +91,7 @@ router.get(
     ctx.res.setHeader("Content-type", mimeTypes.excel);
     ctx.body = readStream;
 
+    logger.info(`[alert excel] remove temp file`);
     tempFileName.removeCallback();
   }
 );
