@@ -1,6 +1,6 @@
 import { Stream } from "stream";
 import { Alert } from "../../model";
-import { asString } from "../../util";
+import { asString, logger } from "../../util";
 import { createWorkbook } from "../excel.util";
 
 interface RowAlert {
@@ -25,7 +25,10 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
 
   alerts
     .map((alert: Alert) => exportRows(alert))
-    .forEach((row: RowAlert) => worksheet.addRow(row));
+    .forEach((row: RowAlert) => {
+      logger.info(`[alert excel] add row ${row.ds_key} ${row.message}`);
+      worksheet.addRow(row);
+    });
 
   await workbook.xlsx.write(stream);
 };
