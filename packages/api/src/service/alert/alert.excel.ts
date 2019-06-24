@@ -20,7 +20,8 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
     { header: "Groupe", key: "group", width: 20 },
     { header: "Alerte", key: "message", width: 40 },
     { header: "Instructeurs", key: "instructors_history", width: 30 },
-    { header: "Lien", key: "url", width: 30 }
+    { header: "Lien", key: "url", width: 30 },
+    { header: "Email", key: "email", width: 100 }
   ];
 
   alerts
@@ -33,10 +34,10 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
 const exportRows: (alert: Alert) => RowAlert = (alert: Alert) => {
   return {
     ds_key: alert.ds_key,
+    email: alert.email || "",
     group: alert.group.label,
-    message: alert.message,
-    // tslint:disable-next-line: object-literal-sort-keys
     instructors_history: asString(alert.instructors_history, ", "),
+    message: alert.message,
     url: alert.url
   };
 };
