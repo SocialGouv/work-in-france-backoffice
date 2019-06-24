@@ -40,7 +40,7 @@ export interface DossierRecord extends IIdentifiable {
   ds_data: DSDossier;
   metadata: {
     state: string;
-    procedure_id: string;
+    procedure_id: number;
     group: DSGroup;
     // date de création du dossier
     created_at: number;
