@@ -1,6 +1,6 @@
 import { Stream } from "stream";
 import { Alert } from "../../model";
-import { asString, logger } from "../../util";
+import { asString } from "../../util";
 import { createWorkbook } from "../excel.util";
 
 interface RowAlert {
@@ -12,24 +12,20 @@ interface RowAlert {
 }
 
 export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
-  logger.info(`[alert excel] create workbook`);
   const workbook = createWorkbook();
-  logger.info(`[alert excel] create worksheet`);
   const worksheet = workbook.addWorksheet(`Dossiers en souffrance`);
-  logger.info(`[alert excel] create columns`);
   worksheet.columns = [
     { header: "Identifiant", key: "ds_key", width: 15 },
     { header: "Groupe", key: "group", width: 20 },
     { header: "Alerte", key: "message", width: 40 },
     { header: "Instructeurs", key: "instructors_history", width: 30 },
-    { header: "Lien", key: "url", width: 30 }
+    { header: "Lien", key: "url", width: 30 },
+    { header: "Email", key: "email", width: 100 }
   ];
 
-  logger.info(`[alert excel] start exporting rows`);
   alerts
     .map((alert: Alert) => exportRows(alert))
     .forEach((row: RowAlert) => {
-      logger.info(`[alert excel] add row ${row.ds_key} ${row.message}`);
       worksheet.addRow(row);
     });
 
@@ -39,6 +35,7 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
 const exportRows: (alert: Alert) => RowAlert = (alert: Alert) => {
   return {
     ds_key: alert.ds_key,
+    email: alert.email ? JSON.stringify(alert.email, undefined, 2) : "",
     group: alert.group.label,
     instructors_history: asString(alert.instructors_history, ", "),
     message: alert.message,
