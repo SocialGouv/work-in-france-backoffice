@@ -32,6 +32,7 @@ export interface DSDossier {
   commentaires: DSCommentaire[];
   instructeurs: string[];
   email: string;
+  archived: boolean;
 }
 
 export interface DossierRecord extends IIdentifiable {

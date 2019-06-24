@@ -177,6 +177,9 @@ const lastMessageSentByStudentDate = (dossier: DossierRecord) => {
 };
 
 const isMessageSentAfterProcessedAt = (dossier: DossierRecord) => {
+  if (!dossier.ds_data.archived) {
+    return false;
+  }
   const lastSentDate = lastMessageSentByStudentDate(dossier);
   const processedAtTime = dossier.metadata.processed_at;
   if (!lastSentDate || !processedAtTime) {
