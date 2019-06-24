@@ -25,7 +25,7 @@ export interface Alert extends IIdentifiable {
   email_instructors: string[];
   date_debut_apt: string;
   email?: Email;
-  sent: boolean;
+  sent?: boolean;
 }
 
 export interface AlertMessage {

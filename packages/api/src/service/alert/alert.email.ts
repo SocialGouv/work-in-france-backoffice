@@ -1,10 +1,4 @@
-import {
-  Alert,
-  alertMaxInitiatedTimeInDays,
-  alertMaxReceivedTimeInDays,
-  AlertType,
-  getDossierId
-} from "../../model";
+import { Alert, AlertType, getDossierId } from "../../model";
 import { Email, EmailAddress } from "../email";
 import { getAlertEmailBody } from "./alert.email.body";
 
@@ -21,7 +15,9 @@ const subjectUsager = (alert: Alert) =>
     alert.group.id
   }`;
 
-const alertEmails: { [key in AlertType]: (alert: Alert) => Email } = {
+const alertEmails: {
+  [key in AlertType]: (alert: Alert) => Email | undefined;
+} = {
   closedWithoutDateDebut: (alert: Alert) => ({
     bcc,
     bodyText: getAlertEmailBody(alert),
@@ -56,69 +52,78 @@ const alertEmails: { [key in AlertType]: (alert: Alert) => Email } = {
     };
   },
 
-  closedAndMessageReceived: (alert: Alert) => {
-    return {
-      bcc,
-      bodyText: getAlertEmailBody(alert),
-      cci: [],
-      subject: `Un message a été envoyé par l'usager sur le dossier accepté WorkinFrance nº${getDossierId(
-        alert.ds_key
-      )}  UD0${alert.group.id}`,
-      to: alert.instructors_history.map(emailAddress)
-    };
-  },
+  closedAndMessageReceived: () => undefined,
+  refusedAndMessageReceived: () => undefined,
+  withoutContinuationAndMessageReceived: () => undefined,
 
-  refusedAndMessageReceived: (alert: Alert) => {
-    return {
-      bcc,
-      bodyText: getAlertEmailBody(alert),
-      cci: [],
-      subject: `Un message a été envoyé par l'usager sur le dossier refusé WorkinFrance nº${getDossierId(
-        alert.ds_key
-      )}  UD0${alert.group.id}`,
-      to: alert.instructors_history.map(emailAddress)
-    };
-  },
+  initiatedAndDelayTooLong: () => undefined,
+  receivedAndDelayTooLong: () => undefined
 
-  withoutContinuationAndMessageReceived: (alert: Alert) => {
-    return {
-      subject: `Un message a été envoyé par l'usager sur le dossier classé sans suite WorkinFrance nº${getDossierId(
-        alert.ds_key
-      )}  UD0${alert.group.id}`,
-      to: alert.instructors_history.map(emailAddress),
-      // tslint:disable-next-line: object-literal-sort-keys
-      bcc,
-      cci: [],
-      // tslint:disable-next-line: object-literal-sort-keys
-      bodyText: getAlertEmailBody(alert)
-    };
-  },
+  // closedAndMessageReceived: (alert: Alert) => {
+  //   return {
+  //     bcc,
+  //     bodyText: getAlertEmailBody(alert),
+  //     cci: [],
+  //     subject: `Un message a été envoyé par l'usager sur le dossier accepté WorkinFrance nº${getDossierId(
+  //       alert.ds_key
+  //     )}  UD0${alert.group.id}`,
+  //     to: alert.instructors_history.map(emailAddress)
+  //   };
+  // },
 
-  receivedAndDelayTooLong: (alert: Alert) => {
-    return {
-      bcc,
-      bodyText: getAlertEmailBody(alert),
-      cci: [],
-      subject: `La durée d'instruction du dossier WorkinFrance nº${getDossierId(
-        alert.ds_key
-      )} approche ${alertMaxReceivedTimeInDays} jours / UD0${alert.group.id}`,
-      to: alert.email_instructors.map(emailAddress)
-    };
-  },
+  // refusedAndMessageReceived: (alert: Alert) => {
+  //   return {
+  //     bcc,
+  //     bodyText: getAlertEmailBody(alert),
+  //     cci: [],
+  //     subject: `Un message a été envoyé par l'usager sur le dossier refusé WorkinFrance nº${getDossierId(
+  //       alert.ds_key
+  //     )}  UD0${alert.group.id}`,
+  //     to: alert.instructors_history.map(emailAddress)
+  //   };
+  // },
 
-  initiatedAndDelayTooLong: (alert: Alert) => {
-    return {
-      bcc,
-      bodyText: getAlertEmailBody(alert),
-      cci: [],
-      subject: `La durée de construction du dossier WorkinFrance nº${getDossierId(
-        alert.ds_key
-      )} approche ${alertMaxInitiatedTimeInDays} jours / UD0${alert.group.id}`,
-      to: alert.email_instructors.map((a: string) => emailAddress(a))
-    };
-  }
+  // withoutContinuationAndMessageReceived: (alert: Alert) => {
+  //   return {
+  //     subject: `Un message a été envoyé par l'usager sur le dossier classé sans suite WorkinFrance nº${getDossierId(
+  //       alert.ds_key
+  //     )}  UD0${alert.group.id}`,
+  //     to: alert.instructors_history.map(emailAddress),
+  //     // tslint:disable-next-line: object-literal-sort-keys
+  //     bcc,
+  //     cci: [],
+  //     // tslint:disable-next-line: object-literal-sort-keys
+  //     bodyText: getAlertEmailBody(alert)
+  //   };
+  // },
+
+  // receivedAndDelayTooLong: (alert: Alert) => {
+  //   return {
+  //     bcc,
+  //     bodyText: getAlertEmailBody(alert),
+  //     cci: [],
+  //     subject: `La durée d'instruction du dossier WorkinFrance nº${getDossierId(
+  //       alert.ds_key
+  //     )} approche ${alertMaxReceivedTimeInDays} jours / UD0${alert.group.id}`,
+  //     to: alert.email_instructors.map(emailAddress)
+  //   };
+  // },
+
+  // initiatedAndDelayTooLong: (alert: Alert) => {
+  //   return {
+  //     bcc,
+  //     bodyText: getAlertEmailBody(alert),
+  //     cci: [],
+  //     subject: `La durée de construction du dossier WorkinFrance nº${getDossierId(
+  //       alert.ds_key
+  //     )} approche ${alertMaxInitiatedTimeInDays} jours / UD0${alert.group.id}`,
+  //     to: alert.email_instructors.map((a: string) => emailAddress(a))
+  //   };
+  // }
 };
 
-export const getAlertEmail: (alert: Alert) => Email = (alert: Alert) => {
+export const getAlertEmail: (alert: Alert) => Email | undefined = (
+  alert: Alert
+) => {
   return alertEmails[alert.alert_type](alert);
 };

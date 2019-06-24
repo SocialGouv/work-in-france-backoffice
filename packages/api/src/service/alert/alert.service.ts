@@ -144,10 +144,14 @@ class AlertService {
         instructors_history: dossier.metadata.instructors_history,
         email_usager: dossier.ds_data.email,
         email_instructors: dossier.ds_data.instructeurs,
-        date_debut_apt: getDateDebutAPTValue(dossier),
-        sent: false
+        date_debut_apt: getDateDebutAPTValue(dossier)
       };
-      alert.email = getAlertEmail(alert);
+      const email = getAlertEmail(alert);
+
+      if (email) {
+        alert.email = getAlertEmail(alert);
+        alert.sent = false;
+      }
       alerts.push(alert);
     }
   }
