@@ -18,15 +18,7 @@ const subjectUsager = (alert: Alert) =>
 const alertEmails: {
   [key in AlertType]: (alert: Alert) => Email | undefined;
 } = {
-  closedWithoutDateDebut: (alert: Alert) => ({
-    bcc,
-    bodyText: getAlertEmailBody(alert),
-    cci: alert.email_instructors.map(emailAddress),
-    subject: subjectUsager(alert),
-    to: [emailAddress(alert.email_usager)]
-  }),
-
-  closedWithoutDateFin: (alert: Alert) => ({
+  closedWithoutDateDebutOrDateFin: (alert: Alert) => ({
     bcc,
     bodyText: getAlertEmailBody(alert),
     cci: alert.email_instructors.map(emailAddress),

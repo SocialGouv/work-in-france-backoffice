@@ -3,8 +3,7 @@ import { IIdentifiable } from "../util";
 import { DSGroup } from "./dossier-record.model";
 
 export type AlertType =
-  | "closedWithoutDateDebut"
-  | "closedWithoutDateFin"
+  | "closedWithoutDateDebutOrDateFin"
   | "closedWithDebutSupFin"
   | "closedWithSupOneYear"
   | "closedAndMessageReceived"
@@ -36,17 +35,20 @@ export const alertMaxReceivedTimeInDays = 7;
 export const alertMaxInitiatedTimeInDays = 7;
 
 export const alertMessages = {
-  closedWithoutDateDebut: "dossier accepté, date de début APT manquante",
-  closedWithoutDateFin: "dossier accepté, date de fin APT manquante",
-  // tslint:disable-next-line: object-literal-sort-keys
+  closedWithoutDateDebutOrDateFin:
+    "dossier accepté, date de début et/ou de fin APT manquante",
+
   closedWithDebutSupFin:
     "dossier accepté, date de fin APT antérieure à Date de début APT",
   closedWithSupOneYear: "dossier accepté, durée APT supérieure à 12 mois",
+
   closedAndMessageReceived:
     "dossier archivé et message envoyé après acceptation",
   refusedAndMessageReceived: "dossier archivé et message envoyé après refus",
   withoutContinuationAndMessageReceived:
     "dossier archivé et message après classement sans suite",
+
   receivedAndDelayTooLong: "durée d'instruction de dossier dépassée",
+
   initiatedAndDelayTooLong: "durée de construction de dossier dépassée"
 };

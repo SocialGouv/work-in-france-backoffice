@@ -34,21 +34,11 @@ const delayTooLongAdvice = `Si vous avez demandé des pièces complémentaires �
 
 const alertEmailBody: { [key in AlertType]: (alert: Alert) => string } = {
   // tslint:disable-next-line: max-line-length
-  closedWithoutDateDebut: (
+  closedWithoutDateDebutOrDateFin: (
     alert: Alert
   ) => `Nous avons identifié une erreur sur votre autorisation provisoire de travail nº${getDossierId(
     alert.ds_key
-  )}. En effet, il n'y a pas de date de début sur votre autorisation qui, par conséquent, n'est pas valide.
-
-${referenceArticle242}
-
-Nous vous suggérons de déposer un nouveau dossier le plus rapidement possible.`,
-
-  closedWithoutDateFin: (
-    alert: Alert
-  ) => `Nous avons identifié une erreur sur votre autorisation provisoire de travail n°${getDossierId(
-    alert.ds_key
-  )}. En effet, il n'y a pas de date de fin sur votre autorisation qui, par conséquent, n'est pas valide.
+  )}. En effet, il n'y a pas de date de début et/ou de date de fin sur votre autorisation qui, par conséquent, n'est pas valide.
 
 ${referenceArticle242}
 

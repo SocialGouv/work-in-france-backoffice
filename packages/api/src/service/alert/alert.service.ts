@@ -72,14 +72,9 @@ class AlertService {
       this.addAlert(
         alerts,
         dossier,
-        isDateDebutAPTNotPresent,
-        "closedWithoutDateDebut"
-      );
-      this.addAlert(
-        alerts,
-        dossier,
-        isDateFinAPTNotPresent,
-        "closedWithoutDateFin"
+        (d: DossierRecord) =>
+          isDateDebutAPTNotPresent(d) || isDateFinAPTNotPresent(d),
+        "closedWithoutDateDebutOrDateFin"
       );
       this.addAlert(
         alerts,
