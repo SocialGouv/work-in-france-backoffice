@@ -20,6 +20,7 @@ import {
 } from "../../model";
 import {
   Alert,
+  alertEmailShouldBeBlocked,
   alertMaxInitiatedTimeInDays,
   alertMaxReceivedTimeInDays,
   alertMessages,
@@ -34,6 +35,11 @@ const maxReceivedTimeInDays = alertMaxReceivedTimeInDays;
 const maxInitiatedTimeInDays = alertMaxInitiatedTimeInDays;
 const direcctDomainName = "direccte.gouv.fr";
 
+const block = (alert: Alert) => {
+  alert.email_state = "blocked";
+  alert.email_processed_at = new Date().getTime();
+};
+
 class AlertService {
   public deleteAll(): Observable<DeletedData[]> {
     return alertRepository.deleteAll();
@@ -47,8 +53,7 @@ class AlertService {
   }
 
   public markAsBlocked(alert: Alert) {
-    alert.email_state = "blocked";
-    alert.email_processed_at = new Date().getTime();
+    block(alert);
     return alertRepository.update(alert);
   }
 
@@ -65,6 +70,9 @@ class AlertService {
   }
 
   public addIfNotExists(alert: Alert): Observable<Alert> {
+    if (this.shouldBeBlocked(alert)) {
+      block(alert);
+    }
     return alertRepository
       .findByDSKeyAndCode(alert.ds_key, alert.alert_type)
       .pipe(
@@ -127,6 +135,12 @@ class AlertService {
     }
 
     return alerts;
+  }
+
+  public shouldBeBlocked(alert: Alert) {
+    const emailState = alert.email_state || null;
+    const processedAt = alert.processed_at || null;
+    return alertEmailShouldBeBlocked(emailState, processedAt);
   }
 
   private addAlert(

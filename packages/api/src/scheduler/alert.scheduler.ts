@@ -1,9 +1,8 @@
-import { differenceInDays } from "date-fns";
 import { SentMessageInfo } from "nodemailer";
 import { NEVER, Observable, of } from "rxjs";
 import { concatMap, flatMap, map, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
-import { Alert, AlertEmailState, DossierRecord } from "../model";
+import { Alert, DossierRecord } from "../model";
 import { alertService, dossierRecordService, sendEmail } from "../service";
 import { logger } from "../util";
 import { handleScheduler } from "./scheduler.service";
@@ -45,31 +44,10 @@ export const alertScheduler = {
   }
 };
 
-export const alertEmailShouldBeBlocked = (
-  emailState: AlertEmailState | null,
-  processedAt: number | null
-) => {
-  if (!emailState) {
-    return true;
-  }
-  if (emailState !== "to_send") {
-    return true;
-  }
-  if (processedAt && differenceInDays(new Date(), processedAt) > 2) {
-    return true;
-  }
-  return false;
-};
-
 function sendAlertEmail(alert: Alert): Observable<Alert> {
   return of(alert).pipe(
     mergeMap((input: Alert) => {
-      if (
-        alertEmailShouldBeBlocked(
-          input.email_state || null,
-          input.processed_at || null
-        )
-      ) {
+      if (alertService.shouldBeBlocked(alert)) {
         logger.info(`[sendAlertEmail] alert ${alert.id} blocked`);
         return alertService.markAsBlocked(input);
       }

@@ -1,5 +1,5 @@
 import { addDays } from "date-fns";
-import { alertEmailShouldBeBlocked } from "../../../src/scheduler/alert.scheduler";
+import { alertEmailShouldBeBlocked } from "../../../src/model";
 
 it("email should be blocked", () => {
   expect(alertEmailShouldBeBlocked(null, null)).toBeTruthy();

@@ -1,3 +1,4 @@
+import { differenceInDays } from "date-fns";
 import { Email } from "../service";
 import { IIdentifiable } from "../util";
 import { DSGroup } from "./dossier-record.model";
@@ -35,6 +36,22 @@ export interface Alert extends IIdentifiable {
 export interface AlertMessage {
   message: string;
 }
+
+export const alertEmailShouldBeBlocked = (
+  emailState: AlertEmailState | null,
+  processedAt: number | null
+) => {
+  if (!emailState) {
+    return true;
+  }
+  if (emailState !== "to_send") {
+    return true;
+  }
+  if (processedAt && differenceInDays(new Date(), processedAt) > 2) {
+    return true;
+  }
+  return false;
+};
 
 export const alertMaxReceivedTimeInDays = 7;
 export const alertMaxInitiatedTimeInDays = 7;
