@@ -70,7 +70,7 @@ const configByEnvironment: {
   prod: () => ({
     alertCron: "0 */5 * * * *",
     alertEmailCron: "0 0 6 * * *",
-    mailEnabled: false,
+    mailEnabled: true,
     monthlyReportCron: "0 0 8 1 * *",
     monthlyReportEmailRecepient: "contact@workinfrance.beta.gouv.fr",
     sentryEnabled: true,
