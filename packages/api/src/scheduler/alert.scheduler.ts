@@ -1,8 +1,9 @@
+import { differenceInDays } from "date-fns";
 import { SentMessageInfo } from "nodemailer";
 import { NEVER, Observable, of } from "rxjs";
 import { concatMap, flatMap, map, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
-import { Alert, DossierRecord } from "../model";
+import { Alert, AlertEmailState, DossierRecord } from "../model";
 import { alertService, dossierRecordService, sendEmail } from "../service";
 import { logger } from "../util";
 import { handleScheduler } from "./scheduler.service";
@@ -38,22 +39,49 @@ export const alertScheduler = {
     handleScheduler(configuration.alertEmailCron, "alert-email", () => {
       return alertService.getAlertsToSend().pipe(
         flatMap((x: Alert[]) => x),
-        concatMap((alert: Alert) => sendAlertByEmail(alert))
+        concatMap((alert: Alert) => sendAlertEmail(alert))
       );
     });
   }
 };
 
-function sendAlertByEmail(alert: Alert) {
+export const alertEmailShouldBeBlocked = (
+  emailState: AlertEmailState | null,
+  processedAt: number | null
+) => {
+  if (!emailState) {
+    return true;
+  }
+  if (emailState !== "to_send") {
+    return true;
+  }
+  if (processedAt && differenceInDays(new Date(), processedAt) > 2) {
+    return true;
+  }
+  return false;
+};
+
+function sendAlertEmail(alert: Alert): Observable<Alert> {
   return of(alert).pipe(
+    mergeMap((input: Alert) => {
+      if (
+        alertEmailShouldBeBlocked(
+          input.email_state || null,
+          input.processed_at || null
+        )
+      ) {
+        logger.info(`[sendAlertEmail] alert ${alert.id} blocked`);
+        return alertService.markAsBlocked(input);
+      }
+      return of(input);
+    }),
     mergeMap(
       (input: Alert) => {
         const email = input.email;
-        if (!email) {
-          logger.error("", new Error(`alert #${alert.id} has no mail.`));
-          return NEVER;
+        if (email && input.email_state === "to_send") {
+          return sendEmail(email);
         }
-        return sendEmail(email);
+        return NEVER;
       },
       (input, emailResponse) => ({ alert: input, emailResponse })
     ),

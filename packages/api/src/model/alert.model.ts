@@ -12,7 +12,7 @@ export type AlertType =
   | "receivedAndDelayTooLong"
   | "initiatedAndDelayTooLong";
 
-  export type AlertEmailState = "to_send" | "sent" | "blocked";
+export type AlertEmailState = "to_send" | "sent" | "blocked";
 
 export interface Alert extends IIdentifiable {
   ds_key: string;

@@ -21,7 +21,9 @@ const alert: Alert = {
     "instructor2@direccte.gouv.fr",
     "instructor3@direccte.gouv.fr"
   ],
-  message: "ALERT_MESSAGE"
+  message: "ALERT_MESSAGE",
+  processed_at: 0,
+  state: "initiated"
 };
 
 it("email of alert should be equal to", () => {
