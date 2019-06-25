@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import { DeletedData } from "../lib";
-import { Alert } from "../model";
+import { Alert, AlertEmailState } from "../model";
 import { KintoRepository } from "./kinto.repository";
 
 class AlertRepository extends KintoRepository<Alert> {
@@ -36,8 +36,8 @@ class AlertRepository extends KintoRepository<Alert> {
     );
   }
 
-  public findBySentIsFalse(): Observable<Alert[]> {
-    return this.collection.search(`sent=false`);
+  public findByEmailState(state: AlertEmailState): Observable<Alert[]> {
+    return this.collection.search(`email_state="${state}"`);
   }
 }
 

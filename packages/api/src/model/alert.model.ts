@@ -12,6 +12,8 @@ export type AlertType =
   | "receivedAndDelayTooLong"
   | "initiatedAndDelayTooLong";
 
+  export type AlertEmailState = "to_send" | "sent" | "blocked";
+
 export interface Alert extends IIdentifiable {
   ds_key: string;
   url: string;
@@ -23,8 +25,11 @@ export interface Alert extends IIdentifiable {
   email_usager: string;
   email_instructors: string[];
   date_debut_apt: string;
+  processed_at: number | null;
   email?: Email;
-  sent?: boolean;
+  email_state?: AlertEmailState;
+  email_processed_at?: number;
+  state: string; // dossier state
 }
 
 export interface AlertMessage {

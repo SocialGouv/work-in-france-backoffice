@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const asTimestamp = (dateUTC?: string) => {
   if (dateUTC) {
     return new Date(dateUTC).getTime();
@@ -29,4 +31,13 @@ export const asString = (args: string[], separator: string) => {
     return "";
   }
   return args.join(separator);
+};
+export const asDateString = (
+  arg: number | undefined | null,
+  dateFormat: string
+) => {
+  if (!arg) {
+    return "";
+  }
+  return format(new Date(arg), dateFormat);
 };

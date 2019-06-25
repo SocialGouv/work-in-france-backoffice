@@ -41,7 +41,14 @@ class AlertService {
 
   public markAsSent(alert: Alert, messageId: string) {
     alert.email_id = messageId;
-    alert.sent = true;
+    alert.email_state = "sent";
+    alert.email_processed_at = new Date().getTime();
+    return alertRepository.update(alert);
+  }
+
+  public markAsBlocked(alert: Alert) {
+    alert.email_state = "blocked";
+    alert.email_processed_at = new Date().getTime();
     return alertRepository.update(alert);
   }
 
@@ -54,7 +61,7 @@ class AlertService {
   }
 
   public getAlertsToSend(): Observable<Alert[]> {
-    return alertRepository.findBySentIsFalse();
+    return alertRepository.findByEmailState("to_send");
   }
 
   public addIfNotExists(alert: Alert): Observable<Alert> {
@@ -139,13 +146,15 @@ class AlertService {
         instructors_history: dossier.metadata.instructors_history,
         email_usager: dossier.ds_data.email,
         email_instructors: dossier.ds_data.instructeurs,
-        date_debut_apt: getDateDebutAPTValue(dossier)
+        date_debut_apt: getDateDebutAPTValue(dossier),
+        processed_at: dossier.metadata.processed_at,
+        state: dossier.metadata.state
       };
       const email = getAlertEmail(alert);
 
       if (email) {
         alert.email = getAlertEmail(alert);
-        alert.sent = false;
+        alert.email_state = "to_send";
       }
       alerts.push(alert);
     }
