@@ -68,8 +68,8 @@ const configByEnvironment: {
     validityCheckCron: asString(env, "VALIDITY_CHECK_CRON", "0 0 * * * *")
   }),
   prod: () => ({
-    alertCron: "0 */5 * * * *",
-    alertEmailCron: "0 0 6 * * *",
+    alertCron: "0 15 * * * *",
+    alertEmailCron: "0 30 6 * * *",
     mailEnabled: true,
     monthlyReportCron: "0 0 8 1 * *",
     monthlyReportEmailRecepient: "contact@workinfrance.beta.gouv.fr",
