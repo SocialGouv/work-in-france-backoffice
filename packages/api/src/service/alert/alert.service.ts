@@ -70,7 +70,7 @@ class AlertService {
   }
 
   public addIfNotExists(alert: Alert): Observable<Alert> {
-    if (this.shouldBeBlocked(alert)) {
+    if (alert.email && this.shouldBeBlocked(alert)) {
       block(alert);
     }
     return alertRepository
@@ -138,6 +138,9 @@ class AlertService {
   }
 
   public shouldBeBlocked(alert: Alert) {
+    if (!alert.email) {
+      return false;
+    }
     const emailState = alert.email_state || null;
     const processedAt = alert.processed_at || null;
     return alertEmailShouldBeBlocked(emailState, processedAt);
