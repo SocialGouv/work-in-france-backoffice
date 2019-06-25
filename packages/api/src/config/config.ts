@@ -80,7 +80,8 @@ const configByEnvironment: {
 };
 
 export const getConfiguration = (env: typeof process.env) => {
-  const environmentType = env.ENVIRONMENT_TYPE as EnvironmentType;
+  const environmentType =
+    (env.ENVIRONMENT_TYPE as EnvironmentType) || "dev.local";
   const envConfigFn = configByEnvironment[environmentType];
   const envConfig = envConfigFn(env);
 
