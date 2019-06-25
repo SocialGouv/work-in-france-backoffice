@@ -74,7 +74,7 @@ Get Github Id (prod):
   environment:
     name: $PROD_ENVIRONMENT_NAME
   only:
-    - master
+    - tags
 
 ###########################################
 ###       REGISTER DOCKER IMAGES        ###
@@ -180,7 +180,7 @@ Deploy @wif-bo/api (prod):
   environment:
     name: $PROD_ENVIRONMENT_NAME
   only:
-    - master
+    - tags
 
 Deploy @wif-bo/memcached (prod):
   <<: *deploy_stage
@@ -191,7 +191,7 @@ Deploy @wif-bo/memcached (prod):
   environment:
     name: $PROD_ENVIRONMENT_NAME
   only:
-    - master
+    - tags
 
 Deploy @wif-bo/kinto (pro):
   <<: *deploy_stage
@@ -203,7 +203,7 @@ Deploy @wif-bo/kinto (pro):
   environment:
     name: $PROD_ENVIRONMENT_NAME
   only:
-    - master
+    - tags
 
 ###########################################
 ###         SEND URL TO GITHUB          ###
@@ -239,7 +239,7 @@ Send deployment url to Github (prod):
   environment:
     name: $PROD_ENVIRONMENT_NAME
   only:
-    - master
+    - tags
 
 ###########################################
 ###     DELETE USELESS K8S OBJECTS      ###
