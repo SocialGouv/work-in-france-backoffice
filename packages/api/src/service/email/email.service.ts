@@ -1,4 +1,5 @@
 import { createTransport, SentMessageInfo } from "nodemailer";
+import { Options } from "nodemailer/lib/mailer";
 import { from, Observable, of } from "rxjs";
 import { configuration } from "../../config";
 import { logger } from "../../util";
@@ -20,6 +21,7 @@ export interface Email {
   cci: EmailAddress[];
   subject: string;
   bodyText: string;
+  attachments?: Attachment[];
 }
 
 const transporter = createTransport({
@@ -43,13 +45,21 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   email: Email
 ) => {
   logger.info(`[EmailService.sendEmail] ${email.subject}`);
-  const message = {
+  const message: Options = {
     bcc: email.bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
     from: configuration.mailFrom,
     subject: email.subject,
     text: email.bodyText,
     to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
   };
+
+  if (email.attachments) {
+    message.attachments = email.attachments.map((a: Attachment) => ({
+      cid: a.path, // should be as unique as possible
+      filename: a.filename,
+      path: a.path
+    }));
+  }
 
   if (configuration.mailEnabled) {
     return from(transporter.sendMail(message));
