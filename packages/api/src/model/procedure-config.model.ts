@@ -1,5 +1,5 @@
 export interface ProcedureConfig {
-  procedures: any[];
+  procedures: number[];
   group: {
     id: string;
     label: string;
