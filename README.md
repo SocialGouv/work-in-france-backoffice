@@ -93,3 +93,39 @@ Liste des synchronisations:
 - Règle 5 - `without_continuation` (sans suite)
     - Messages de l'usager envoyés après la date `processed_at` et dossier archivé
 
+
+## Release policy
+
+### Auto
+
+Trigger a custom build on [Travis](https://travis-ci.com/SocialGouv/work-in-france-backoffice) (in the "More options" right menu) on the `master` branch with a custom config:
+
+```yml
+env:
+  global:
+    - RELEASE=true
+```
+
+You can change the lerna arguments though the `LERNA_ARGS` variable.
+
+```yml
+env:
+  global:
+    - LERNA_ARGS="major --force-publish --yes"
+    - RELEASE=true
+```
+
+### Manual
+
+You need an [Github token](https://github.com/settings/tokens/new) to release.
+
+```sh
+#
+# Bump, push to git and publish to npm
+$ GH_TOKEN=${GITHUB_TOKEN} yarn lerna version
+
+#
+# You might want to add a Gif to your release to make it groovy ;)
+```
+
+

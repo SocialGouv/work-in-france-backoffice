@@ -4,7 +4,8 @@
     "build": "lerna run build",
     "lint": "lerna run lint --parallel",
     "start": "lerna run start --parallel",
-    "test": "lerna run test --parallel"
+    "test": "lerna run test --parallel",
+    "coverage": "lerna run test --parallel -- --coverage"
   },
   "devDependencies": {
     "lerna": "^3.13.4"
