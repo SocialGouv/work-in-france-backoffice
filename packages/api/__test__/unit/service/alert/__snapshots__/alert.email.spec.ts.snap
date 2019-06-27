@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`email of alert should be equal to 1`] = `
+Object {
+  "bcc": Array [
+    Object {
+      "email": "contact@workinfrance.beta.gouv.fr",
+      "name": "contact@workinfrance.beta.gouv.fr",
+    },
+  ],
+  "bodyText": "Bonjour,
+
+Nous avons identifié une erreur sur votre autorisation provisoire de travail n°502017. En effet, la date de fin est antérieure à la date de début de votre autorisation qui, par conséquent, n'est pas valide.
+
+Selon l'article L.242-1 du Code des relations entre le public et l'administration (https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367657&dateTexte=&categorieLien=cid) l'administration ne peut revenir sur une décision créatrice de droits. Ainsi, les agents du service de main oeuvre étrangère de la Direccte ne peuvent revenir sur cette décision.
+
+Nous vous suggérons de déposer un nouveau dossier le plus rapidement possible.
+
+Bonne journée,
+
+
+L'équipe WorkInFrance
+
+
+—
+
+
+Merci de ne pas répondre à cet email",
+  "cci": Array [
+    Object {
+      "email": "instructor2@direccte.gouv.fr",
+      "name": "instructor2@direccte.gouv.fr",
+    },
+    Object {
+      "email": "instructor3@direccte.gouv.fr",
+      "name": "instructor3@direccte.gouv.fr",
+    },
+  ],
+  "subject": "Erreur sur votre APT WorkInFrance nº502017 / UD075",
+  "to": Array [
+    Object {
+      "email": "usager@wif.fr",
+      "name": "usager@wif.fr",
+    },
+  ],
+}
+`;
+
+exports[`email of alert should be equal to 2`] = `
+Object {
+  "bcc": Array [
+    Object {
+      "email": "contact@workinfrance.beta.gouv.fr",
+      "name": "contact@workinfrance.beta.gouv.fr",
+    },
+  ],
+  "bodyText": "Bonjour,
+
+Nous avons identifié une erreur sur votre autorisation provisoire de travail nº502017. En effet, il n'y a pas de date de début et/ou de date de fin sur votre autorisation qui, par conséquent, n'est pas valide.
+
+Selon l'article L.242-1 du Code des relations entre le public et l'administration (https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367657&dateTexte=&categorieLien=cid) l'administration ne peut revenir sur une décision créatrice de droits. Ainsi, les agents du service de main oeuvre étrangère de la Direccte ne peuvent revenir sur cette décision.
+
+Nous vous suggérons de déposer un nouveau dossier le plus rapidement possible.
+
+Bonne journée,
+
+
+L'équipe WorkInFrance
+
+
+—
+
+
+Merci de ne pas répondre à cet email",
+  "cci": Array [
+    Object {
+      "email": "instructor2@direccte.gouv.fr",
+      "name": "instructor2@direccte.gouv.fr",
+    },
+    Object {
+      "email": "instructor3@direccte.gouv.fr",
+      "name": "instructor3@direccte.gouv.fr",
+    },
+  ],
+  "subject": "Erreur sur votre APT WorkInFrance nº502017 / UD075",
+  "to": Array [
+    Object {
+      "email": "usager@wif.fr",
+      "name": "usager@wif.fr",
+    },
+  ],
+}
+`;
+
+exports[`email of alert should be equal to 3`] = `
+Object {
+  "bcc": Array [
+    Object {
+      "email": "contact@workinfrance.beta.gouv.fr",
+      "name": "contact@workinfrance.beta.gouv.fr",
+    },
+  ],
+  "bodyText": "Bonjour,
+
+Nous avons identifié une erreur sur votre autorisation provisoire de travail n°502017. En effet, la durée de votre autorisation est supérieure à 12 mois.
+
+Selon l'alinéa 14 de l'article R.5221-3 du Code du travail (https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000038189414&cidTexte=LEGITEXT000006072050&dateTexte=20190301) une autorisation provisoire de travail a une durée maximale de douze mois.
+
+Nous vous suggérons de déposer un nouveau dossier à partir du 27/11/2019
+
+Bonne journée,
+
+
+L'équipe WorkInFrance
+
+
+—
+
+
+Merci de ne pas répondre à cet email",
+  "cci": Array [
+    Object {
+      "email": "instructor2@direccte.gouv.fr",
+      "name": "instructor2@direccte.gouv.fr",
+    },
+    Object {
+      "email": "instructor3@direccte.gouv.fr",
+      "name": "instructor3@direccte.gouv.fr",
+    },
+  ],
+  "subject": "Erreur sur votre APT WorkInFrance nº502017 / UD075",
+  "to": Array [
+    Object {
+      "email": "usager@wif.fr",
+      "name": "usager@wif.fr",
+    },
+  ],
+}
+`;
