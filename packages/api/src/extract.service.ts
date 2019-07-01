@@ -34,15 +34,13 @@ class ExtractorService {
   }
 
   private initAllAlertSynchro() {
-    this.syncAllAlerts$
-      .pipe(concatMap(() => addAlerts(0, new Date().getTime())))
-      .subscribe({
-        error: (error: Error) => logger.error(`[alerts synchro] error`, error),
-        next: (alert: Alert) =>
-          logger.info(
-            `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
-          )
-      });
+    this.syncAllAlerts$.pipe(concatMap(() => addAlerts(0))).subscribe({
+      error: (error: Error) => logger.error(`[alerts synchro] error`, error),
+      next: (alert: Alert) =>
+        logger.info(
+          `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
+        )
+    });
   }
 
   private initAllMonthlyReportSynchro() {

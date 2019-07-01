@@ -1,3 +1,4 @@
+import { addMinutes } from "date-fns";
 import { filter, flatMap, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
 import { DeletedData } from "../lib";
@@ -11,9 +12,10 @@ export const validityCheckScheduler = {
     handleScheduler(
       configuration.validityCheckCron,
       "validity-check",
-      (start: number, end: number) => {
+      (start: number) => {
+        const startLess10Minutes = addMinutes(new Date(start), -10).getTime();
         return dossierRecordService
-          .allByStateAndProcessedAtBetween("closed", start, end)
+          .allByStateAndLastModifiedGreaterThan("closed", startLess10Minutes)
           .pipe(
             tap((res: DossierRecord[]) =>
               logger.info(`[syncValidityChecks] ${res.length} dossiers fetched`)

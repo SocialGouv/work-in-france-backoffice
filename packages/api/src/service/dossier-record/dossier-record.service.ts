@@ -18,23 +18,17 @@ class DossierRecordService {
     );
   }
 
-  public allByStateAndProcessedAtBetween(
-    state: string,
-    start: number,
-    end: number
-  ) {
-    return dossierRecordRepository.allByStateAndProcessedAtBetween(
+  public allByStateAndLastModifiedGreaterThan(state: string, start: number) {
+    return dossierRecordRepository.allByStateAndLastModifiedGreaterThan(
       state,
-      start,
-      end
+      start
     );
   }
 
-  public allByUpdatedAtBetween(
-    start: number,
-    end: number
+  public allByLastModifiedGreaterThan(
+    start: number
   ): Observable<DossierRecord[]> {
-    return dossierRecordRepository.allByUpdatedAtBetween(start, end);
+    return dossierRecordRepository.allByLastModifiedGreaterThan(start);
   }
 }
 

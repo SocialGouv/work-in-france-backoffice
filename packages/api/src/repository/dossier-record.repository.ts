@@ -32,22 +32,20 @@ class DossierRecordRepository {
     );
   }
 
-  public allByStateAndProcessedAtBetween(
+  public allByStateAndLastModifiedGreaterThan(
     state: string,
-    start: number,
-    end: number
+    start: number
   ): Observable<DossierRecord[]> {
     return this.collection.search(
-      `metadata.state="${state}"&gt_metadata.processed_at=${start}&lt_metadata.processed_at=${end}`
+      `metadata.state="${state}"&gt_last_modified=${start}`
     );
   }
 
-  public allByUpdatedAtBetween(
-    start: number,
-    end: number
+  public allByLastModifiedGreaterThan(
+    start: number
   ): Observable<DossierRecord[]> {
     return this.collection.search(
-      `gt_metadata.updated_at=${start}&lt_metadata.updated_at=${end}`
+      `has_deleted=false&gt_last_modified=${start}`
     );
   }
 }
