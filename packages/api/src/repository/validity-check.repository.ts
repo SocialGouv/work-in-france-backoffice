@@ -30,6 +30,15 @@ class ValidityCheckRepository extends KintoRepository<ValidityCheck> {
   public deleteByFinAPTBefore(timestamp: number) {
     return this.collection.delete(`lt_metadata.fin_apt=${timestamp}`);
   }
+
+  public findOneByDossierIdAndDateNaissance(
+    dossierId: number,
+    dateNaissance: string
+  ): Observable<ValidityCheck[]> {
+    return this.collection.search(
+      `dossier_id=${dossierId}&date_de_naissance="${dateNaissance}"`
+    );
+  }
 }
 
 export const validityCheckRepository = new ValidityCheckRepository();

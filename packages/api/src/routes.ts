@@ -1,14 +1,10 @@
-import { createReadStream, createWriteStream } from "fs";
-import * as Koa from "koa";
 import * as Router from "koa-router";
-import { fileSync } from "tmp";
 import { configuration } from "./config";
-import { extractorService } from "./extract.service";
-import { DeletedData } from "./lib";
-import { monthlyreportService } from "./service";
-import { alertService } from "./service/alert/alert.service";
-import { getMonthlyReportFilename } from "./service/monthly-report/monthly-report.util";
-import { logger, mimeTypes } from "./util";
+import {
+  alertController,
+  monthlyReportController,
+  validityCheckController
+} from "./controller";
 
 const routeOptions: Router.IRouterOptions = {
   prefix: "/api"
@@ -16,80 +12,20 @@ const routeOptions: Router.IRouterOptions = {
 
 const router = new Router(routeOptions);
 
+const validityCheckURL = "/v1/apt_validity_check";
+router.get(`${validityCheckURL}/:ds_id/:date`, validityCheckController.get);
+
+const monthlyreportURL = `/${configuration.apiPrefix}/monthly-reports`;
 // monthly-reports - launch global synchronisation
-router.post(
-  `/${configuration.apiPrefix}/monthly-reports/sync-all`,
-  (ctx: Koa.Context) => {
-    extractorService.launchGlobalMonthlyReportSynchro();
-    ctx.status = 200;
-    ctx.body = { message: `[Monthly Reports] Global synchonisation launched` };
-  }
-);
-
+router.post(`${monthlyreportURL}/sync-all`, monthlyReportController.syncAll);
 router.get(
-  `/${configuration.apiPrefix}/monthly-reports/:year/:month/:group/download`,
-  async (ctx: Koa.Context) => {
-    const groupId = ctx.params.group;
-    const year = ctx.params.year;
-    const month = ctx.params.month - 1;
-
-    const tempFileName = fileSync();
-    const writeStream = createWriteStream(tempFileName.name);
-    await monthlyreportService.writeMonthlyReportExcel(
-      year,
-      month,
-      groupId,
-      writeStream
-    );
-
-    const readStream = createReadStream(tempFileName.name);
-    ctx.res.setHeader(
-      "Content-disposition",
-      "attachment; filename=" + getMonthlyReportFilename(year, month, groupId)
-    );
-    ctx.res.setHeader("Content-type", mimeTypes.excel);
-    ctx.body = readStream;
-
-    tempFileName.removeCallback();
-  }
+  `${monthlyreportURL}/:year/:month/:group/download`,
+  monthlyReportController.download
 );
 
-router.delete(
-  `/${configuration.apiPrefix}/alerts`,
-  async (ctx: Koa.Context) => {
-    const res: DeletedData[] = await alertService.deleteAll().toPromise();
-    logger.info(`${res.length} alerts deleted!`);
-    ctx.body = { message: `${res.length} alerts deleted!` };
-    ctx.status = 200;
-  }
-);
-
-router.post(
-  `/${configuration.apiPrefix}/alerts/sync-all`,
-  (ctx: Koa.Context) => {
-    extractorService.launchGlobalAlertSynchro();
-    ctx.status = 200;
-    ctx.body = { message: "[Alerts] Global synchonisation launched" };
-  }
-);
-
-router.get(
-  `/${configuration.apiPrefix}/alerts/download`,
-  async (ctx: Koa.Context) => {
-    const tempFileName = fileSync();
-    const writeStream = createWriteStream(tempFileName.name);
-    await alertService.writeAlerts(writeStream);
-
-    const readStream = createReadStream(tempFileName.name);
-    ctx.res.setHeader(
-      "Content-disposition",
-      "attachment; filename=" + `WIF_dossiers-en-souffrance.xlsx`
-    );
-    ctx.res.setHeader("Content-type", mimeTypes.excel);
-    ctx.body = readStream;
-
-    tempFileName.removeCallback();
-  }
-);
+const alertBaseURL = `/${configuration.apiPrefix}/alerts`;
+router.delete(`${alertBaseURL}`, alertController.delete);
+router.post(`${alertBaseURL}/sync-all`, alertController.syncAll);
+router.get(`${alertBaseURL}/download`, alertController.download);
 
 export { router };

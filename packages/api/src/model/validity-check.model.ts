@@ -1,6 +1,7 @@
 import { IIdentifiable } from "../util/persistence";
 
 export interface ValidityCheck extends IIdentifiable {
+  dossier_id: number;
   ds_key: string;
   siret: string;
   prenom: string;

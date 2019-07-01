@@ -1,5 +1,5 @@
 import { EMPTY, Observable } from "rxjs";
-import { mergeMap } from "rxjs/operators";
+import { map, mergeMap } from "rxjs/operators";
 import { DeletedData } from "../lib";
 import {
   DossierRecord,
@@ -20,10 +20,27 @@ class ValidityCheckService {
     return !hasExpired(record);
   }
 
+  public findOneByDossierIdAndDateNaissance(
+    dossierId: number,
+    dateNaissance: string
+  ): Observable<ValidityCheck | null> {
+    return validityCheckRepository
+      .findOneByDossierIdAndDateNaissance(dossierId, dateNaissance)
+      .pipe(
+        map((res: ValidityCheck[]) => {
+          if (res.length > 0) {
+            return res[0];
+          }
+          return null;
+        })
+      );
+  }
+
   public addIfNotExists(record: DossierRecord): Observable<ValidityCheck> {
     const dateFinAPT = getDateFinAPT(record);
     const finAPTTimestamp = dateFinAPT ? dateFinAPT.getTime() : 0;
     const validityCheck = {
+      dossier_id: record.ds_data.id,
       ds_key: record.ds_key,
       siret: record.ds_data.etablissement.siret,
       // tslint:disable-next-line: object-literal-sort-keys
