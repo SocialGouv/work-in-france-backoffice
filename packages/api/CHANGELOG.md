@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.0...v1.1.1) (2019-07-02)
+
+
+### Bug Fixes
+
+* **sync:** use last_modified instead of update_at / processed_at ([1fd2e47](https://github.com/SocialGouv/work-in-france-backoffice/commit/1fd2e47))
+
+
+
+
+
 # 1.1.0 (2019-06-25)
 
 
