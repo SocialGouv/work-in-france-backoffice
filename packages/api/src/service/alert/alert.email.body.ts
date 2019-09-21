@@ -21,7 +21,7 @@ L'équipe WorkInFrance
 Merci de ne pas répondre à cet email`;
 
 // tslint:disable-next-line: max-line-length
-const referenceArticle242 = `Selon l'article L.242-1 du Code des relations entre le public et l'administration (https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367657&dateTexte=&categorieLien=cid) l'administration ne peut revenir sur une décision créatrice de droits. Ainsi, les agents du service de main oeuvre étrangère de la Direccte ne peuvent revenir sur cette décision.`;
+const referenceArticle242 = `Selon l'article L.242-1 du Code des relations entre le public et l'administration (https://www.legifrance.gouv.fr/affichCodeArticle.do?cidTexte=LEGITEXT000031366350&idArticle=LEGIARTI000031367657&dateTexte=&categorieLien=cid) l'administration ne peut revenir sur une décision créatrice de droits. Ainsi, les agents du service de la main d'oeuvre étrangère de la Direccte ne peuvent revenir sur cette décision.`;
 
 // tslint:disable-next-line: max-line-length
 const referenceArticle5221 = `Selon l'alinéa 14 de l'article R.5221-3 du Code du travail (https://www.legifrance.gouv.fr/affichCodeArticle.do?idArticle=LEGIARTI000038189414&cidTexte=LEGITEXT000006072050&dateTexte=20190301) une autorisation provisoire de travail a une durée maximale de douze mois.`;
