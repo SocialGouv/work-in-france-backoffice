@@ -104,8 +104,13 @@ export const getDateDebutAPTValue = (doc: DossierRecord) =>
   getPrivateFieldValue(doc, "Date de début APT");
 export const getDateFinAPTValue = (doc: DossierRecord) =>
   getPrivateFieldValue(doc, "Date de fin APT");
-export const getPrenomValue = (doc: DossierRecord) =>
-  getPublicFieldValue(doc, "Prénom");
+export const getPrenomValue = (doc: DossierRecord) => {
+  try {
+    return getPublicFieldValue(doc, "Prénom");
+  } catch (err) {
+    return "non renseigné";
+  }
+};
 export const getNomValue = (doc: DossierRecord) =>
   getPublicFieldValue(doc, "Nom");
 export const getDateNaissanceValue = (doc: DossierRecord) =>
