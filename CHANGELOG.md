@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.2...v1.1.3) (2019-10-30)
+
+
+### Bug Fixes
+
+* **validity-check:** do not throw error if prenom is not defined ([9ca9d3f](https://github.com/SocialGouv/work-in-france-backoffice/commit/9ca9d3f))
+
+
+
+
+
 ## [1.1.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.1...v1.1.2) (2019-07-02)
 
 
