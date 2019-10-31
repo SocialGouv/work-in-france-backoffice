@@ -2,6 +2,7 @@ import { Observable, of } from "rxjs";
 import { mergeMap, tap } from "rxjs/operators";
 import { SynchroHistory } from "../../model";
 import { synchroHistoryRepository } from "../../repository";
+import { logger } from "../../util";
 
 class SynchroHistoryService {
   public getSynchroHistory(scheduler: string): Observable<SynchroHistory> {
@@ -31,7 +32,12 @@ class SynchroHistoryService {
       ),
       mergeMap((synchroHistory: SynchroHistory) =>
         synchroHistoryRepository.update(synchroHistory.id || "", synchroHistory)
-      )
+      ),
+      tap((synchroHistory: SynchroHistory) => {
+        logger.info(
+          `[SynchroHistory] update ${synchroHistory.scheduler} with last date ${synchroHistory.last_synchro}`
+        );
+      })
     );
   }
 }

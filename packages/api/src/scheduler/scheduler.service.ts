@@ -1,6 +1,6 @@
 import { schedule } from "node-cron";
 import { Observable } from "rxjs";
-import { exhaustMap, mergeMap, takeLast, tap } from "rxjs/operators";
+import { mergeMap, tap } from "rxjs/operators";
 import { SynchroHistory } from "../model";
 import { synchroHistoryService } from "../service";
 import { logger } from "../util";
@@ -21,7 +21,7 @@ export const handleScheduler = (
     schedulerStates.set(scheduler, true);
     const endDate = new Date();
     const end = endDate.getTime();
-    const runScheduler$ = synchroHistoryService
+    synchroHistoryService
       .getSynchroHistory(scheduler)
       .pipe(
         tap((syncHistory: SynchroHistory) =>
@@ -31,17 +31,16 @@ export const handleScheduler = (
             )} > ${endDate}`
           )
         ),
-        exhaustMap((syncHistory: SynchroHistory) =>
+        mergeMap((syncHistory: SynchroHistory) =>
           process(syncHistory.last_synchro, end)
         )
-      );
-    runScheduler$
-      .pipe(
-        takeLast(1),
-        mergeMap(() => synchroHistoryService.update(scheduler, end))
       )
       .subscribe({
-        complete: () => completeProcess(scheduler),
+        complete: () => {
+          synchroHistoryService.update(scheduler, end).subscribe({
+            complete: () => completeProcess(scheduler)
+          });
+        },
         error: (err: any) => handleError(scheduler, err)
       });
   });
