@@ -1,7 +1,7 @@
 import { addMinutes } from "date-fns";
 import { SentMessageInfo } from "nodemailer";
-import { NEVER, Observable, of } from "rxjs";
-import { concatMap, flatMap, map, mergeMap, tap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { concatMap, filter, flatMap, map, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
 import { Alert, DossierRecord } from "../model";
 import { alertService, dossierRecordService, sendEmail } from "../service";
@@ -53,13 +53,19 @@ function sendAlertEmail(alert: Alert): Observable<Alert> {
       }
       return of(input);
     }),
+    filter((input: Alert) => {
+      if (input.email && input.email_state === "to_send") {
+        return true;
+      }
+      return false;
+    }),
     mergeMap(
       (input: Alert) => {
         const email = input.email;
-        if (email && input.email_state === "to_send") {
-          return sendEmail(email);
+        if (!email) {
+          throw new Error("Email can not be null!");
         }
-        return NEVER;
+        return sendEmail(email);
       },
       (input, emailResponse) => ({ alert: input, emailResponse })
     ),
