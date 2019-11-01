@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.4...v1.1.5) (2019-11-01)
+
+
+### Bug Fixes
+
+* **alert-email:** use filter insteadof NEVER to avoid blocking stream ([8d4142f](https://github.com/SocialGouv/work-in-france-backoffice/commit/8d4142f))
+
+
+
+
+
 ## [1.1.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.3...v1.1.4) (2019-10-31)
 
 
