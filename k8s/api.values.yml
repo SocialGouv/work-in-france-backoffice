@@ -25,71 +25,66 @@ deployment:
     port: ${PORT}
 
   env:
-    - name: ENVIRONMENT_TYPE
-        valueFrom:
-          secretKeyRef:
-            name: wif-bo-secret
-            key: ENVIRONMENT_TYPE
-          - name: API_PORT
-            value: "${PORT}"
-          - name: API_PREFIX
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: API_PREFIX
-          - name: DS_API
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: DS_API
-          - name: DS_API_LOGIN
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: DS_API_LOGIN
-          - name: DS_API_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: DS_API_PASSWORD
-          - name: KINTO_LOGIN
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: KINTO_LOGIN
-          - name: KINTO_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: KINTO_PASSWORD
-          - name: KINTO_URL
-            value: "http://kinto${HASH_BRANCH_NAME}:8888"
-          - name: MAIL_HOST
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: MAIL_HOST
-          - name: MAIL_USE_TLS
-            value: "true"
-          - name: MAIL_PORT
-            value: "465"
-          - name: MAIL_FROM
-            value: "Work In France <contact@work-in-france.fr>"
-          - name: MAIL_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: MAIL_USERNAME
-          - name: MAIL_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: MAIL_PASSWORD
-          - name: SENTRY_DSN
-            valueFrom:
-              secretKeyRef:
-                name: wif-bo-secret
-                key: SENTRY_DSN
+    - name: API_PORT
+      value: "${PORT}"
+    - name: API_PREFIX
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: API_PREFIX
+    - name: DS_API
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: DS_API
+    - name: DS_API_LOGIN
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: DS_API_LOGIN
+    - name: DS_API_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: DS_API_PASSWORD
+    - name: KINTO_LOGIN
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: KINTO_LOGIN
+    - name: KINTO_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: KINTO_PASSWORD
+    - name: KINTO_URL
+      value: "http://kinto${HASH_BRANCH_NAME}:8888"
+    - name: MAIL_HOST
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: MAIL_HOST
+    - name: MAIL_USE_TLS
+      value: "true"
+    - name: MAIL_PORT
+      value: "465"
+    - name: MAIL_FROM
+      value: "Work In France <contact@work-in-france.fr>"
+    - name: MAIL_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: MAIL_USERNAME
+    - name: MAIL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: MAIL_PASSWORD
+    - name: SENTRY_DSN
+      valueFrom:
+        secretKeyRef:
+          name: wif-bo-secret
+          key: SENTRY_DSN
 
 service:
   port: ${PORT}
