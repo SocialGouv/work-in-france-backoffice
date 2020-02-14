@@ -25,6 +25,11 @@ deployment:
     port: ${PORT}
 
   env:
+    - name: ENVIRONMENT_TYPE
+      valueFrom:
+        secretKeyRef:
+          key: ENVIRONMENT_TYPE
+          name: wif-bo-secret
     - name: API_PORT
       value: "${PORT}"
     - name: API_PREFIX

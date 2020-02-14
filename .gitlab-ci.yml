@@ -13,15 +13,15 @@ include:
     file: /base_docker_kubectl_image_stage.yml
     ref: v4.6.0
   - project: SocialGouv/gitlab-ci-yml
-    file: /base_deploy_hpa_chart_stage.yml
-    ref: v4.6.0
-  - project: SocialGouv/gitlab-ci-yml
     file: /base_notify_github_stage.yml
     ref: v4.6.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_docker_helm_image_stage.yml
     ref: v4.6.0
-#  - "/k8s/api/.deploy-wif-bo-api.yml"
+  - project: SocialGouv/gitlab-ci-yml
+    file: /base_deploy_hpa_chart_stage.yml
+    ref: v4.6.0
+  - "/k8s/api/.deploy-wif-bo-api.yml"
 #  - "/k8s/postgres/.deploy-wif-bo-postgres.yml"
 #  - "/k8s/memcached/.deploy-wif-bo-memcached.yml"
 #  - "/k8s/kinto/.deploy-wif-bo-kinto.yml"
@@ -31,8 +31,8 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://localhost:2375
   IMAGE_INFRA_BASE_NAME: "infra/images-docker"
-  DEV_ENVIRONMENT_NAME: "wif-dev"
-  PROD_ENVIRONMENT_NAME: "prod"
+  DEV_ENVIRONMENT_NAME: "dev"
+  PROD_ENVIRONMENT_NAME: "fabrique"
   # Docker Image Version
   DOCKER_VERSION: "18.06"
   NODE_VERSION: "10"
@@ -190,7 +190,13 @@ Notify Starting Deployment:
   dependencies: []
   variables: &deploy_with_hpa_chart_variables
     REGISTRY: $CI_REGISTRY_IMAGE
-#
+
+#.deploy_stage: &deploy_stage
+#  stage: "Deploy"
+#  dependencies: []
+#  variables: &deploy_stage_variables
+#    WIF_BO_REGISTRY: $CI_REGISTRY_IMAGE
+#    IMAGE_TAG: $CI_COMMIT_SHA
 
 ############################################
 ####                API                 ####
