@@ -3,6 +3,9 @@ include:
   - project: SocialGouv/gitlab-ci-yml
     file: /base_yarn_stage.yml
     ref: v4.6.0
+  - project: SocialGouv/gitlab-ci-yml
+    file: /base_register_stage.yml
+    ref: v4.6.0
 #  - "/k8s/api/.deploy-wif-bo-api.yml"
 #  - "/k8s/postgres/.deploy-wif-bo-postgres.yml"
 #  - "/k8s/memcached/.deploy-wif-bo-memcached.yml"
@@ -22,7 +25,7 @@ variables:
 
 stages:
   - "Code Quality"
-#  - "Registration"
+  - "Registration"
 #  - "Deploy"
 #  - "Send Url to GitHub"
 #  - "Delete K8S objects"
@@ -40,6 +43,32 @@ Code quality:
     variables:
       - $PRODUCTION
   allow_failure: false
+
+
+################################ REGISTRATION ################################
+
+.register_stage: &register_stage
+  extends: .base_register_stage
+  stage: Registration
+  except:
+    variables:
+      - $PRODUCTION
+
+#
+Register api image:
+  <<: *register_stage
+  variables:
+    CONTEXT: .
+    DOCKER_BUILD_ARGS: -f packages/api/Dockerfile
+    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/api
+
+Register init kinto image:
+  <<: *register_stage
+  variables:
+    CONTEXT: packages/kinto
+    DOCKERFILE_PATH: packages/kinto/Dockerfile
+    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
+
 
 ############################################
 ####               PREPARE               ###
