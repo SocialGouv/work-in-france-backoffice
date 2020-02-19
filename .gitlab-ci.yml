@@ -238,7 +238,7 @@ Deploy api (prod):
     HELM_RENDER_ARGS: ""
     CONTEXT: work-in-france-backoffice
   script:
-    - export POSTGRESQL_PASSWORD=$(kubectl get secret ${PROJECT} -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
+    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - helm init --client-only
     - kubectl config set-context --current --namespace=${K8S_NAMESPACE}
     - curl -L https://github.com/SocialGouv/helm-charts/releases/download/v2.11.0/helm-just-linux-2.11.0.tgz | tar -C $(helm home) -xzv
@@ -326,6 +326,58 @@ Deploy memcached (prod):
     variables:
       - $PRODUCTION
 
+
+############################################
+####                KINTO               ####
+############################################
+
+#
+.deploy_kinto: &deploy_kinto
+  stage: Deploy
+  image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
+  variables: &deploy_kinto_variables
+    PORT: ${KINTO_PORT}
+    CACHE_PORT: ${MEMCACHED_PORT}
+  script:
+    - export POSTGRESQL_USER=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.POSTGRES_EGAPRO_USER}' | base64 --decode)
+    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.POSTGRES_EGAPRO_PASSWORD}' | base64 --decode)
+    - envsubst < k8s/kinto/deployment.yml > k8s/kinto/deployment-${PROJECT}.yml
+    - envsubst < k8s/kinto/service.yml > k8s/kinto/service-${PROJECT}.yml
+    - envsubst < k8s/kinto/job-init-kinto.yml > k8s/kinto/job-init-kinto-${PROJECT}.yml
+    - kubectl delete job init-kinto -n ${K8S_NAMESPACE} || true;
+    - kubectl apply -f k8s/kinto/deployment-${PROJECT}.yml -n ${K8S_NAMESPACE}
+    - kubectl apply -f k8s/kinto/service-${PROJECT}.yml -n ${K8S_NAMESPACE}
+    - kubectl apply -f k8s/kinto/job-init-kinto-${PROJECT}.yml -n ${K8S_NAMESPACE}
+#
+
+Deploy kinto:
+  <<: *deploy_kinto
+  variables:
+  environment:
+    name: ${DEV_ENVIRONMENT_NAME}
+  except:
+    variables:
+      - $PRODUCTION
+
+Deploy kinto (prod):
+  <<: *deploy_kinto
+  variables:
+    <<: *deploy_kinto_variables
+    KINTO_RESOURCE_CPU_LIMIT: "500m"
+    KINTO_RESOURCE_MEMORY_LIMIT: "512Mi"
+    KINTO_RESOURCE_CPU_REQUEST: "10m"
+    KINTO_RESOURCE_MEMORY_REQUEST: "32Mi"
+    INIT_KINTO_RESOURCE_CPU_LIMIT: "20m"
+    INIT_KINTO_RESOURCE_MEMORY_LIMIT: "16Mi"
+    INIT_KINTO_RESOURCE_CPU_REQUEST: "10m"
+    INIT_KINTO_RESOURCE_MEMORY_REQUEST: "8Mi"
+  environment:
+    name: ${PROD_ENVIRONMENT_NAME}
+  only:
+    refs:
+      - triggers
+    variables:
+      - $PRODUCTION
 
 #
 ############################################
