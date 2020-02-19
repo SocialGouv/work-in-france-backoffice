@@ -238,6 +238,7 @@ Deploy api (prod):
     HELM_RENDER_ARGS: ""
     CONTEXT: work-in-france-backoffice
   script:
+#    - export POSTGRESQL_PASSWORD=postgres
     - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - helm init --client-only
     - kubectl config set-context --current --namespace=${K8S_NAMESPACE}

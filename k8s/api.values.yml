@@ -14,12 +14,12 @@ deployment:
       memory: ${API_RESOURCE_MEMORY_REQUEST}
 
   livenessProbe:
-    path: /api
+    path: /dev/alerts/sync-all
     initialDelaySeconds: 20
     periodSeconds: 10
     port: ${PORT}
   readinessProbe:
-    path: /api
+    path: /dev/alerts/sync-all
     initialDelaySeconds: 20
     periodSeconds: 10
     port: ${PORT}
