@@ -87,3 +87,10 @@ spec:
                 secretKeyRef:
                   name: wif-bo-secret
                   key: SENTRY_DSN
+          resources:
+            limits:
+              cpu: ${API_RESOURCE_CPU_LIMIT}
+              memory: ${API_RESOURCE_MEMORY_LIMIT}
+            requests:
+              cpu: ${API_RESOURCE_CPU_REQUEST}
+              memory: ${API_RESOURCE_MEMORY_REQUEST}

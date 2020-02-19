@@ -2,16 +2,16 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: wif-bo-api${HASH_BRANCH_NAME}
+  name: wif-bo-api${BRANCH_HASH}
   labels:
-    app: wif-bo-api${HASH_BRANCH_NAME}
-    branch: wif-bo${HASH_BRANCH_NAME}
+    app: wif-bo-api${BRANCH_HASH}
+    branch: wif-bo${BRANCH_HASH}
 spec:
   rules:
-  - host: ${HASH_BRANCH_INGRESS}wif-bo-api.${ENVIRONMENT}.fabrique.social.gouv.fr
+  - host: ${DOMAIN}
     http:
       paths:
       - path: /
         backend:
-          serviceName: wif-bo-api${HASH_BRANCH_NAME}
+          serviceName: wif-bo-api${BRANCH_HASH}
           servicePort: ${PORT}
