@@ -126,54 +126,54 @@ before_script:
   - *resolve_env
 
 
-################################ CODE QUALITY ###############################
-
-Code quality:
-  stage: Code Quality
-  extends:
-    - .base_yarn_quality
-    - .base_yarn_build
-  when: manual
-  except:
-    variables:
-      - $PRODUCTION
-  allow_failure: false
-
-
-################################ PREPARE ####################################
-
-
-Create namespace:
-  stage: Prepare
-  extends: .base_create_namespace_stage
-  except:
-    variables:
-      - $PRODUCTION
-
-
-################################ REGISTRATION ################################
-
-.register_stage: &register_stage
-  extends: .base_register_stage
-  stage: Registration
-  except:
-    variables:
-      - $PRODUCTION
-
+################################# CODE QUALITY ###############################
 #
-Register api image:
-  <<: *register_stage
-  variables:
-    CONTEXT: .
-    DOCKER_BUILD_ARGS: -f packages/api/Dockerfile
-    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/api
-
-Register init kinto image:
-  <<: *register_stage
-  variables:
-    CONTEXT: packages/kinto
-    DOCKERFILE_PATH: packages/kinto/Dockerfile
-    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
+#Code quality:
+#  stage: Code Quality
+#  extends:
+#    - .base_yarn_quality
+#    - .base_yarn_build
+#  when: manual
+#  except:
+#    variables:
+#      - $PRODUCTION
+#  allow_failure: false
+#
+#
+################################# PREPARE ####################################
+#
+#
+#Create namespace:
+#  stage: Prepare
+#  extends: .base_create_namespace_stage
+#  except:
+#    variables:
+#      - $PRODUCTION
+#
+#
+################################# REGISTRATION ################################
+#
+#.register_stage: &register_stage
+#  extends: .base_register_stage
+#  stage: Registration
+#  except:
+#    variables:
+#      - $PRODUCTION
+#
+##
+#Register api image:
+#  <<: *register_stage
+#  variables:
+#    CONTEXT: .
+#    DOCKER_BUILD_ARGS: -f packages/api/Dockerfile
+#    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/api
+#
+#Register init kinto image:
+#  <<: *register_stage
+#  variables:
+#    CONTEXT: packages/kinto
+#    DOCKERFILE_PATH: packages/kinto/Dockerfile
+#    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
 
 ################################# DEPLOY ###############################
 
@@ -336,11 +336,8 @@ Deploy memcached (prod):
   stage: Deploy
   image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
   variables: &deploy_kinto_variables
-    PORT: ${KINTO_PORT}
-    CACHE_PORT: ${MEMCACHED_PORT}
   script:
-    - export POSTGRESQL_USER=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.POSTGRES_EGAPRO_USER}' | base64 --decode)
-    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.POSTGRES_EGAPRO_PASSWORD}' | base64 --decode)
+    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - envsubst < k8s/kinto/deployment.yml > k8s/kinto/deployment-${PROJECT}.yml
     - envsubst < k8s/kinto/service.yml > k8s/kinto/service-${PROJECT}.yml
     - envsubst < k8s/kinto/job-init-kinto.yml > k8s/kinto/job-init-kinto-${PROJECT}.yml
@@ -359,25 +356,25 @@ Deploy kinto:
     variables:
       - $PRODUCTION
 
-Deploy kinto (prod):
-  <<: *deploy_kinto
-  variables:
-    <<: *deploy_kinto_variables
-    KINTO_RESOURCE_CPU_LIMIT: "500m"
-    KINTO_RESOURCE_MEMORY_LIMIT: "512Mi"
-    KINTO_RESOURCE_CPU_REQUEST: "10m"
-    KINTO_RESOURCE_MEMORY_REQUEST: "32Mi"
-    INIT_KINTO_RESOURCE_CPU_LIMIT: "20m"
-    INIT_KINTO_RESOURCE_MEMORY_LIMIT: "16Mi"
-    INIT_KINTO_RESOURCE_CPU_REQUEST: "10m"
-    INIT_KINTO_RESOURCE_MEMORY_REQUEST: "8Mi"
-  environment:
-    name: ${PROD_ENVIRONMENT_NAME}
-  only:
-    refs:
-      - triggers
-    variables:
-      - $PRODUCTION
+#Deploy kinto (prod):
+#  <<: *deploy_kinto
+#  variables:
+#    <<: *deploy_kinto_variables
+#    KINTO_RESOURCE_CPU_LIMIT: "500m"
+#    KINTO_RESOURCE_MEMORY_LIMIT: "512Mi"
+#    KINTO_RESOURCE_CPU_REQUEST: "10m"
+#    KINTO_RESOURCE_MEMORY_REQUEST: "32Mi"
+#    INIT_KINTO_RESOURCE_CPU_LIMIT: "20m"
+#    INIT_KINTO_RESOURCE_MEMORY_LIMIT: "16Mi"
+#    INIT_KINTO_RESOURCE_CPU_REQUEST: "10m"
+#    INIT_KINTO_RESOURCE_MEMORY_REQUEST: "8Mi"
+#  environment:
+#    name: ${PROD_ENVIRONMENT_NAME}
+#  only:
+#    refs:
+#      - triggers
+#    variables:
+#      - $PRODUCTION
 
 #
 ############################################
