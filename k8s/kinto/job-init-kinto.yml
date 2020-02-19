@@ -17,7 +17,7 @@ spec:
                   name: wif-bo-secret
                   key: ENVIRONMENT_TYPE
             - name: KINTO_BASE_URL
-              value: "kinto${HASH_BRANCH_NAME}"
+              value: "kinto${BRANCH_HASH}"
             - name: KINTO_LOGIN
               valueFrom:
                 secretKeyRef:

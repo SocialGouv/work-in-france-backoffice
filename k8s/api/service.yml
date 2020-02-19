@@ -2,13 +2,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: wif-bo-api${HASH_BRANCH_NAME}
+  name: wif-bo-api${BRANCH_HASH}
   labels:
-    app: wif-bo-api${HASH_BRANCH_NAME}
-    branch: wif-bo${HASH_BRANCH_NAME}
+    app: wif-bo-api${BRANCH_HASH}
+    branch: wif-bo${BRANCH_HASH}
 spec:
   selector:
-    app: wif-bo-api${HASH_BRANCH_NAME}
+    app: wif-bo-api${BRANCH_HASH}
   ports:
   - port: ${PORT}
     name: api

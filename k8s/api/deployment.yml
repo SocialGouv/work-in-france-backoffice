@@ -2,19 +2,19 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: wif-bo-api${HASH_BRANCH_NAME}
+  name: wif-bo-api${BRANCH_HASH}
   labels:
-    app: wif-bo-api${HASH_BRANCH_NAME}
-    branch: wif-bo${HASH_BRANCH_NAME}
+    app: wif-bo-api${BRANCH_HASH}
+    branch: wif-bo${BRANCH_HASH}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wif-bo-api${HASH_BRANCH_NAME}
+      app: wif-bo-api${BRANCH_HASH}
   template:
     metadata:
       labels:
-        app: wif-bo-api${HASH_BRANCH_NAME}
+        app: wif-bo-api${BRANCH_HASH}
     spec:
       containers:
         - image: ${WIF_BO_REGISTRY}/api:${IMAGE_TAG}
@@ -60,7 +60,7 @@ spec:
                   name: wif-bo-secret
                   key: KINTO_PASSWORD
             - name: KINTO_URL
-              value: "http://kinto${HASH_BRANCH_NAME}:8888"
+              value: "http://kinto${BRANCH_HASH}:8888"
             - name: MAIL_HOST
               valueFrom:
                 secretKeyRef:

@@ -126,54 +126,54 @@ before_script:
   - *resolve_env
 
 
-################################# CODE QUALITY ###############################
+################################ CODE QUALITY ###############################
+
+Code quality:
+  stage: Code Quality
+  extends:
+    - .base_yarn_quality
+    - .base_yarn_build
+  when: manual
+  except:
+    variables:
+      - $PRODUCTION
+  allow_failure: false
+
+
+################################ PREPARE ####################################
+
+
+Create namespace:
+  stage: Prepare
+  extends: .base_create_namespace_stage
+  except:
+    variables:
+      - $PRODUCTION
+
+
+################################ REGISTRATION ################################
+
+.register_stage: &register_stage
+  extends: .base_register_stage
+  stage: Registration
+  except:
+    variables:
+      - $PRODUCTION
+
 #
-#Code quality:
-#  stage: Code Quality
-#  extends:
-#    - .base_yarn_quality
-#    - .base_yarn_build
-#  when: manual
-#  except:
-#    variables:
-#      - $PRODUCTION
-#  allow_failure: false
-#
-#
-################################# PREPARE ####################################
-#
-#
-#Create namespace:
-#  stage: Prepare
-#  extends: .base_create_namespace_stage
-#  except:
-#    variables:
-#      - $PRODUCTION
-#
-#
-################################# REGISTRATION ################################
-#
-#.register_stage: &register_stage
-#  extends: .base_register_stage
-#  stage: Registration
-#  except:
-#    variables:
-#      - $PRODUCTION
-#
-##
-#Register api image:
-#  <<: *register_stage
-#  variables:
-#    CONTEXT: .
-#    DOCKER_BUILD_ARGS: -f packages/api/Dockerfile
-#    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/api
-#
-#Register init kinto image:
-#  <<: *register_stage
-#  variables:
-#    CONTEXT: packages/kinto
-#    DOCKERFILE_PATH: packages/kinto/Dockerfile
-#    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
+Register api image:
+  <<: *register_stage
+  variables:
+    CONTEXT: .
+    DOCKER_BUILD_ARGS: -f packages/api/Dockerfile
+    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/api
+
+Register init kinto image:
+  <<: *register_stage
+  variables:
+    CONTEXT: packages/kinto
+    DOCKERFILE_PATH: packages/kinto/Dockerfile
+    IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
 
 ################################# DEPLOY ###############################
 
