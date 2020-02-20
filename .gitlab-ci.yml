@@ -78,7 +78,7 @@ variables:
   POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
 
 stages:
-  - "Code Quality"
+#  - "Code Quality"
   - "Prepare"
   - "Registration"
   - "Deploy"
@@ -128,16 +128,16 @@ before_script:
 
 ################################ CODE QUALITY ###############################
 
-Code quality:
-  stage: Code Quality
-  extends:
-    - .base_yarn_quality
-    - .base_yarn_build
-  when: manual
-  except:
-    variables:
-      - $PRODUCTION
-  allow_failure: false
+#Code quality:
+#  stage: Code Quality
+#  extends:
+#    - .base_yarn_quality
+#    - .base_yarn_build
+#  when: manual
+#  except:
+#    variables:
+#      - $PRODUCTION
+#  allow_failure: false
 
 
 ################################ PREPARE ####################################
