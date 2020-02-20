@@ -27,7 +27,7 @@ include:
 #  - "/k8s/kinto/.deploy-wif-bo-kinto.yml"
 
 variables:
-  PROJECT: work-in-france-backoffice
+  PROJECT: wif-bo
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://localhost:2375
   IMAGE_INFRA_BASE_NAME: "infra/images-docker"
@@ -255,7 +255,7 @@ Deploy @wif-bo/api (dev):
   image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/helm:${HELM_VERSION}
   variables: &deploy_postgres_variables
     HELM_RENDER_ARGS: ""
-    CONTEXT: work-in-france-backoffice
+    CONTEXT: wif-bo
   script:
     - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - helm init --client-only
