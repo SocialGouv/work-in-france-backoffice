@@ -94,3 +94,15 @@ spec:
             requests:
               cpu: ${API_RESOURCE_CPU_REQUEST}
               memory: ${API_RESOURCE_MEMORY_REQUEST}
+          livenessProbe:
+            httpGet:
+              path: /api/liveness
+              port: ${PORT}
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /api/readiness
+              port: ${PORT}
+            initialDelaySeconds: 20
+            periodSeconds: 10
