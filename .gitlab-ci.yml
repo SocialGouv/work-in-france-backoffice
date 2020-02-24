@@ -78,6 +78,7 @@ stages:
   - "Code Quality"
   - "Prepare"
   - "Registration"
+  - "Create Secret"
   - "Deploy"
 
 
@@ -171,6 +172,22 @@ Register init kinto image:
     CONTEXT: packages/kinto
     DOCKERFILE_PATH: packages/kinto/Dockerfile
     IMAGE_NAME: ${CI_REGISTRY_IMAGE}/kinto
+
+
+################################ CREATE SECRET ################################
+
+Create egapro/secret:
+  stage: Create Secret
+  image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
+  environment:
+    name: ${DEV_ENVIRONMENT_NAME}
+  script:
+    - envsubst < ./k8s/secret/secret-dev.yml > k8s/secret/secret-dev-${PROJECT}.yml
+    - kubectl apply -f k8s/secret/secret-dev-${PROJECT}.yml -n ${K8S_NAMESPACE}
+  except:
+    variables:
+      - $PRODUCTION
+
 
 ################################# DEPLOY ###############################
 
