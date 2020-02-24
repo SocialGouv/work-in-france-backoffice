@@ -21,10 +21,7 @@ include:
   - project: SocialGouv/gitlab-ci-yml
     file: /base_docker_helm_image_stage.yml
     ref: v4.6.0
-  - "/k8s/api/.deploy-wif-bo-api.yml"
-#  - "/k8s/postgres/.deploy-wif-bo-postgres.yml"
-#  - "/k8s/memcached/.deploy-wif-bo-memcached.yml"
-#  - "/k8s/kinto/.deploy-wif-bo-kinto.yml"
+
 
 variables:
   PROJECT: wif-bo
@@ -78,7 +75,7 @@ variables:
   POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
 
 stages:
-#  - "Code Quality"
+  - "Code Quality"
   - "Prepare"
   - "Registration"
   - "Deploy"
@@ -128,16 +125,16 @@ before_script:
 
 ################################ CODE QUALITY ###############################
 
-#Code quality:
-#  stage: Code Quality
-#  extends:
-#    - .base_yarn_quality
-#    - .base_yarn_build
-#  when: manual
-#  except:
-#    variables:
-#      - $PRODUCTION
-#  allow_failure: false
+Code quality:
+  stage: Code Quality
+  extends:
+    - .base_yarn_quality
+    - .base_yarn_build
+  when: manual
+  except:
+    variables:
+      - $PRODUCTION
+  allow_failure: false
 
 
 ################################ PREPARE ####################################
@@ -182,12 +179,6 @@ Notify Starting Deployment:
   stage: Deploy
 
 #
-#.deploy_stage: &deploy_stage
-#  stage: Deploy
-#  dependencies: []
-#  variables: &deploy_stage_variables
-#    WIF_BO_REGISTRY: $CI_REGISTRY_IMAGE
-#    IMAGE_TAG: $CI_COMMIT_SHA
 
 .deploy_with_hpa_chart: &deploy_with_hpa_chart
   stage: Deploy
@@ -199,18 +190,6 @@ Notify Starting Deployment:
 ############################################
 ####                API                 ####
 ############################################
-
-#Deploy @wif-bo/api (dev):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-api-k8s-dev
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: ${API_PORT}
-#    CONTEXT: api
-#  environment:
-#    name: ${DEV_ENVIRONMENT_NAME}
-#  except:
-#    - master
 
 Deploy api:
   <<: *deploy_with_hpa_chart
@@ -225,25 +204,25 @@ Deploy api:
     variables:
       - $PRODUCTION
 #
-#
-#Deploy api (prod):
-#  <<: *deploy_with_hpa_chart
-#  variables:
-#    <<: *deploy_with_hpa_chart_variables
-#    CONTEXT: api
-#    PORT: ${API_PORT}
-#    VALUES_FILE: ./k8s/api.values.yml
-#    API_RESOURCE_CPU_LIMIT: "250m"
-#    API_RESOURCE_MEMORY_LIMIT: "256Mi"
-#    API_RESOURCE_CPU_REQUEST: "5m"
-#    API_RESOURCE_MEMORY_REQUEST: "16Mi"
-#  environment:
-#    name: ${PROD_ENVIRONMENT_NAME}
-#  only:
-#    refs:
-#      - triggers
-#    variables:
-#      - $PRODUCTION
+
+Deploy api (prod):
+  <<: *deploy_with_hpa_chart
+  variables:
+    <<: *deploy_with_hpa_chart_variables
+    CONTEXT: api
+    PORT: ${API_PORT}
+    VALUES_FILE: ./k8s/api.values.yml
+    API_RESOURCE_CPU_LIMIT: "250m"
+    API_RESOURCE_MEMORY_LIMIT: "256Mi"
+    API_RESOURCE_CPU_REQUEST: "5m"
+    API_RESOURCE_MEMORY_REQUEST: "16Mi"
+  environment:
+    name: ${PROD_ENVIRONMENT_NAME}
+  only:
+    refs:
+      - triggers
+    variables:
+      - $PRODUCTION
 
 ############################################
 ####              POSTGRES              ####
@@ -355,6 +334,7 @@ Deploy memcached (prod):
   stage: Deploy
   image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
   variables: &deploy_kinto_variables
+    PORT: ${KINTO_PORT}
   script:
     - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - envsubst < k8s/kinto/deployment.yml > k8s/kinto/deployment-${PROJECT}.yml
@@ -368,127 +348,28 @@ Deploy memcached (prod):
 
 Deploy kinto:
   <<: *deploy_kinto
-  variables:
   environment:
     name: ${DEV_ENVIRONMENT_NAME}
   except:
     variables:
       - $PRODUCTION
 
-#Deploy kinto (prod):
-#  <<: *deploy_kinto
-#  variables:
-#    <<: *deploy_kinto_variables
-#    KINTO_RESOURCE_CPU_LIMIT: "500m"
-#    KINTO_RESOURCE_MEMORY_LIMIT: "512Mi"
-#    KINTO_RESOURCE_CPU_REQUEST: "10m"
-#    KINTO_RESOURCE_MEMORY_REQUEST: "32Mi"
-#    INIT_KINTO_RESOURCE_CPU_LIMIT: "20m"
-#    INIT_KINTO_RESOURCE_MEMORY_LIMIT: "16Mi"
-#    INIT_KINTO_RESOURCE_CPU_REQUEST: "10m"
-#    INIT_KINTO_RESOURCE_MEMORY_REQUEST: "8Mi"
-#  environment:
-#    name: ${PROD_ENVIRONMENT_NAME}
-#  only:
-#    refs:
-#      - triggers
-#    variables:
-#      - $PRODUCTION
-
-#
-############################################
-####            DEPLOY TO K8S            ###
-############################################
-#
-##
-#.deploy_stage: &deploy_stage
-#  stage: "Deploy"
-#  dependencies: []
-#  variables: &deploy_stage_variables
-#    WIF_BO_REGISTRY: $CI_REGISTRY_IMAGE
-#    IMAGE_TAG: $CI_COMMIT_SHA
-##
-#
-## Dev Environment
-#
-#Deploy @wif-bo/api (dev):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-api-k8s-dev
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $API_PORT
-#  environment:
-#    name: $DEV_ENVIRONMENT_NAME
-#  except:
-#    - master
-#
-#Deploy @wif-bo/postgres (dev):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-postgres-k8s-dev
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $POSTGRES_PORT
-#  environment:
-#    name: $DEV_ENVIRONMENT_NAME
-#  except:
-#    - master
-#
-#Deploy @wif-bo/memcached (dev):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-memcached-k8s-dev
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $MEMCACHED_PORT
-#  environment:
-#    name: $DEV_ENVIRONMENT_NAME
-#  except:
-#    - master
-#
-#Deploy @wif-bo/kinto (dev):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-kinto-k8s-dev
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $KINTO_PORT
-#    CACHE_PORT: $MEMCACHED_PORT
-#  environment:
-#    name: $DEV_ENVIRONMENT_NAME
-#  except:
-#    - master
-#
-## Prod Environment
-#
-#Deploy @wif-bo/api (prod):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-api-k8s-prod
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $API_PORT
-#  environment:
-#    name: $PROD_ENVIRONMENT_NAME
-#  only:
-#    - tags
-#
-#Deploy @wif-bo/memcached (prod):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-memcached-k8s-prod
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $MEMCACHED_PORT
-#  environment:
-#    name: $PROD_ENVIRONMENT_NAME
-#  only:
-#    - tags
-#
-#Deploy @wif-bo/kinto (pro):
-#  <<: *deploy_stage
-#  extends: .deploy-wif-bo-kinto-k8s-prod
-#  variables:
-#    <<: *deploy_stage_variables
-#    PORT: $KINTO_PORT
-#    CACHE_PORT: $MEMCACHED_PORT
-#  environment:
-#    name: $PROD_ENVIRONMENT_NAME
-#  only:
-#    - tags
-#
+Deploy kinto (prod):
+  <<: *deploy_kinto
+  variables:
+    <<: *deploy_kinto_variables
+    KINTO_RESOURCE_CPU_LIMIT: "500m"
+    KINTO_RESOURCE_MEMORY_LIMIT: "512Mi"
+    KINTO_RESOURCE_CPU_REQUEST: "10m"
+    KINTO_RESOURCE_MEMORY_REQUEST: "32Mi"
+    INIT_KINTO_RESOURCE_CPU_LIMIT: "20m"
+    INIT_KINTO_RESOURCE_MEMORY_LIMIT: "16Mi"
+    INIT_KINTO_RESOURCE_CPU_REQUEST: "10m"
+    INIT_KINTO_RESOURCE_MEMORY_REQUEST: "8Mi"
+  environment:
+    name: ${PROD_ENVIRONMENT_NAME}
+  only:
+    refs:
+      - triggers
+    variables:
+      - $PRODUCTION

@@ -15,7 +15,7 @@ global:
 image:
   registry: docker.io
   repository: bitnami/postgresql
-  tag: 11-debian-9
+  tag: ${POSTGRES_VERSION}
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
   ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -193,7 +193,7 @@ service:
   ## PosgresSQL service type
   type: ClusterIP
   # clusterIP: None
-  port: 5432
+  port: ${POSTGRES_PORT}
 
   ## Specify the nodePort value for the LoadBalancer and NodePort service types.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
