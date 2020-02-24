@@ -182,48 +182,48 @@ Notify Starting Deployment:
   stage: Deploy
 
 #
-.deploy_stage: &deploy_stage
-  stage: Deploy
-  dependencies: []
-  variables: &deploy_stage_variables
-    WIF_BO_REGISTRY: $CI_REGISTRY_IMAGE
-    IMAGE_TAG: $CI_COMMIT_SHA
-
-#.deploy_with_hpa_chart: &deploy_with_hpa_chart
+#.deploy_stage: &deploy_stage
 #  stage: Deploy
-#  extends: .base_deploy_hpa_chart_stage
 #  dependencies: []
-#  variables: &deploy_with_hpa_chart_variables
-#    REGISTRY: $CI_REGISTRY_IMAGE
+#  variables: &deploy_stage_variables
+#    WIF_BO_REGISTRY: $CI_REGISTRY_IMAGE
+#    IMAGE_TAG: $CI_COMMIT_SHA
+
+.deploy_with_hpa_chart: &deploy_with_hpa_chart
+  stage: Deploy
+  extends: .base_deploy_hpa_chart_stage
+  dependencies: []
+  variables: &deploy_with_hpa_chart_variables
+    REGISTRY: $CI_REGISTRY_IMAGE
 
 ############################################
 ####                API                 ####
 ############################################
 
-Deploy @wif-bo/api (dev):
-  <<: *deploy_stage
-  extends: .deploy-wif-bo-api-k8s-dev
-  variables:
-    <<: *deploy_stage_variables
-    PORT: ${API_PORT}
-    CONTEXT: api
-  environment:
-    name: ${DEV_ENVIRONMENT_NAME}
-  except:
-    - master
-
-#Deploy api:
-#  <<: *deploy_with_hpa_chart
+#Deploy @wif-bo/api (dev):
+#  <<: *deploy_stage
+#  extends: .deploy-wif-bo-api-k8s-dev
 #  variables:
-#    <<: *deploy_with_hpa_chart_variables
-#    CONTEXT: api
+#    <<: *deploy_stage_variables
 #    PORT: ${API_PORT}
-#    VALUES_FILE: ./k8s/api.values.yml
+#    CONTEXT: api
 #  environment:
 #    name: ${DEV_ENVIRONMENT_NAME}
 #  except:
-#    variables:
-#      - $PRODUCTION
+#    - master
+
+Deploy api:
+  <<: *deploy_with_hpa_chart
+  variables:
+    <<: *deploy_with_hpa_chart_variables
+    CONTEXT: api
+    PORT: ${API_PORT}
+    VALUES_FILE: ./k8s/api.values.yml
+  environment:
+    name: ${DEV_ENVIRONMENT_NAME}
+  except:
+    variables:
+      - $PRODUCTION
 #
 #
 #Deploy api (prod):
