@@ -12,13 +12,13 @@ const routeOptions: Router.IRouterOptions = {
 
 const router = new Router(routeOptions);
 
-router.get('/liveness', (ctx, next) => {
-    ctx.body = 'Live OK';
-    next();
-  });
+router.get("/liveness", (ctx, next) => {
+  ctx.body = "Live OK";
+  next();
+});
 
-router.get('/readiness', (ctx, next) => {
-  ctx.body = 'Readi OK';
+router.get("/readiness", (ctx, next) => {
+  ctx.body = "Readi OK";
   next();
 });
 
