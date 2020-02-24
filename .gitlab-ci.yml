@@ -153,6 +153,22 @@ Create namespace:
       - $PRODUCTION
 
 
+Backup before deploy to prod:
+  stage: Prepare
+  image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
+  script:
+    - kubectl delete job 	backup-job -n ${K8S_NAMESPACE} || true;
+    - kubectl apply -f k8s/postgres/backup-job.yml -n ${K8S_NAMESPACE}
+    - kubectl wait --for=condition=complete job/backup-job --timeout=600s -n ${K8S_NAMESPACE}
+  environment:
+    name: ${PROD_ENVIRONMENT_NAME}
+  only:
+    refs:
+      - triggers
+    variables:
+      - $PRODUCTION
+
+
 ################################ REGISTRATION ################################
 
 .register_stage: &register_stage
@@ -180,7 +196,7 @@ Register init kinto image:
 
 ################################ CREATE SECRET ################################
 
-Create egapro/secret:
+Create wif/secret:
   stage: Create Secret
   image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
   environment:
@@ -289,6 +305,8 @@ Deploy postgres (prod):
     POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
   environment:
     name: ${PROD_ENVIRONMENT_NAME}
+  after_script:
+    - kubectl apply -f k8s/postgres/backup-cronjob.yml -n ${K8S_NAMESPACE}
   only:
     refs:
       - triggers
@@ -307,7 +325,7 @@ Deploy postgres (prod):
   image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/helm:${HELM_VERSION}
   variables: &deploy_memcached_variables
     HELM_RENDER_ARGS: ""
-    CONTEXT: egapro
+    CONTEXT: wif-bo
   script:
     - helm init --client-only
     - kubectl config set-context --current --namespace=${K8S_NAMESPACE}
