@@ -63,7 +63,7 @@ deployment:
           name: wif-bo-secret
           key: KINTO_PASSWORD
     - name: KINTO_URL
-      value: "http://kinto${BRANCH_HASH}:8888"
+      value: "http://kinto:8888"
     - name: MAIL_HOST
       valueFrom:
         secretKeyRef:
