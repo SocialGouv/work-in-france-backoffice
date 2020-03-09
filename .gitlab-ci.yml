@@ -24,6 +24,9 @@ include:
   - project: SocialGouv/gitlab-ci-yml
     file: /base_delete_useless_k8s_ns_stage.yml
     ref: v4.6.0
+  - project: SocialGouv/gitlab-ci-yml
+    file: /base_delete_useless_managed_postgresql_stage.yml
+    ref: v.4.6.0
 
 
 variables:
@@ -95,7 +98,6 @@ stages:
   BRANCH_NAME_HASHED=$( printf "${BRANCH_NAME}" | sha1sum | cut -c1-${HASH_SIZE} )
   export BRANCH_HASH=${BRANCH_HASH:="$BRANCH_NAME_HASHED"}
   export K8S_NAMESPACE="${PROJECT}-feature-${BRANCH_HASH}"
-
 
   if [[ -n $PRODUCTION ]]; then
     export BRANCH_HASH=prod
@@ -461,3 +463,13 @@ Notify Success:
 
 Delete useless k8s namespaces:
   extends: .base_delete_useless_k8s_ns_stage
+
+Delete useless postgresql db:
+  extends:
+    - .base_delete_useless_managed_postgresql_stage
+  variables:
+    APP_DATABASE_PREFIX: [workinfrance]
+  before_script:
+    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
+    - export PG_USER=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_USER}' | base64 --decode)
+    - export PG_PASSWORD=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD}' | base64 --decode)
