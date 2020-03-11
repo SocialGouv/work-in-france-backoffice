@@ -2,31 +2,31 @@
 include:
   - project: SocialGouv/gitlab-ci-yml
     file: /base_yarn_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_create_namespace_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_register_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_docker_kubectl_image_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_deploy_hpa_chart_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_notify_github_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_docker_helm_image_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_delete_useless_k8s_ns_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_delete_useless_managed_postgresql_stage.yml
-    ref: v4.6.0
+    ref: v8.0.0
 
 
 variables:
@@ -377,10 +377,11 @@ Deploy memcached (prod):
   variables: &deploy_kinto_variables
     PORT: ${KINTO_PORT}
   script:
-    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
-    - export PG_USER_ENCODED=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_USER}' | base64 --decode)
-    - export PG_PASSWORD_ENCODED=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD}' | base64 --decode)
-    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
+    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n work-in-france-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
+    - export PG_USER_ENCODED=$(kubectl get secret azure-pg-admin-user -n work-in-france-secret -ojsonpath='{.data.ADMIN_PG_USER_ENCODED}' | base64 --decode)
+    - export PG_PASSWORD_ENCODED=$(kubectl get secret azure-pg-admin-user -n work-in-france-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD_ENCODED}' | base64 --decode)
+    - export WIFBO_PG_USER=$(kubectl get secret azure-pg-wifbo-user -n work-in-france-secret -ojsonpath='{.data.WIFBO_PG_USER_ENCODED}' | base64 --decode)
+    - export WIFBO_PG_PASSWORD=$(kubectl get secret azure-pg-wifbo-user -n work-in-france-secret -ojsonpath='{.data.WIFBO_PG_PASSWORD_ENCODED}' | base64 --decode)
     - envsubst < k8s/kinto/deployment.yml > k8s/kinto/deployment-${PROJECT}.yml
     - envsubst < k8s/kinto/service.yml > k8s/kinto/service-${PROJECT}.yml
     - envsubst < k8s/kinto/job-init-kinto.yml > k8s/kinto/job-init-kinto-${PROJECT}.yml
@@ -467,12 +468,12 @@ Notify Success:
 Delete useless k8s namespaces:
   extends: .base_delete_useless_k8s_ns_stage
 
-Delete useless postgresql db:
-  extends:
-    - .base_delete_useless_managed_postgresql_stage
-  variables:
-    APP_DATABASE_PREFIX: [workinfrance]
-  before_script:
-    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
-    - export PG_USER=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_USER}' | base64 --decode)
-    - export PG_PASSWORD=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD}' | base64 --decode)
+#Delete useless postgresql db:
+#  extends:
+#    - .base_delete_useless_managed_postgresql_stage
+#  variables:
+#    APP_DATABASE_PREFIX: [workinfrance]
+#  before_script:
+#    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
+#    - export PG_USER=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_USER}' | base64 --decode)
+#    - export PG_PASSWORD=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD}' | base64 --decode)
