@@ -26,7 +26,7 @@ include:
     ref: v4.6.0
   - project: SocialGouv/gitlab-ci-yml
     file: /base_delete_useless_managed_postgresql_stage.yml
-    ref: v.4.6.0
+    ref: v4.6.0
 
 
 variables:
@@ -74,11 +74,11 @@ variables:
   MEMCACHED_RESOURCE_MEMORY_LIMIT: "64Mi"
   MEMCACHED_RESOURCE_CPU_REQUEST: "10m"
   MEMCACHED_RESOURCE_MEMORY_REQUEST: "32Mi"
-  # Quotas Postgres
-  POSTGRES_RESOURCE_CPU_LIMIT: "50m"
-  POSTGRES_RESOURCE_MEMORY_LIMIT: "256Mi"
-  POSTGRES_RESOURCE_CPU_REQUEST: "25m"
-  POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
+#  # Quotas Postgres
+#  POSTGRES_RESOURCE_CPU_LIMIT: "50m"
+#  POSTGRES_RESOURCE_MEMORY_LIMIT: "256Mi"
+#  POSTGRES_RESOURCE_CPU_REQUEST: "25m"
+#  POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
 
 stages:
   - "Code Quality"
@@ -155,20 +155,20 @@ Create namespace:
       - $PRODUCTION
 
 
-Backup before deploy to prod:
-  stage: Prepare
-  image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
-  script:
-    - kubectl delete job 	backup-job -n ${K8S_NAMESPACE} || true;
-    - kubectl apply -f k8s/postgres/backup-job.yml -n ${K8S_NAMESPACE}
-    - kubectl wait --for=condition=complete job/backup-job --timeout=600s -n ${K8S_NAMESPACE}
-  environment:
-    name: ${PROD_ENVIRONMENT_NAME}
-  only:
-    refs:
-      - triggers
-    variables:
-      - $PRODUCTION
+#Backup before deploy to prod:
+#  stage: Prepare
+#  image: ${CI_REGISTRY}/socialgouv/docker/kubectl:${KUBECTL_VERSION}
+#  script:
+#    - kubectl delete job 	backup-job -n ${K8S_NAMESPACE} || true;
+#    - kubectl apply -f k8s/postgres/backup-job.yml -n ${K8S_NAMESPACE}
+#    - kubectl wait --for=condition=complete job/backup-job --timeout=600s -n ${K8S_NAMESPACE}
+#  environment:
+#    name: ${PROD_ENVIRONMENT_NAME}
+#  only:
+#    refs:
+#      - triggers
+#    variables:
+#      - $PRODUCTION
 
 
 ################################ REGISTRATION ################################
@@ -268,52 +268,52 @@ Deploy api (prod):
 ############################################
 
 #
-.deploy_postgres: &deploy_postgres
-  stage: "Deploy"
-  image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/helm:${HELM_VERSION}
-  variables: &deploy_postgres_variables
-    HELM_RENDER_ARGS: ""
-    CONTEXT: wif-bo
-  script:
-    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
-    - helm init --client-only
-    - kubectl config set-context --current --namespace=${K8S_NAMESPACE}
-    - curl -L https://github.com/SocialGouv/helm-charts/releases/download/v2.11.0/helm-just-linux-2.11.0.tgz | tar -C $(helm home) -xzv
-    - helm repo add socialgouv https://github.com/SocialGouv/helm-charts/releases/download/v2.11.0
-    - helm just fetch "stable/postgresql#${POSTGRES_CHART_VERSION}"
-    - envsubst < k8s/postgres/values.yml > ./values.yaml
-    - helm just render ${CONTEXT}-${BRANCH_HASH}-pg postgresql
-      ${HELM_RENDER_ARGS}
-      --values ./values.yaml
-    - helm just apply ${CONTEXT}-${BRANCH_HASH}-pg
+#.deploy_postgres: &deploy_postgres
+#  stage: "Deploy"
+#  image: registry.gitlab.factory.social.gouv.fr/socialgouv/docker/helm:${HELM_VERSION}
+#  variables: &deploy_postgres_variables
+#    HELM_RENDER_ARGS: ""
+#    CONTEXT: wif-bo
+#  script:
+#    - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
+#    - helm init --client-only
+#    - kubectl config set-context --current --namespace=${K8S_NAMESPACE}
+#    - curl -L https://github.com/SocialGouv/helm-charts/releases/download/v2.11.0/helm-just-linux-2.11.0.tgz | tar -C $(helm home) -xzv
+#    - helm repo add socialgouv https://github.com/SocialGouv/helm-charts/releases/download/v2.11.0
+#    - helm just fetch "stable/postgresql#${POSTGRES_CHART_VERSION}"
+#    - envsubst < k8s/postgres/values.yml > ./values.yaml
+#    - helm just render ${CONTEXT}-${BRANCH_HASH}-pg postgresql
+#      ${HELM_RENDER_ARGS}
+#      --values ./values.yaml
+#    - helm just apply ${CONTEXT}-${BRANCH_HASH}-pg
+##
 #
-
-Deploy postgres:
-  <<: *deploy_postgres
-  environment:
-    name: ${DEV_ENVIRONMENT_NAME}
-  except:
-    variables:
-      - $PRODUCTION
-
-Deploy postgres (prod):
-  <<: *deploy_postgres
-  variables:
-    <<: *deploy_postgres_variables
-    ENABLE_PERSISTENT_VOLUME: "true"
-    POSTGRES_RESOURCE_CPU_LIMIT: "500m"
-    POSTGRES_RESOURCE_MEMORY_LIMIT: "512Mi"
-    POSTGRES_RESOURCE_CPU_REQUEST: "25m"
-    POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
-  environment:
-    name: ${PROD_ENVIRONMENT_NAME}
-  after_script:
-    - kubectl apply -f k8s/postgres/backup-cronjob.yml -n ${K8S_NAMESPACE}
-  only:
-    refs:
-      - triggers
-    variables:
-      - $PRODUCTION
+#Deploy postgres:
+#  <<: *deploy_postgres
+#  environment:
+#    name: ${DEV_ENVIRONMENT_NAME}
+#  except:
+#    variables:
+#      - $PRODUCTION
+#
+#Deploy postgres (prod):
+#  <<: *deploy_postgres
+#  variables:
+#    <<: *deploy_postgres_variables
+#    ENABLE_PERSISTENT_VOLUME: "true"
+#    POSTGRES_RESOURCE_CPU_LIMIT: "500m"
+#    POSTGRES_RESOURCE_MEMORY_LIMIT: "512Mi"
+#    POSTGRES_RESOURCE_CPU_REQUEST: "25m"
+#    POSTGRES_RESOURCE_MEMORY_REQUEST: "128Mi"
+#  environment:
+#    name: ${PROD_ENVIRONMENT_NAME}
+#  after_script:
+#    - kubectl apply -f k8s/postgres/backup-cronjob.yml -n ${K8S_NAMESPACE}
+#  only:
+#    refs:
+#      - triggers
+#    variables:
+#      - $PRODUCTION
 
 
 
@@ -377,6 +377,9 @@ Deploy memcached (prod):
   variables: &deploy_kinto_variables
     PORT: ${KINTO_PORT}
   script:
+    - export PG_HOST=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.PG_HOST}' | base64 --decode)
+    - export PG_USER_ENCODED=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_USER}' | base64 --decode)
+    - export PG_PASSWORD_ENCODED=$(kubectl get secret azure-pg-admin-user -n ${K8S_PROJECT}-secret -ojsonpath='{.data.ADMIN_PG_PASSWORD}' | base64 --decode)
     - export POSTGRESQL_PASSWORD=$(kubectl get secret wif-bo-secret -n ${K8S_NAMESPACE} -o jsonpath='{.data.DB_PASSWORD}' | base64 --decode)
     - envsubst < k8s/kinto/deployment.yml > k8s/kinto/deployment-${PROJECT}.yml
     - envsubst < k8s/kinto/service.yml > k8s/kinto/service-${PROJECT}.yml

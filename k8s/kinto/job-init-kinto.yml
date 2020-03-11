@@ -14,20 +14,20 @@ spec:
             - name: ENVIRONMENT_TYPE
               valueFrom:
                 secretKeyRef:
-                  name: wif-bo-secret
+                  name: azure-pg-wifbo-user
                   key: ENVIRONMENT_TYPE
             - name: KINTO_BASE_URL
               value: "kinto"
-            - name: KINTO_LOGIN
+            - name: WIFBO_PG_USER
               valueFrom:
                 secretKeyRef:
-                  name: wif-bo-secret
-                  key: KINTO_LOGIN
-            - name: KINTO_PASSWORD
+                  name: azure-pg-wifbo-user
+                  key: WIFBO_PG_USER
+            - name: WIFBO_PG_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: wif-bo-secret
-                  key: KINTO_PASSWORD
+                  name: azure-pg-wifbo-user
+                  key: WIFBO_PG_PASSWORD
           resources:
             requests:
               cpu: ${INIT_KINTO_RESOURCE_CPU_REQUEST}
