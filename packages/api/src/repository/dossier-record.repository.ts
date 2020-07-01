@@ -10,7 +10,7 @@ class DossierRecordRepository {
   ): Observable<DossierRecord[]> {
     return from(
       aggregatorDatabase<DossierRecord>("dossier_record")
-        .where("processed_at", ">", new Date(start))
+        .where("processed_at", ">=", new Date(start))
         .andWhere("processed_at", "<", new Date(end)).andWhereRaw(`
           metadata->'group'  @> '{ "id": "${groupId}" }'::jsonb
       `)
@@ -24,7 +24,7 @@ class DossierRecordRepository {
     return from(
       aggregatorDatabase<DossierRecord>("dossier_record")
         .where("state", "=", state)
-        .andWhere("last_modified", ">", new Date(start))
+        .andWhere("last_modified", ">=", new Date(start))
     );
   }
 
@@ -34,7 +34,7 @@ class DossierRecordRepository {
     return from(
       aggregatorDatabase<DossierRecord>("dossier_record").where(
         "last_modified",
-        ">",
+        ">=",
         new Date(start)
       )
     );
