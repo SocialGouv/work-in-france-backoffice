@@ -26,10 +26,10 @@ export interface Alert extends IIdentifiable {
   email_usager: string;
   email_instructors: string[];
   date_debut_apt: string;
-  processed_at: number | null;
+  processed_at: Date | null;
   email?: Email;
   email_state?: AlertEmailState;
-  email_processed_at?: number;
+  email_processed_at?: Date;
   state: string; // dossier state
 }
 
