@@ -6,6 +6,9 @@ import { router } from "./routes";
 import { monthlyReportScheduler, validityCheckScheduler } from "./scheduler";
 import { alertScheduler } from "./scheduler/alert.scheduler";
 import { logger } from "./util";
+import dbConnect from "./database/config";
+
+dbConnect();
 
 validityCheckScheduler.start();
 monthlyReportScheduler.start();
