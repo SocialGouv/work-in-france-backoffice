@@ -18,10 +18,6 @@ class DossierRecordRepository {
     ).collection<DossierRecord>("dossiers");
   }
 
-  public all(): Observable<DossierRecord[]> {
-    return this.collection.all();
-  }
-
   public allByGroupIdAndProcessedAtBetween(
     groupId: string,
     start: number,

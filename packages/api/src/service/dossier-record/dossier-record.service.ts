@@ -4,9 +4,6 @@ import { DossierRecord } from "../../model";
 import { dossierRecordRepository } from "../../repository";
 
 class DossierRecordService {
-  public all(): Observable<DossierRecord[]> {
-    return dossierRecordRepository.all();
-  }
 
   public allByMonthAndGroupId(year: number, month: number, groupId: string) {
     const start = new Date(year, month, 1).getTime();
