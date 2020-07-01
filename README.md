@@ -17,18 +17,14 @@ Les données utilisées proviennent de la base de données non exposée du dép�
 
 pour lancer le projet en développement:
 
-*démarrer et configurer `kinto`*
-
 ```bash
 cp .env.sample .env
 ```
 
 ```bash
+docker-compose up --build db
 yarn start
 ```
-
-l'interface d'administation de kinto est accessible à l'adresse suivante `http://localhost:8889/v1/admin`:
-- Compte `admin`: admin / passw0rd
 
 *appeler les API de `extractor`:
 
@@ -50,22 +46,8 @@ curl -X GET http://localhost:${.env.API_PORT}/api/${.env.API_PREFIX}/alerts/down
 ## Lancer en local avec docker
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
-
-## Description
-
-### kinto
-
-- une bucket `wif_public` avec 4 collections:
-
-|Collection         |Description                                            | Modèle                                            |
-|-------------------|-------------------------------------------------------|---------------------------------------------------|
-|`monthly_reports`  | rapport mensuel pour les DIRECCT                      | `src/extractor/src/model/monthly-report.model.ts` |
-|`alerts`           | dossiers en souffrance                                | `src/extractor/src/model/alert.model.ts`          |
-|`validity-checks`  | validité des APT                                      | `src/extractor/src/model/validity-check.model.ts` |
-|`synchro_histories`| stockage des informations de synchronisation          | `src/extractor/src/model/synchro-history.model.ts`|
-
 
 ## Synchronisation des données
 
