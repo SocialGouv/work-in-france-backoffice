@@ -13,7 +13,7 @@ class SynchroHistoryService {
           return of(syncHistory);
         } else {
           return synchroHistoryRepository.add({
-            last_synchro: 0,
+            last_synchro: new Date(0),
             scheduler
           });
         }
@@ -23,7 +23,7 @@ class SynchroHistoryService {
 
   public update(
     scheduler: string,
-    lastSynchro: number
+    lastSynchro: Date
   ): Observable<SynchroHistory> {
     return this.getSynchroHistory(scheduler).pipe(
       tap(

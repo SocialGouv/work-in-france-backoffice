@@ -3,7 +3,7 @@ import { Model } from "objection";
 
 export default () => {
   const knexConnection = Knex(
-    require(process.env.KNEXFILE || "../../../knexfile")
+    require(process.env.KNEXFILE || "../../knexfile")
   );
   Model.knex(knexConnection);
 };

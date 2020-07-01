@@ -2,15 +2,14 @@ import { createReadStream, createWriteStream } from "fs";
 import * as Koa from "koa";
 import { fileSync } from "tmp";
 import { extractorService } from "../extract.service";
-import { DeletedData } from "../lib";
 import { alertService } from "../service/alert/alert.service";
 import { logger, mimeTypes } from "../util";
 
 export const alertController = {
   delete: async (ctx: Koa.Context) => {
-    const res: DeletedData[] = await alertService.deleteAll().toPromise();
-    logger.info(`${res.length} alerts deleted!`);
-    ctx.body = { message: `${res.length} alerts deleted!` };
+    const res: Number = await alertService.deleteAll().toPromise();
+    logger.info(`${res} alerts deleted!`);
+    ctx.body = { message: `${res} alerts deleted!` };
     ctx.status = 200;
   },
   download: async (ctx: Koa.Context) => {

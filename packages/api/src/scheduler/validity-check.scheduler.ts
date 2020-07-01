@@ -12,8 +12,8 @@ export const validityCheckScheduler = {
     handleScheduler(
       configuration.validityCheckCron,
       "validity-check",
-      (start: number) => {
-        const startLess10Minutes = addMinutes(new Date(start), -10).getTime();
+      (start: Date) => {
+        const startLess10Minutes = addMinutes(start, -10).getTime();
         return dossierRecordService
           .allByStateAndLastModifiedGreaterThan("closed", startLess10Minutes)
           .pipe(

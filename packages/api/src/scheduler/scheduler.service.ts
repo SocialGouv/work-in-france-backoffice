@@ -10,7 +10,7 @@ const schedulerStates = new Map<string, boolean>();
 export const handleScheduler = (
   cron: string,
   scheduler: string,
-  process: (start: number, end: number) => Observable<any>
+  process: (start: Date, end: Date) => Observable<any>
 ) => {
   schedule(cron, () => {
     if (schedulerStates.get(scheduler)) {
@@ -19,8 +19,7 @@ export const handleScheduler = (
     }
     logger.info(`[Scheduler] ${scheduler} is starting...`);
     schedulerStates.set(scheduler, true);
-    const endDate = new Date();
-    const end = endDate.getTime();
+    const end = new Date();
     synchroHistoryService
       .getSynchroHistory(scheduler)
       .pipe(
@@ -28,7 +27,7 @@ export const handleScheduler = (
           logger.info(
             `[Scheduler] ${scheduler} - ${new Date(
               syncHistory.last_synchro
-            )} > ${endDate}`
+            )} > ${end}`
           )
         ),
         mergeMap((syncHistory: SynchroHistory) =>

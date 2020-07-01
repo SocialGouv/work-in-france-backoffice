@@ -39,7 +39,7 @@ export interface AlertMessage {
 
 export const alertEmailShouldBeBlocked = (
   emailState: AlertEmailState | null,
-  processedAt: number | null
+  processedAt: Date | null
 ) => {
   if (!emailState) {
     return true;

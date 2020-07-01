@@ -1,6 +1,7 @@
 import { Stream } from "stream";
+import { format } from "date-fns";
 import { Alert } from "../../model";
-import { asDateString, asString } from "../../util";
+import { asString } from "../../util";
 import { createWorkbook } from "../excel.util";
 
 interface RowAlert {
@@ -40,12 +41,16 @@ const exportRows: (alert: Alert) => RowAlert = (alert: Alert) => {
   return {
     ds_key: alert.ds_key,
     email: alert.email ? JSON.stringify(alert.email, undefined, 2) : "",
-    email_processed_at: asDateString(alert.email_processed_at, "DD/MM/YYYY"),
+    email_processed_at: alert.email_processed_at
+      ? format(alert.email_processed_at, "DD/MM/YYYY")
+      : "",
     email_state: alert.email_state ? alert.email_state : "",
     group: alert.group.label,
     instructors_history: asString(alert.instructors_history, ", "),
     message: alert.message,
-    processed_at: asDateString(alert.processed_at, "DD/MM/YYYY"),
+    processed_at: alert.processed_at
+      ? format(alert.processed_at, "DD/MM/YYYY")
+      : "",
     state: alert.state,
     url: alert.url
   };
