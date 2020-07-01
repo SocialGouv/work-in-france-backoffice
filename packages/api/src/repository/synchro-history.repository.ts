@@ -1,25 +1,23 @@
-import { Observable } from "rxjs";
+import { Observable, from } from "rxjs";
 import { SynchroHistory } from "../model";
-import { KintoRepository } from "./kinto.repository";
+import { SynchroHistoryModel } from "../database/SynchroHistoryModel";
 
-class SynchroHistoryRepository extends KintoRepository<SynchroHistory> {
-  constructor() {
-    super("synchro_histories");
-  }
-
+class SynchroHistoryRepository {
   public all(): Observable<SynchroHistory[]> {
-    return this.collection.all();
+    return from(SynchroHistoryModel.query());
   }
 
   public add(synchroHistory: SynchroHistory): Observable<SynchroHistory> {
-    return this.collection.add(synchroHistory);
+    return from(SynchroHistoryModel.query().insert(synchroHistory));
   }
 
   public update(
     id: string,
     synchroHistory: SynchroHistory
   ): Observable<SynchroHistory> {
-    return this.collection.update(id, synchroHistory);
+    return from(
+      SynchroHistoryModel.query().patchAndFetchById(id, synchroHistory)
+    );
   }
 }
 
