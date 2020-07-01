@@ -1,7 +1,6 @@
 import { addMinutes } from "date-fns";
 import { filter, flatMap, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
-import { DeletedData } from "../lib";
 import { DossierRecord, ValidityCheck } from "../model";
 import { dossierRecordService, validityCheckService } from "../service";
 import { logger } from "../util";
@@ -38,11 +37,11 @@ export const validityCheckScheduler = {
       () => {
         const now = new Date();
         return validityCheckService
-          .deleteByFinAPTBefore(now.getTime())
+          .deleteByFinAPTBefore(now)
           .pipe(
-            tap((res: DeletedData[]) =>
+            tap((res: Number) =>
               logger.info(
-                `[cleanValidityChecks] ${res.length} validity checks deleted`
+                `[cleanValidityChecks] ${res} validity checks deleted`
               )
             )
           );

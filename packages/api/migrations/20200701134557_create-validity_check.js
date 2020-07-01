@@ -16,7 +16,7 @@ exports.up = async function(knex) {
     table.boolean("has_expired").notNullable();
     table.string("date_de_debut_apt").notNullable();
     table.string("date_de_fin_apt").notNullable();
-    table.jsonb("metadata").notNullable();
+    table.timestamp("fin_apt").notNullable();
   });
 };
 
