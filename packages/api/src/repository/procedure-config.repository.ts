@@ -1,24 +1,10 @@
-import { Observable } from "rxjs";
-import { configuration } from "../config";
-import { kintoClient, KintoCollection } from "../lib";
+import { Observable, from } from "rxjs";
+import { aggregatorDatabase } from "../database/config";
 import { ProcedureConfig } from "../model";
 
 class ProcedureConfigRepository {
-  private collection: KintoCollection<ProcedureConfig>;
-
-  constructor() {
-    const kintoAPI = configuration.dsAPI || "";
-    const kintoLogin = configuration.dsApiLogin || "";
-    const kintoPassword = configuration.dsApiPassword || "";
-    this.collection = kintoClient(
-      kintoAPI,
-      kintoLogin,
-      kintoPassword
-    ).collection<ProcedureConfig>("ds_configs");
-  }
-
   public all(): Observable<ProcedureConfig[]> {
-    return this.collection.all();
+    return from(aggregatorDatabase<ProcedureConfig>("procedure_config"));
   }
 }
 

@@ -14,7 +14,10 @@ export const validityCheckScheduler = {
       (start: Date) => {
         const startLess10Minutes = addMinutes(start, -10).getTime();
         return dossierRecordService
-          .allByStateAndLastModifiedGreaterThan("closed", startLess10Minutes)
+          .allByStateAndLastModifiedGreaterThan(
+            "closed",
+            startLess10Minutes < 0 ? 0 : startLess10Minutes
+          )
           .pipe(
             tap((res: DossierRecord[]) =>
               logger.info(`[syncValidityChecks] ${res.length} dossiers fetched`)

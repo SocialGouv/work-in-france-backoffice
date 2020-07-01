@@ -7,3 +7,9 @@ export default () => {
   );
   Model.knex(knexConnection);
 };
+
+const aggregatorDatabase = Knex(
+  require(process.env.KNEXFILE_AGGREGATOR || "../../knexfile-aggregator")
+);
+
+export { aggregatorDatabase };

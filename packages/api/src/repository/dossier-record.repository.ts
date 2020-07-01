@@ -1,30 +1,19 @@
-import { Observable } from "rxjs";
-import { configuration } from "../config";
-import { kintoClient, KintoCollection } from "../lib";
+import { Observable, from } from "rxjs";
+import { aggregatorDatabase } from "../database/config";
 import { DossierRecord } from "../model";
 
 class DossierRecordRepository {
-  private collection: KintoCollection<DossierRecord>;
-
-  constructor() {
-    const kintoAPI = configuration.dsAPI || "";
-    const kintoLogin = configuration.dsApiLogin || "";
-    const kintoPassword = configuration.dsApiPassword || "";
-
-    this.collection = kintoClient(
-      kintoAPI,
-      kintoLogin,
-      kintoPassword
-    ).collection<DossierRecord>("dossiers");
-  }
-
   public allByGroupIdAndProcessedAtBetween(
     groupId: string,
     start: number,
     end: number
   ): Observable<DossierRecord[]> {
-    return this.collection.search(
-      `metadata.group.id="${groupId}"&gt_metadata.processed_at=${start}&lt_metadata.processed_at=${end}`
+    return from(
+      aggregatorDatabase<DossierRecord>("dossier_record")
+        .where("processed_at", ">", new Date(start))
+        .andWhere("processed_at", "<", new Date(end)).andWhereRaw(`
+          metadata->'group'  @> '{ "id": "${groupId}" }'::jsonb
+      `)
     );
   }
 
@@ -32,16 +21,22 @@ class DossierRecordRepository {
     state: string,
     start: number
   ): Observable<DossierRecord[]> {
-    return this.collection.search(
-      `metadata.state="${state}"&gt_last_modified=${start}`
+    return from(
+      aggregatorDatabase<DossierRecord>("dossier_record")
+        .where("state", "=", state)
+        .andWhere("last_modified", ">", new Date(start))
     );
   }
 
   public allByLastModifiedGreaterThan(
     start: number
   ): Observable<DossierRecord[]> {
-    return this.collection.search(
-      `has_deleted=false&gt_last_modified=${start}`
+    return from(
+      aggregatorDatabase<DossierRecord>("dossier_record").where(
+        "last_modified",
+        ">",
+        new Date(start)
+      )
     );
   }
 }
