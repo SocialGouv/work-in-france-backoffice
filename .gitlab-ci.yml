@@ -2,8 +2,6 @@
 include:
   - "/k8s/api/.deploy-wif-bo-api.yml"
   - "/k8s/postgres/.deploy-wif-bo-postgres.yml"
-  - "/k8s/memcached/.deploy-wif-bo-memcached.yml"
-  - "/k8s/kinto/.deploy-wif-bo-kinto.yml"
 
 variables:
   DOCKER_DRIVER: overlay2
