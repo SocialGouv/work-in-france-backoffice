@@ -40,7 +40,7 @@ const block = (alert: Alert) => {
 };
 
 class AlertService {
-  public deleteAll(): Observable<Number> {
+  public deleteAll(): Observable<number> {
     return alertRepository.deleteAll();
   }
 
