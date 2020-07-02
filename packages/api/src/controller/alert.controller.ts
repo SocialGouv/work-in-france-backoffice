@@ -7,7 +7,7 @@ import { logger, mimeTypes } from "../util";
 
 export const alertController = {
   delete: async (ctx: Koa.Context) => {
-    const res: Number = await alertService.deleteAll().toPromise();
+    const res: number = await alertService.deleteAll().toPromise();
     logger.info(`${res} alerts deleted!`);
     ctx.body = { message: `${res} alerts deleted!` };
     ctx.status = 200;
