@@ -60,7 +60,7 @@ class ValidityCheckService {
     );
   }
 
-  public deleteAll(): Observable<Number> {
+  public deleteAll(): Observable<number> {
     return validityCheckRepository.deleteAll();
   }
 
