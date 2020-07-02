@@ -42,7 +42,7 @@ export const validityCheckScheduler = {
         return validityCheckService
           .deleteByFinAPTBefore(now)
           .pipe(
-            tap((res: Number) =>
+            tap((res: number) =>
               logger.info(
                 `[cleanValidityChecks] ${res} validity checks deleted`
               )
