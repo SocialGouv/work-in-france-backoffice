@@ -22,7 +22,7 @@ const alert: Alert = {
     "instructor3@direccte.gouv.fr"
   ],
   message: "ALERT_MESSAGE",
-  processed_at: 0,
+  processed_at: new Date(0),
   state: "initiated"
 };
 
