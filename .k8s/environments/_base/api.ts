@@ -25,12 +25,12 @@ const env: AppComponentEnvironment = {
 
   requests: {
     cpu: "5m",
-    memory: "16Mi"
+    memory: "64Mi"
   },
 
   limits: {
-    cpu: "500m",
-    memory: "128Mi"
+    cpu: "1000m",
+    memory: "2Gi"
   },
 
   servicePort: 80
