@@ -6,8 +6,6 @@ data:
   ALERT_CRON: "0 0 4 * * *"
   ALERT_EMAIL_CRON: "0 30 6 * * *"
   API_PORT: "4000"
-  DATABASE_URL: ""
-  AGGREGATOR_DATABASE_URL: ""
   ENVIRONMENT_TYPE: "dev.local"
   MAIL_ENABLED: "false"
   MONTHLY_REPORT_CRON: "0 0 8 1 * *"
