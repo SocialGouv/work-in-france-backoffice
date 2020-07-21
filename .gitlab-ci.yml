@@ -110,7 +110,6 @@ Code quality:
   extends:
     - .base_yarn_quality
     - .base_yarn_build
-  when: manual
   except:
     variables:
       - $PRODUCTION
