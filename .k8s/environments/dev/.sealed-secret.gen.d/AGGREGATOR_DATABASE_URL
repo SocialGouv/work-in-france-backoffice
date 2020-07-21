@@ -7,4 +7,4 @@ fi
 
 echo -n "${AGGREGATOR_DATABASE_URL}" \
   | parallel --pipe --tee -v {} ::: \
-    "sealed_as api-env ${0}"
+    "sealed_as api-env ${0} --scope cluster-wide"
