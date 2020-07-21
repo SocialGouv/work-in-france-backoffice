@@ -1,12 +1,12 @@
 ---
-version: "3.2"
+version: "3.8"
 
 services:
-
   wif-bo-api:
     build:
       context: .
       dockerfile: ./packages/api/Dockerfile
+      shm_size: 256M
     env_file: .env
     ports:
       - 4001:4000
