@@ -1,28 +1,28 @@
 import { Model } from "objection";
-import { Alert, AlertType, AlertEmailState } from "../model/alert.model";
+import { Alert, AlertEmailState, AlertType } from "../model/alert.model";
 import { DSGroup } from "../model/dossier-record.model";
 import { Email } from "../service";
 
 class AlertModel extends Model implements Alert {
-  id!: string;
-  ds_key: string = "";
-  url: string = "";
-  group: DSGroup = {
+  public id!: string;
+  public ds_key: string = "";
+  public url: string = "";
+  public group: DSGroup = {
     id: "",
     label: ""
   };
-  alert_type: AlertType = "closedWithoutDateDebutOrDateFin";
-  message: string = "";
-  instructors_history: string[] = [];
-  email_id?: string;
-  email_usager: string = "";
-  email_instructors: string[] = [];
-  date_debut_apt: string = "";
-  processed_at: Date | null = null;
-  email?: Email;
-  email_state?: AlertEmailState;
-  email_processed_at?: Date;
-  state: string = "";
+  public alert_type: AlertType = "closedWithoutDateDebutOrDateFin";
+  public message: string = "";
+  public instructors_history: string[] = [];
+  public email_id?: string;
+  public email_usager: string = "";
+  public email_instructors: string[] = [];
+  public date_debut_apt: string = "";
+  public processed_at: Date | null = null;
+  public email?: Email;
+  public email_state?: AlertEmailState;
+  public email_processed_at?: Date;
+  public state: string = "";
 
   static get tableName() {
     return "alert";

@@ -1,4 +1,4 @@
-import { Observable, from } from "rxjs";
+import { from, Observable } from "rxjs";
 import { aggregatorDatabase } from "../database/config";
 import { DossierRecord } from "../model";
 

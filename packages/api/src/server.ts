@@ -2,11 +2,11 @@ import * as cors from "@koa/cors";
 import * as Koa from "koa";
 import * as bodyParser from "koa-bodyparser";
 import { configuration } from "./config";
+import dbConnect from "./database/config";
 import { router } from "./routes";
 import { monthlyReportScheduler, validityCheckScheduler } from "./scheduler";
 import { alertScheduler } from "./scheduler/alert.scheduler";
 import { logger } from "./util";
-import dbConnect from "./database/config";
 
 dbConnect();
 

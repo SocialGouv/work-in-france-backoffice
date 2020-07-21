@@ -1,6 +1,6 @@
-import { Observable, from } from "rxjs";
-import { ValidityCheck } from "../model";
+import { from, Observable } from "rxjs";
 import { ValidityCheckModel } from "../database/ValidityCheckModel";
+import { ValidityCheck } from "../model";
 
 class ValidityCheckRepository {
   public update(id: string, record: ValidityCheck): Observable<ValidityCheck> {
@@ -18,7 +18,7 @@ class ValidityCheckRepository {
     );
   }
 
-  public deleteByDSKey(dsKey: string): Observable<Number> {
+  public deleteByDSKey(dsKey: string): Observable<number> {
     return from(
       ValidityCheckModel.query()
         .where({
@@ -28,7 +28,7 @@ class ValidityCheckRepository {
     );
   }
 
-  public deleteAll(): Observable<Number> {
+  public deleteAll(): Observable<number> {
     return from(ValidityCheckModel.query().delete());
   }
 
@@ -41,12 +41,11 @@ class ValidityCheckRepository {
   }
 
   public findOneByDossierIdAndDateNaissance(
-    dossierId: number,
+    _dossierId: number,
     dateNaissance: string
   ): Observable<ValidityCheck[]> {
     return from(
       ValidityCheckModel.query().where({
-        dossier_id: dossierId,
         date_de_naissance: dateNaissance
       })
     );

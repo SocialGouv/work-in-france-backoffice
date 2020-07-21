@@ -64,7 +64,7 @@ class ValidityCheckService {
     return validityCheckRepository.deleteAll();
   }
 
-  public deleteByFinAPTBefore(timestamp: Date): Observable<Number> {
+  public deleteByFinAPTBefore(timestamp: Date): Observable<number> {
     return validityCheckRepository.deleteByFinAPTBefore(timestamp);
   }
 }

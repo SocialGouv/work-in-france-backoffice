@@ -4,7 +4,6 @@ import { DossierRecord } from "../../model";
 import { dossierRecordRepository } from "../../repository";
 
 class DossierRecordService {
-
   public allByMonthAndGroupId(year: number, month: number, groupId: string) {
     const start = new Date(year, month, 1).getTime();
     const end = addMonths(start, 1).getTime();

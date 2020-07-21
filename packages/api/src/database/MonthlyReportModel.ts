@@ -1,19 +1,19 @@
 import { Model } from "objection";
+import { DSGroup } from "../model/dossier-record.model";
 import {
   MonthlyReport,
   MonthlyReportCounter
 } from "../model/monthly-report.model";
-import { DSGroup } from "../model/dossier-record.model";
 
 class MonthlyReportModel extends Model implements MonthlyReport {
-  id!: string;
-  year: number = 0;
-  month: number = 0;
-  group: DSGroup = {
+  public id!: string;
+  public year: number = 0;
+  public month: number = 0;
+  public group: DSGroup = {
     id: "",
     label: ""
   };
-  accepted: {
+  public accepted: {
     more3Months: MonthlyReportCounter;
     less3Months: MonthlyReportCounter;
   } = {
@@ -28,12 +28,12 @@ class MonthlyReportModel extends Model implements MonthlyReport {
       dossiers: []
     }
   };
-  refused: MonthlyReportCounter = {
+  public refused: MonthlyReportCounter = {
     count: 0,
     countries: {},
     dossiers: []
   };
-  withoutContinuation: MonthlyReportCounter = {
+  public withoutContinuation: MonthlyReportCounter = {
     count: 0,
     countries: {},
     dossiers: []

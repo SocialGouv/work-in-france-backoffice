@@ -1,6 +1,6 @@
-import { Observable, from } from "rxjs";
-import { SynchroHistory } from "../model";
+import { from, Observable } from "rxjs";
 import { SynchroHistoryModel } from "../database/SynchroHistoryModel";
+import { SynchroHistory } from "../model";
 
 class SynchroHistoryRepository {
   public all(): Observable<SynchroHistory[]> {

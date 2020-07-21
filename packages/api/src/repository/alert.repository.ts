@@ -1,6 +1,6 @@
-import { Observable, from } from "rxjs";
-import { Alert, AlertEmailState } from "../model";
+import { from, Observable } from "rxjs";
 import { AlertModel } from "../database/AlertModel";
+import { Alert, AlertEmailState } from "../model";
 
 class AlertRepository {
   public all(): Observable<Alert[]> {
@@ -11,7 +11,7 @@ class AlertRepository {
     return from(AlertModel.query().insert(alert));
   }
 
-  public deleteAll(): Observable<Number> {
+  public deleteAll(): Observable<number> {
     return from(AlertModel.query().delete());
   }
 
