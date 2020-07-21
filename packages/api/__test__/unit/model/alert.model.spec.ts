@@ -6,13 +6,13 @@ it("email should be blocked", () => {
   expect(alertEmailShouldBeBlocked("sent", null)).toBeTruthy();
   expect(alertEmailShouldBeBlocked("blocked", null)).toBeTruthy();
   expect(
-    alertEmailShouldBeBlocked("to_send", addDays(new Date(), -3).getTime())
+    alertEmailShouldBeBlocked("to_send", addDays(new Date(), -3))
   ).toBeTruthy();
 });
 
 it("email should not be blocked", () => {
   expect(alertEmailShouldBeBlocked("to_send", null)).toBeFalsy();
   expect(
-    alertEmailShouldBeBlocked("to_send", addDays(new Date(), -1).getTime())
+    alertEmailShouldBeBlocked("to_send", addDays(new Date(), -1))
   ).toBeFalsy();
 });

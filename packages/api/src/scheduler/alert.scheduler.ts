@@ -8,8 +8,8 @@ import { alertService, dossierRecordService, sendEmail } from "../service";
 import { logger } from "../util";
 import { handleScheduler } from "./scheduler.service";
 
-export const addAlerts = (start: number): Observable<Alert> => {
-  const startLess10Minutes = addMinutes(new Date(start), -10).getTime();
+export const addAlerts = (start: Date): Observable<Alert> => {
+  const startLess10Minutes = addMinutes(start, -10).getTime();
   return dossierRecordService
     .allByLastModifiedGreaterThan(startLess10Minutes)
     .pipe(
@@ -31,7 +31,7 @@ export const addAlerts = (start: number): Observable<Alert> => {
 
 export const alertScheduler = {
   start: () => {
-    handleScheduler(configuration.alertCron, "alert", (start: number) => {
+    handleScheduler(configuration.alertCron, "alert", (start: Date) => {
       return addAlerts(start);
     });
 

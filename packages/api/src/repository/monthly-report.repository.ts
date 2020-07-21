@@ -1,29 +1,30 @@
-import { Observable } from "rxjs";
-import { DeletedData } from "../lib";
+import { from, Observable } from "rxjs";
+import { MonthlyReportModel } from "../database/MonthlyReportModel";
 import { MonthlyReport } from "../model/monthly-report.model";
-import { KintoRepository } from "./kinto.repository";
 
-class MonthlyReportRepository extends KintoRepository<MonthlyReport> {
-  constructor() {
-    super("monthly_reports");
-  }
-
+class MonthlyReportRepository {
   public delete(
     year: number,
     month: number,
     groupId: string
-  ): Observable<DeletedData[]> {
-    return this.collection.delete(
-      `year=${year}&month=${month}&group.id="${groupId}"`
+  ): Observable<number> {
+    return from(
+      MonthlyReportModel.query()
+        .where({
+          month,
+          year
+        })
+        .andWhereRaw(`"group" @> '{"id":"${groupId}"}'::jsonb`)
+        .delete()
     );
   }
 
   public add(report: MonthlyReport): Observable<MonthlyReport> {
-    return this.collection.add(report);
+    return from(MonthlyReportModel.query().insert(report));
   }
 
   public all(): Observable<MonthlyReport[]> {
-    return this.collection.all();
+    return from(MonthlyReportModel.query());
   }
 
   public find(
@@ -31,11 +32,17 @@ class MonthlyReportRepository extends KintoRepository<MonthlyReport> {
     month: number,
     groupId?: string
   ): Observable<MonthlyReport[]> {
-    let params = `year=${year}&month=${month}`;
+    let queryBuilder = MonthlyReportModel.query().where({
+      month,
+      year
+    });
     if (groupId) {
-      params = params + `&group.id="${groupId}"`;
+      queryBuilder = queryBuilder.andWhereRaw(
+        `"group" @> '{"id":"${groupId}"}'::jsonb`
+      );
     }
-    return this.collection.search(params);
+
+    return from(queryBuilder);
   }
 }
 

@@ -2,7 +2,6 @@ import { differenceInDays, differenceInMonths } from "date-fns";
 import { Observable } from "rxjs";
 import { filter, mergeMap } from "rxjs/operators";
 import { Stream } from "stream";
-import { DeletedData } from "../../lib";
 import {
   DossierRecord,
   DSCommentaire,
@@ -37,18 +36,18 @@ const direcctDomainName = "direccte.gouv.fr";
 
 const block = (alert: Alert) => {
   alert.email_state = "blocked";
-  alert.email_processed_at = new Date().getTime();
+  alert.email_processed_at = new Date();
 };
 
 class AlertService {
-  public deleteAll(): Observable<DeletedData[]> {
+  public deleteAll(): Observable<number> {
     return alertRepository.deleteAll();
   }
 
   public markAsSent(alert: Alert, messageId: string) {
     alert.email_id = messageId;
     alert.email_state = "sent";
-    alert.email_processed_at = new Date().getTime();
+    alert.email_processed_at = new Date();
     return alertRepository.update(alert);
   }
 
@@ -164,7 +163,9 @@ class AlertService {
         email_usager: dossier.ds_data.email,
         email_instructors: dossier.ds_data.instructeurs,
         date_debut_apt: getDateDebutAPTValue(dossier),
-        processed_at: dossier.metadata.processed_at,
+        processed_at: dossier.metadata.processed_at
+          ? new Date(dossier.metadata.processed_at)
+          : null,
         state: dossier.metadata.state
       };
       const email = getAlertEmail(alert);
