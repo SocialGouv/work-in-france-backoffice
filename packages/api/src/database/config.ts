@@ -9,6 +9,7 @@ export default () => {
 };
 
 const aggregatorDatabase = Knex(
+  // tslint:disable-next-line: no-var-requires
   require(process.env.KNEXFILE_AGGREGATOR || "../../knexfile-aggregator")
 );
 

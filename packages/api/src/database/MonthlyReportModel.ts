@@ -17,12 +17,12 @@ class MonthlyReportModel extends Model implements MonthlyReport {
     more3Months: MonthlyReportCounter;
     less3Months: MonthlyReportCounter;
   } = {
-    more3Months: {
+    less3Months: {
       count: 0,
       countries: {},
       dossiers: []
     },
-    less3Months: {
+    more3Months: {
       count: 0,
       countries: {},
       dossiers: []

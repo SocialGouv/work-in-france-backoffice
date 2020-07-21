@@ -4,6 +4,7 @@ import { DSGroup } from "../model/dossier-record.model";
 import { Email } from "../service";
 
 class AlertModel extends Model implements Alert {
+  /* tslint:disable: variable-name */
   public id!: string;
   public ds_key: string = "";
   public url: string = "";

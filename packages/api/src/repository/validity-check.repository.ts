@@ -41,12 +41,13 @@ class ValidityCheckRepository {
   }
 
   public findOneByDossierIdAndDateNaissance(
-    _dossierId: number,
+    dossierId: number,
     dateNaissance: string
   ): Observable<ValidityCheck[]> {
     return from(
       ValidityCheckModel.query().where({
-        date_de_naissance: dateNaissance
+        date_de_naissance: dateNaissance,
+        dossier_id: dossierId
       })
     );
   }

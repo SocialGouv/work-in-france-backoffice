@@ -28,8 +28,8 @@ class AlertRepository {
   ): Observable<Alert[]> {
     return from(
       AlertModel.query().where({
-        ds_key: dsKey,
-        alert_type: alertType
+        alert_type: alertType,
+        ds_key: dsKey
       })
     );
   }

@@ -2,6 +2,7 @@ import { Model } from "objection";
 import { ValidityCheck } from "../model";
 
 class ValidityCheckModel extends Model implements ValidityCheck {
+  /* tslint:disable: variable-name */
   public id!: string;
   public dossier_id: number = 0;
   public ds_key: string = "";
