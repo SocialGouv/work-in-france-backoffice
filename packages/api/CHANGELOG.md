@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.5...v2.0.0) (2020-07-21)
+
+
+* feat(knex)!: kill kinto (#18) ([8e79a43](https://github.com/SocialGouv/work-in-france-backoffice/commit/8e79a431f5b8a8043045095ef52764bccedad9a9)), closes [#18](https://github.com/SocialGouv/work-in-france-backoffice/issues/18)
+
+
+### BREAKING CHANGES
+
+* use knex instead of kinto
+
+Co-authored-by: Douglas Duteil <douglasduteil@gmail.com>
+
+
+
+
+
 ## [1.1.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.4...v1.1.5) (2019-11-01)
 
 
