@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.0...v2.0.1) (2020-07-21)
+
+
+### Bug Fixes
+
+* trigger release ([16b0cea](https://github.com/SocialGouv/work-in-france-backoffice/commit/16b0cea0156e9e6fd6bbf1dd07f89ac30128d6f3))
+
+
+
+
+
 # [2.0.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v1.1.5...v2.0.0) (2020-07-21)
 
 
