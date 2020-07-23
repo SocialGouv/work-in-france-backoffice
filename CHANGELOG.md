@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.2...v2.0.3) (2020-07-23)
+
+
+### Bug Fixes
+
+* **k8s:** update prod api-env (5) ([54036d7](https://github.com/SocialGouv/work-in-france-backoffice/commit/54036d7d87566988cd4390ee974fa6773a5776d6))
+* **k8s:** update prod api-env configmap ([852ffb4](https://github.com/SocialGouv/work-in-france-backoffice/commit/852ffb4091d3dc87c5705ddc04ef512b1b1a4276))
+
+
+
+
+
 ## [2.0.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.1...v2.0.2) (2020-07-23)
 
 
