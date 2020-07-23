@@ -2,6 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: api-env
+  namespace: work-in-france-backoffice
 data:
   ALERT_CRON: "0 0 4 * * *"
   ALERT_EMAIL_CRON: "0 30 6 * * *"
