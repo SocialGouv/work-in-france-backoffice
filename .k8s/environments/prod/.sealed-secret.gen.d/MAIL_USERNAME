@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [[ -z "${MAIL_USERNAME}" ]]; then
+  echo "Expect MAIL_USERNAME to be defined";
+  exit 1;
+fi
+
+echo -n "${MAIL_USERNAME}" \
+  | parallel --pipe --tee -v {} ::: \
+    "sealed_as api-env ${0}"
