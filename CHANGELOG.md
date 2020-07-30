@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.5...v2.1.0) (2020-07-30)
+
+
+### Features
+
+* **k8s:** use tipimail as smtp ([631a958](https://github.com/SocialGouv/work-in-france-backoffice/commit/631a958a776e6ceca710320e548ccb273ab1c46d))
+
+
+
+
+
 ## [2.0.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.4...v2.0.5) (2020-07-27)
 
 
