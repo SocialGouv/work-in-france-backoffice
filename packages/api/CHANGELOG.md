@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.1.0...v2.2.0) (2020-08-26)
+
+
+### Features
+
+* **knex:** alter validity_check dossier_id from integer to bigint ([#21](https://github.com/SocialGouv/work-in-france-backoffice/issues/21)) ([261caa0](https://github.com/SocialGouv/work-in-france-backoffice/commit/261caa0ac757d26470425341c569de5b68861fdf))
+
+
+
+
+
 # [2.1.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.0.5...v2.1.0) (2020-07-30)
 
 **Note:** Version bump only for package api
