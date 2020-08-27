@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.0...v2.2.1) (2020-08-27)
+
+
+### Bug Fixes
+
+* **k8s:** missing SENTRY_DSN in production ([#22](https://github.com/SocialGouv/work-in-france-backoffice/issues/22)) ([57cb819](https://github.com/SocialGouv/work-in-france-backoffice/commit/57cb819f56c3ec9d258990b4e03f2acda656cfae))
+
+
+
+
+
 # [2.2.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.1.0...v2.2.0) (2020-08-26)
 
 
