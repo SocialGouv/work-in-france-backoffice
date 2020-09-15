@@ -46,7 +46,7 @@
     "@types/node-cron": "^2.0.2",
     "@types/nodemailer": "^6.1.0",
     "@types/raven": "^2.5.3",
-    "@types/rx": "^4.1.1",
+    "@types/rx": "^4.1.2",
     "@types/stream-buffers": "^3.0.3",
     "@types/tmp": "^0.1.0",
     "jest": "^24.8.0",
