@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.3...v2.2.4) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency rxjs to ^6.6.3 ([#41](https://github.com/SocialGouv/work-in-france-backoffice/issues/41)) ([115259e](https://github.com/SocialGouv/work-in-france-backoffice/commit/115259ef1ddfadc887297fa68fa97b3225f8892d))
+
+
+
+
+
 ## [2.2.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.2...v2.2.3) (2020-09-17)
 
 
