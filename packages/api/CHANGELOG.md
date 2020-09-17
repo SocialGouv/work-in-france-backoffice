@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.2...v2.2.3) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to ^8.2.0 ([#34](https://github.com/SocialGouv/work-in-france-backoffice/issues/34)) ([a23015e](https://github.com/SocialGouv/work-in-france-backoffice/commit/a23015e0a0f2c11ca31d84e600d4a1f0b6c519a5))
+* **deps:** update dependency koa to ^2.13.0 ([#36](https://github.com/SocialGouv/work-in-france-backoffice/issues/36)) ([66e939e](https://github.com/SocialGouv/work-in-france-backoffice/commit/66e939e24e6b89011541cf03275a15ae4156affd))
+* **deps:** update dependency tmp to ^0.2.1 ([#42](https://github.com/SocialGouv/work-in-france-backoffice/issues/42)) ([4cebd2b](https://github.com/SocialGouv/work-in-france-backoffice/commit/4cebd2b01f27d259a2e338ebfe9a49eb03bcdc47))
+
+
+
+
+
 ## [2.2.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.1...v2.2.2) (2020-09-17)
 
 
