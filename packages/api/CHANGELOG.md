@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.1...v2.2.2) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @koa/cors to ^3.1.0 ([#32](https://github.com/SocialGouv/work-in-france-backoffice/issues/32)) ([34b16f5](https://github.com/SocialGouv/work-in-france-backoffice/commit/34b16f5a55e45fcb7f6ee426a5e84870227b0853))
+
+
+
+
+
 ## [2.2.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.0...v2.2.1) (2020-08-27)
 
 **Note:** Version bump only for package api
