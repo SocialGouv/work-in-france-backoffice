@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.4...v2.2.5) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency knex to ^0.21.5 ([#35](https://github.com/SocialGouv/work-in-france-backoffice/issues/35)) ([ae373c0](https://github.com/SocialGouv/work-in-france-backoffice/commit/ae373c0c21907607bcb17e31acf5f5bc8796e92e))
+* **deps:** update dependency koa-bodyparser to ^4.3.0 ([#37](https://github.com/SocialGouv/work-in-france-backoffice/issues/37)) ([9c740d3](https://github.com/SocialGouv/work-in-france-backoffice/commit/9c740d33f4601bbf77b9180714c4b1976dc43886))
+
+
+
+
+
 ## [2.2.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.3...v2.2.4) (2020-09-17)
 
 
