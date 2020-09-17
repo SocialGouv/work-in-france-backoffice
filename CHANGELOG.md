@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.8](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.7...v2.2.8) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pg to ^8.3.3 ([#40](https://github.com/SocialGouv/work-in-france-backoffice/issues/40)) ([1328fe1](https://github.com/SocialGouv/work-in-france-backoffice/commit/1328fe1f1cb301a16024ae05ca2594f971ece412))
+
+
+
+
+
 ## [2.2.7](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.6...v2.2.7) (2020-09-17)
 
 
