@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.7](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.6...v2.2.7) (2020-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency winston to ^3.3.3 ([#44](https://github.com/SocialGouv/work-in-france-backoffice/issues/44)) ([9f3bd57](https://github.com/SocialGouv/work-in-france-backoffice/commit/9f3bd575f756a69286b1b7f474d1a94028b9e21c))
+
+
+
+
+
 ## [2.2.6](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.5...v2.2.6) (2020-09-17)
 
 
