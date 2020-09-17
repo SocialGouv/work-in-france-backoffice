@@ -32,7 +32,7 @@
     "stream-buffers": "^3.0.2",
     "tmp": "^0.1.0",
     "typed-rest-client": "^1.4.0",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@socialgouv/tslint-config-recommended": "^0.9.1",
