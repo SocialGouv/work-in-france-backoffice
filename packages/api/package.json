@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@koa/cors": "^3.0.0",
+    "@koa/cors": "^3.1.0",
     "@sentry/node": "5.4.0",
     "@types/exceljs": "^0.5.3",
     "date-fns": "^1.30.1",
