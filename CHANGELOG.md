@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.12](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.11...v2.2.12) (2020-09-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nodemailer to ^6.4.11 ([#38](https://github.com/SocialGouv/work-in-france-backoffice/issues/38)) ([b0291b2](https://github.com/SocialGouv/work-in-france-backoffice/commit/b0291b2a70abf160ec80edbc4002fcce1c72ed2b))
+
+
+
+
+
 ## [2.2.11](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.10...v2.2.11) (2020-09-18)
 
 
