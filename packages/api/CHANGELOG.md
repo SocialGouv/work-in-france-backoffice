@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.15](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.14...v2.2.15) (2020-09-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @sentry/node to v5.24.2 ([#59](https://github.com/SocialGouv/work-in-france-backoffice/issues/59)) ([4a317ee](https://github.com/SocialGouv/work-in-france-backoffice/commit/4a317eefbff38e3a1d5d21c6c6b7693a777c912a))
+
+
+
+
+
 ## [2.2.14](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.13...v2.2.14) (2020-09-18)
 
 
