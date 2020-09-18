@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.13](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.12...v2.2.13) (2020-09-18)
+
+
+### Bug Fixes
+
+* **deps:** update dependency typed-rest-client to ^1.7.3 ([#43](https://github.com/SocialGouv/work-in-france-backoffice/issues/43)) ([d7a38e3](https://github.com/SocialGouv/work-in-france-backoffice/commit/d7a38e36e740c3e8dc8064cebec21c59c935e74c))
+
+
+
+
+
 ## [2.2.12](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.11...v2.2.12) (2020-09-18)
 
 
