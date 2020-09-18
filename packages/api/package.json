@@ -25,7 +25,7 @@
     "koa-router": "^9.4.0",
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.11",
-    "objection": "^2.2.0",
+    "objection": "^2.2.3",
     "pg": "^8.3.3",
     "raven": "^2.6.4",
     "rxjs": "^6.6.3",
