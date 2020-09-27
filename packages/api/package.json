@@ -19,7 +19,7 @@
     "date-fns": "^1.30.1",
     "dotenv": "^8.2.0",
     "exceljs": "^4.1.1",
-    "knex": "^0.21.5",
+    "knex": "^0.21.6",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
