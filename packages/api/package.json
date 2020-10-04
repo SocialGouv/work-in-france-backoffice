@@ -24,8 +24,8 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
     "node-cron": "^2.0.3",
-    "nodemailer": "^6.4.11",
-    "objection": "^2.2.0",
+    "nodemailer": "^6.4.13",
+    "objection": "^2.2.3",
     "pg": "^8.3.3",
     "raven": "^2.6.4",
     "rxjs": "^6.6.3",
@@ -55,6 +55,6 @@
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.3"
   }
 }
