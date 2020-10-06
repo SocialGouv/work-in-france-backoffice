@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.17](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.16...v2.2.17) (2020-10-06)
+
+
+### Bug Fixes
+
+* **schema:** make date_de_debut_apt nullable ([cc16700](https://github.com/SocialGouv/work-in-france-backoffice/commit/cc16700e41817b0c0c5582dea3251342ca3a2e0f))
+
+
+
+
+
 ## [2.2.16](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.15...v2.2.16) (2020-09-27)
 
 
