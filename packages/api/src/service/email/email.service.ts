@@ -27,7 +27,7 @@ export interface Email {
 const transporter = createTransport({
   host: configuration.mailHost,
   port: configuration.mailPort,
-  secure: configuration.mailUseTLS, // true for 465, false for other ports
+  // secure: configuration.mailUseTLS, // true for 465, false for other ports
   // tslint:disable-next-line: object-literal-sort-keys
   auth: {
     user: configuration.mailUsername,
