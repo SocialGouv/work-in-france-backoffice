@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.20](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.19...v2.2.20) (2020-10-07)
+
+
+### Bug Fixes
+
+* **email:** set defaut value for bcc ([c40bd9c](https://github.com/SocialGouv/work-in-france-backoffice/commit/c40bd9c03de9537849b1a57fb3f0c47ce094ba3a))
+
+
+
+
+
 ## [2.2.19](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.18...v2.2.19) (2020-10-07)
 
 
