@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.19](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.18...v2.2.19) (2020-10-07)
+
+
+### Bug Fixes
+
+* **config:** allow monthly report the 8th this month ([5e98aae](https://github.com/SocialGouv/work-in-france-backoffice/commit/5e98aae6abf493574bde42fcef286594582e927d))
+* **config:** use contact@work-in-france.fr as email recepient ([5948a7d](https://github.com/SocialGouv/work-in-france-backoffice/commit/5948a7dff07403f37f97032682b986e479cab57d))
+
+
+
+
+
 ## [2.2.18](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.17...v2.2.18) (2020-10-07)
 
 
