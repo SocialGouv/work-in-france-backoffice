@@ -49,7 +49,7 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   const message: Options = {
     bcc: bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
     from: configuration.mailFrom,
-    subject: subject,
+    subject,
     text: bodyText,
     to: to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
   };
