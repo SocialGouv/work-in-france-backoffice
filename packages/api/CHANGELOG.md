@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.18](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.17...v2.2.18) (2020-10-07)
+
+
+### Bug Fixes
+
+* **email:** do not force secure connection with tipimail ([c5c9eca](https://github.com/SocialGouv/work-in-france-backoffice/commit/c5c9eca6dbaadc3bc31dbd84c914d82bf2598650))
+
+
+
+
+
 ## [2.2.17](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.16...v2.2.17) (2020-10-06)
 
 
