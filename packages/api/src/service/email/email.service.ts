@@ -45,12 +45,13 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   email: Email
 ) => {
   logger.info(`[EmailService.sendEmail] ${email.subject}`);
+  const { bcc = [], subject, bodyText, to } = email;
   const message: Options = {
-    bcc: email.bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
+    bcc: bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
     from: configuration.mailFrom,
-    subject: email.subject,
-    text: email.bodyText,
-    to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
+    subject: subject,
+    text: bodyText,
+    to: to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
   };
 
   if (email.attachments) {
