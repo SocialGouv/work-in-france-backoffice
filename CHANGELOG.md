@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.21](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.20...v2.2.21) (2020-10-08)
+
+
+### Reverts
+
+* Revert "fix(config): use contact@work-in-france.fr as email recepient" ([eea6c2e](https://github.com/SocialGouv/work-in-france-backoffice/commit/eea6c2ec8c264044b92487a259a32df82f50d6c8))
+
+
+
+
+
 ## [2.2.20](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.19...v2.2.20) (2020-10-07)
 
 
