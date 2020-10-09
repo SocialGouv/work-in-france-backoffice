@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.22](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.21...v2.2.22) (2020-10-09)
+
+
+### Reverts
+
+* Revert "fix(config): allow monthly report the 8th this month" ([acb8a7a](https://github.com/SocialGouv/work-in-france-backoffice/commit/acb8a7a7ebdc98e654837e67720633f7b4227650))
+
+
+
+
+
 ## [2.2.21](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.20...v2.2.21) (2020-10-08)
 
 
