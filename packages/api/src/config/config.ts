@@ -71,7 +71,7 @@ const configByEnvironment: {
     alertCron: "0 15 * * * *",
     alertEmailCron: "0 30 6 * * *",
     mailEnabled: true,
-    monthlyReportCron: "0 30 10 8 * *",
+    monthlyReportCron: "0 0 8 1 * *",
     monthlyReportEmailRecepient: "contact@workinfrance.beta.gouv.fr",
     sentryEnabled: true,
     validityCheckCleanerCron: "0 15 6 * * *",
