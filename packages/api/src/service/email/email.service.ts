@@ -24,7 +24,7 @@ export interface Email {
   attachments?: Attachment[];
 }
 
-const transporter = createTransport({
+export const transporter = createTransport({
   host: configuration.mailHost,
   port: configuration.mailPort,
   // secure: configuration.mailUseTLS, // true for 465, false for other ports
