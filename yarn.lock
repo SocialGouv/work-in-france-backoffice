@@ -5525,10 +5525,10 @@ kleur@^3.0.2:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-knex@^0.21.7:
-  version "0.21.7"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.7.tgz#c36e957d59504c250c98f39fd3bf6d9815cad636"
-  integrity sha512-f9DHi2nx2jHfza9JErcHxEi0ZLK7+kQhK7XtDIP5ud2k9MYbV5EpwneNJRppSdYAkqXkKeqlHWDcd7OYbLiB9A==
+knex@^0.21.11:
+  version "0.21.11"
+  resolved "https://registry.yarnpkg.com/knex/-/knex-0.21.11.tgz#9d10bd6cd0006edfdd0d714be3dab921091170b1"
+  integrity sha512-38ULvIELt9MWR8PfXoNPj/kcaAMLWnPScqIWu2Jd/XjRazS35Ti4qCPSaEvQZiOTxz/Ah0cU+jC5lstdSH5GqQ==
   dependencies:
     colorette "1.2.1"
     commander "^5.1.0"
@@ -5541,7 +5541,6 @@ knex@^0.21.7:
     pg-connection-string "2.3.0"
     tarn "^3.0.1"
     tildify "2.0.0"
-    uuid "^7.0.3"
     v8flags "^3.2.0"
 
 koa-bodyparser@^4.3.0:
@@ -8666,10 +8665,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.3.tgz#153bbd468ef07725c1df9c77e8b453f8d36abba5"
-  integrity sha512-tEu6DGxGgRJPb/mVPIZ48e69xCn2yRmCgYmDugAVwmJ6o+0u1RI18eO7E7WBTLYLaEVVOhwQmcdhQHweux/WPg==
+typescript@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
+  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
 
 tz-offset@0.0.1:
   version "0.0.1"
