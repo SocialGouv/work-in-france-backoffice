@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.24](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.23...v2.2.24) (2020-11-13)
+
+
+### Bug Fixes
+
+* **alert:** do not throw when testing presence ([#81](https://github.com/SocialGouv/work-in-france-backoffice/issues/81)) ([3fea972](https://github.com/SocialGouv/work-in-france-backoffice/commit/3fea972d1e1079a4fa96943abade15b9e6e0c458))
+
+
+
+
+
 ## [2.2.23](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.22...v2.2.23) (2020-10-29)
 
 
