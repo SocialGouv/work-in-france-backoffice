@@ -2,16 +2,17 @@ FROM node:14.11.0-alpine
 
 WORKDIR /app
 
-COPY ./packages/api/package.json yarn.lock /app/
+COPY package.json yarn.lock /app/
+COPY ./packages/api/package.json /app/packages/api/package.json
 
-RUN yarn --production --frozen-lockfile --cache-folder /dev/shm/yarn
+RUN  npx @socialgouv/yarn-workspace-focus-install --cwd packages/api --production -- --cache-folder /dev/shm/yarn
 
-COPY ./packages/api/knexfile.js ./packages/api/knexfile-aggregator.js /app/
-COPY ./packages/api/migrations /app/migrations
-COPY ./packages/api/dist /app/dist
+COPY ./packages/api/knexfile.js ./packages/api/knexfile-aggregator.js /app/packages/api/
+COPY ./packages/api/migrations /app/packages/api/migrations/
+COPY ./packages/api/dist /app/packages/api/dist/
 
 USER node
 
 ENV NODE_ENV=production
 
-CMD [ "node", "--enable-source-maps", "--unhandled-rejections=strict", "dist/src/server.js"]
+CMD [ "node", "--enable-source-maps", "--unhandled-rejections=strict", "/app/packages/api/dist/src/server.js"]
