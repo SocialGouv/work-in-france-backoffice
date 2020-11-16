@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.4...v2.3.5) (2020-11-16)
+
+
+### Bug Fixes
+
+* **k8s:** fix dev/preprod AGGREGATOR_DATABASE_URL ([#87](https://github.com/SocialGouv/work-in-france-backoffice/issues/87)) ([92bbedf](https://github.com/SocialGouv/work-in-france-backoffice/commit/92bbedfcd5717a0c04f914ad72580a82f2f6d4d8))
+* **x8s:** update AGGREGATOR_DATABASE_URL ([#86](https://github.com/SocialGouv/work-in-france-backoffice/issues/86)) ([d0976c0](https://github.com/SocialGouv/work-in-france-backoffice/commit/d0976c0ab9e5dd025f13fdcca5851afd10a050f1))
+
+
+
+
+
 ## [2.3.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.3...v2.3.4) (2020-11-16)
 
 
