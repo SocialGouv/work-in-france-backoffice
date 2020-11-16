@@ -29,7 +29,7 @@ class AlertRepository {
     return from(
       AlertModel.query().where({
         alert_type: alertType,
-        ds_key: dsKey
+        ds_key: dsKey,
       })
     );
   }
@@ -37,7 +37,7 @@ class AlertRepository {
   public findByEmailState(state: AlertEmailState): Observable<Alert[]> {
     return from(
       AlertModel.query().where({
-        email_state: state
+        email_state: state,
       })
     );
   }

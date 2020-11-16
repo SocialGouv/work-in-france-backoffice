@@ -72,5 +72,5 @@ export const alertMessages = {
 
   receivedAndDelayTooLong: "durée d'instruction de dossier dépassée",
 
-  initiatedAndDelayTooLong: "durée de construction de dossier dépassée"
+  initiatedAndDelayTooLong: "durée de construction de dossier dépassée",
 };

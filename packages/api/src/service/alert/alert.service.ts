@@ -15,7 +15,7 @@ import {
   isInitiated,
   isReceived,
   isRefused,
-  isWithoutContinuation
+  isWithoutContinuation,
 } from "../../model";
 import {
   Alert,
@@ -23,7 +23,7 @@ import {
   alertMaxInitiatedTimeInDays,
   alertMaxReceivedTimeInDays,
   alertMessages,
-  AlertType
+  AlertType,
 } from "../../model/alert.model";
 import { alertRepository } from "../../repository/alert.repository";
 import { getAlertEmail } from "./alert.email";
@@ -166,7 +166,7 @@ class AlertService {
         processed_at: dossier.metadata.processed_at
           ? new Date(dossier.metadata.processed_at)
           : null,
-        state: dossier.metadata.state
+        state: dossier.metadata.state,
       };
       const email = getAlertEmail(alert);
 

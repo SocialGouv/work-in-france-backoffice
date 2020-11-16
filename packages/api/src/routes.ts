@@ -3,11 +3,11 @@ import { configuration } from "./config";
 import {
   alertController,
   monthlyReportController,
-  validityCheckController
+  validityCheckController,
 } from "./controller";
 
 const routeOptions: Router.IRouterOptions = {
-  prefix: "/api"
+  prefix: "/api",
 };
 
 const router = new Router(routeOptions);

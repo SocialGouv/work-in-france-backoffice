@@ -25,7 +25,7 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
     { header: "Lien", key: "url", width: 30 },
     { header: "Email - Date traitement", key: "email_processed_at", width: 30 },
     { header: "Email - Etat", key: "email_state", width: 30 },
-    { header: "Email", key: "email", width: 100 }
+    { header: "Email", key: "email", width: 100 },
   ];
 
   alerts
@@ -52,6 +52,6 @@ const exportRows: (alert: Alert) => RowAlert = (alert: Alert) => {
       ? format(alert.processed_at, "DD/MM/YYYY")
       : "",
     state: alert.state,
-    url: alert.url
+    url: alert.url,
   };
 };

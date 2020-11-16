@@ -12,7 +12,7 @@ class MonthlyReportRepository {
       MonthlyReportModel.query()
         .where({
           month,
-          year
+          year,
         })
         .andWhereRaw(`"group" @> '{"id":"${groupId}"}'::jsonb`)
         .delete()
@@ -34,7 +34,7 @@ class MonthlyReportRepository {
   ): Observable<MonthlyReport[]> {
     let queryBuilder = MonthlyReportModel.query().where({
       month,
-      year
+      year,
     });
     if (groupId) {
       queryBuilder = queryBuilder.andWhereRaw(

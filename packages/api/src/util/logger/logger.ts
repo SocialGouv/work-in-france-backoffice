@@ -11,7 +11,7 @@ const appendErrorInfo = (info: any, error: Error) => {
   return {
     ...info,
     message: error.message,
-    stack: error.stack
+    stack: error.stack,
   };
 };
 
@@ -52,9 +52,9 @@ const wLogger = createLogger({
   transports: [
     new transports.Console({
       format: alignedWithColorsAndTime,
-      handleExceptions: true
-    })
-  ]
+      handleExceptions: true,
+    }),
+  ],
 });
 
 const logger = {
@@ -65,7 +65,7 @@ const logger = {
       captureException(err);
     }
   },
-  info: (message: string) => wLogger.info(message)
+  info: (message: string) => wLogger.info(message),
 };
 
 export default logger;

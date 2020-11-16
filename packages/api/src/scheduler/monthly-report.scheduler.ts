@@ -20,13 +20,13 @@ export const monthlyReportScheduler = {
         )
       );
     });
-  }
+  },
 };
 
 const getPreviousMonthYear: () => YearMonth = () => {
   const date = addMonths(new Date(), -1);
   return {
     month: getMonth(date),
-    year: getYear(date)
+    year: getYear(date),
   };
 };

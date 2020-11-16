@@ -32,12 +32,12 @@ const transporter = createTransport({
   auth: {
     user: configuration.mailUsername,
     // tslint:disable-next-line: object-literal-sort-keys
-    pass: configuration.mailPassword
-  }
+    pass: configuration.mailPassword,
+  },
 });
 
 const fakeSentMessageInfo = {
-  messageId: "fakeSendMessageInfo.messageId"
+  messageId: "fakeSendMessageInfo.messageId",
 };
 
 // https://github.com/nodemailer/nodemailer/blob/master/examples/sendmail.js
@@ -51,14 +51,14 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
     from: configuration.mailFrom,
     subject,
     text: bodyText,
-    to: to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
+    to: to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
   };
 
   if (email.attachments) {
     message.attachments = email.attachments.map((a: Attachment) => ({
       cid: a.path, // should be as unique as possible
       filename: a.filename,
-      path: a.path
+      path: a.path,
     }));
   }
 

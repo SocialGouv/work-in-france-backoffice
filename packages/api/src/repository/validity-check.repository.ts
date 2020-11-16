@@ -13,7 +13,7 @@ class ValidityCheckRepository {
   public findByDSKey(dsKey: string): Observable<ValidityCheck[]> {
     return from(
       ValidityCheckModel.query().where({
-        ds_key: dsKey
+        ds_key: dsKey,
       })
     );
   }
@@ -22,7 +22,7 @@ class ValidityCheckRepository {
     return from(
       ValidityCheckModel.query()
         .where({
-          ds_key: dsKey
+          ds_key: dsKey,
         })
         .delete()
     );
@@ -34,9 +34,7 @@ class ValidityCheckRepository {
 
   public deleteByFinAPTBefore(timestamp: Date) {
     return from(
-      ValidityCheckModel.query()
-        .where("fin_apt", "<", timestamp)
-        .delete()
+      ValidityCheckModel.query().where("fin_apt", "<", timestamp).delete()
     );
   }
 
@@ -47,7 +45,7 @@ class ValidityCheckRepository {
     return from(
       ValidityCheckModel.query().where({
         date_de_naissance: dateNaissance,
-        dossier_id: dossierId
+        dossier_id: dossierId,
       })
     );
   }

@@ -35,5 +35,5 @@ export const monthlyReportController = {
     extractorService.launchGlobalMonthlyReportSynchro();
     ctx.status = 200;
     ctx.body = { message: `[Monthly Reports] Global synchonisation launched` };
-  }
+  },
 };
