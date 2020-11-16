@@ -110,7 +110,7 @@ class ExcelBuilder {
   }
 
   private cell(row: number, col: number) {
-    return this.worksheet.getCell(row, col);
+    return this.worksheet.getRow(row).getCell(col);
   }
 }
 
