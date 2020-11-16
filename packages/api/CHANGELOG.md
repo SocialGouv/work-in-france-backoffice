@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.3...v2.3.4) (2020-11-16)
+
+
+### Bug Fixes
+
+* **api:** add knex searchPath ([bcff02f](https://github.com/SocialGouv/work-in-france-backoffice/commit/bcff02fc4484541c7790037c6a43425394efd651))
+
+
+
+
+
 ## [2.3.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.2...v2.3.3) (2020-11-16)
 
 
