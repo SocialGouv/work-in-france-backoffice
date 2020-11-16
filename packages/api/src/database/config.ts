@@ -17,7 +17,7 @@ const aggregatorDatabase = Knex(
     ? // tslint:disable-next-line: no-var-requires
       require(process.env.KNEXFILE_AGGREGATOR)
     : // tslint:disable-next-line: no-var-requires
-      require(join(__dirname, "..", "..", "knexfile"))
+      require(join(__dirname, "..", "..", "knexfile-aggregator"))
 );
 
 export { aggregatorDatabase };
