@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.6](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.5...v2.3.6) (2020-11-16)
+
+
+### Bug Fixes
+
+* **api:** wrong knex config ([9046ea7](https://github.com/SocialGouv/work-in-france-backoffice/commit/9046ea7a5efb699ea60502fb1cdd175dd03e1afc))
+
+
+
+
+
 ## [2.3.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.4...v2.3.5) (2020-11-16)
 
 **Note:** Version bump only for package api
