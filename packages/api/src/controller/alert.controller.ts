@@ -31,5 +31,5 @@ export const alertController = {
     extractorService.launchGlobalAlertSynchro();
     ctx.status = 200;
     ctx.body = { message: "[Alerts] Global synchonisation launched" };
-  }
+  },
 };

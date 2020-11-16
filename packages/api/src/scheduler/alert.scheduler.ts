@@ -41,7 +41,7 @@ export const alertScheduler = {
         concatMap((alert: Alert) => sendAlertEmail(alert))
       );
     });
-  }
+  },
 };
 
 function sendAlertEmail(alert: Alert): Observable<Alert> {

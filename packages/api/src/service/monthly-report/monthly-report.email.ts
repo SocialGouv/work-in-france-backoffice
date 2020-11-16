@@ -18,7 +18,7 @@ export const sendMonthlyReportEmail = (report: MonthlyReport) => {
     ),
     map((arg: any) => ({
       ...arg,
-      email: buildMonthlyReportEmail(arg.report, arg.tempFileName.name)
+      email: buildMonthlyReportEmail(arg.report, arg.tempFileName.name),
     })),
     concatMap(
       (arg: any) => sendEmail(arg.email),
@@ -39,8 +39,8 @@ const buildMonthlyReportEmail = (report: MonthlyReport, path: string) => {
     to: [
       {
         email: configuration.monthlyReportEmailRecepient,
-        name: configuration.monthlyReportEmailRecepient
-      }
+        name: configuration.monthlyReportEmailRecepient,
+      },
     ],
     // tslint:disable-next-line: object-literal-sort-keys
     bcc: [],
@@ -56,8 +56,8 @@ const buildMonthlyReportEmail = (report: MonthlyReport, path: string) => {
       {
         cid: filename,
         filename,
-        path
-      }
-    ]
+        path,
+      },
+    ],
   };
 };

@@ -41,7 +41,7 @@ class ExtractorService {
         next: (alert: Alert) =>
           logger.info(
             `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
-          )
+          ),
       });
   }
 
@@ -55,7 +55,7 @@ class ExtractorService {
         next: (next: MonthlyReport) =>
           logger.info(
             `[monthly reports synchro] report ${next.year}-${next.month} ${next.group.label} synchronised `
-          )
+          ),
       });
   }
 }

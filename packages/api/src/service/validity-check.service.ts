@@ -9,7 +9,7 @@ import {
   getNomValue,
   getPrenomValue,
   hasExpired,
-  ValidityCheck
+  ValidityCheck,
 } from "../model";
 import { validityCheckRepository } from "../repository";
 import { obfuscate } from "../util";
@@ -48,7 +48,7 @@ class ValidityCheckService {
       has_expired: hasExpired(record),
       date_de_debut_apt: getDateDebutAPTValue(record),
       date_de_fin_apt: getDateFinAPTValue(record),
-      fin_apt: dateFinAPT ? dateFinAPT : new Date(0)
+      fin_apt: dateFinAPT ? dateFinAPT : new Date(0),
     };
     return validityCheckRepository.findByDSKey(validityCheck.ds_key).pipe(
       mergeMap((res: any) => {

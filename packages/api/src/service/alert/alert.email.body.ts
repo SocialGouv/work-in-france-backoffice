@@ -4,7 +4,7 @@ import {
   alertMaxInitiatedTimeInDays,
   alertMaxReceivedTimeInDays,
   AlertType,
-  getDossierId
+  getDossierId,
 } from "../../model";
 
 const bonjour = `Bonjour,`;
@@ -91,7 +91,7 @@ Nous vous suggérons de déposer un nouveau dossier à partir du ${aptDateDebutP
     alert.ds_key
   )} approche ${alertMaxReceivedTimeInDays} jours.
 
-  ${delayTooLongAdvice}.`
+  ${delayTooLongAdvice}.`,
 };
 
 function messageReceived(alert: Alert) {

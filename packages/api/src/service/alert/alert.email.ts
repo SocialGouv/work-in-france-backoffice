@@ -4,7 +4,7 @@ import { getAlertEmailBody } from "./alert.email.body";
 
 const emailAddress: (address: string) => EmailAddress = (address: string) => ({
   email: address,
-  name: address
+  name: address,
 });
 
 const contactWorkInFrance = "contact@workinfrance.beta.gouv.fr";
@@ -23,7 +23,7 @@ const alertEmails: {
     bodyText: getAlertEmailBody(alert),
     cci: alert.email_instructors.map(emailAddress),
     subject: subjectUsager(alert),
-    to: [emailAddress(alert.email_usager)]
+    to: [emailAddress(alert.email_usager)],
   }),
 
   closedWithDebutSupFin: (alert: Alert) => ({
@@ -31,7 +31,7 @@ const alertEmails: {
     bodyText: getAlertEmailBody(alert),
     cci: alert.email_instructors.map(emailAddress),
     subject: subjectUsager(alert),
-    to: [emailAddress(alert.email_usager)]
+    to: [emailAddress(alert.email_usager)],
   }),
 
   closedWithSupOneYear: (alert: Alert) => {
@@ -40,7 +40,7 @@ const alertEmails: {
       bodyText: getAlertEmailBody(alert),
       cci: alert.email_instructors.map(emailAddress),
       subject: subjectUsager(alert),
-      to: [emailAddress(alert.email_usager)]
+      to: [emailAddress(alert.email_usager)],
     };
   },
 
@@ -49,7 +49,7 @@ const alertEmails: {
   withoutContinuationAndMessageReceived: () => undefined,
 
   initiatedAndDelayTooLong: () => undefined,
-  receivedAndDelayTooLong: () => undefined
+  receivedAndDelayTooLong: () => undefined,
 
   // closedAndMessageReceived: (alert: Alert) => {
   //   return {

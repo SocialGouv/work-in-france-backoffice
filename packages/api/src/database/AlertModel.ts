@@ -10,7 +10,7 @@ class AlertModel extends Model implements Alert {
   public url: string = "";
   public group: DSGroup = {
     id: "",
-    label: ""
+    label: "",
   };
   public alert_type: AlertType = "closedWithoutDateDebutOrDateFin";
   public message: string = "";

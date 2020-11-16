@@ -15,7 +15,7 @@ export const validityCheckController = {
     if (!data) {
       ctx.body = {
         data: [],
-        status: "invalid"
+        status: "invalid",
       };
     } else {
       ctx.body = {
@@ -28,11 +28,11 @@ export const validityCheckController = {
             has_expired: data.has_expired,
             nom: data.nom,
             prenom: data.prenom,
-            siret: data.siret
-          }
+            siret: data.siret,
+          },
         ],
-        status: "valid"
+        status: "valid",
       };
     }
-  }
+  },
 };

@@ -10,7 +10,7 @@ if (configuration.sentryEnabled) {
     environment: "production",
     integrations: [new Sentry.Integrations.Http({ tracing: true })],
     tracesSampleRate: 1.0,
-    release: version
+    release: version,
   });
 }
 
@@ -18,7 +18,7 @@ const appendErrorInfo = (info: any, error: Error) => {
   return {
     ...info,
     message: error.message,
-    stack: error.stack
+    stack: error.stack,
   };
 };
 
@@ -59,9 +59,9 @@ const wLogger = createLogger({
   transports: [
     new transports.Console({
       format: alignedWithColorsAndTime,
-      handleExceptions: true
-    })
-  ]
+      handleExceptions: true,
+    }),
+  ],
 });
 
 const logger = {
@@ -72,7 +72,7 @@ const logger = {
       Sentry.captureException(err);
     }
   },
-  info: (message: string) => wLogger.info(message)
+  info: (message: string) => wLogger.info(message),
 };
 
 export default logger;

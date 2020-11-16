@@ -12,7 +12,7 @@ import { alertScheduler } from "./scheduler/alert.scheduler";
 import { logger } from "./util";
 import {
   extractTraceparentData,
-  stripUrlQueryAndFragment
+  stripUrlQueryAndFragment,
 } from "@sentry/tracing";
 
 dbConnect();
@@ -39,8 +39,8 @@ const requestHandler = (ctx: Koa.Context, next: Koa.Next) => {
       ctx.app.emit("error", err, ctx);
     });
     local.run(async () => {
-      Sentry.getCurrentHub().configureScope(scope =>
-        scope.addEventProcessor(event =>
+      Sentry.getCurrentHub().configureScope((scope) =>
+        scope.addEventProcessor((event) =>
           Sentry.Handlers.parseRequest(event, ctx.request, { user: false })
         )
       );
@@ -64,7 +64,7 @@ const tracingMiddleWare = async (ctx: Koa.Context, next: Koa.Next) => {
   const transaction = Sentry.startTransaction({
     name: `${reqMethod} ${reqUrl}`,
     op: "http.server",
-    ...traceparentData
+    ...traceparentData,
   });
 
   ctx.__sentry_transaction = transaction;
@@ -83,8 +83,8 @@ app.use(requestHandler);
 app.use(tracingMiddleWare);
 
 app.on("error", (err, ctx: Koa.Context) => {
-  Sentry.withScope(scope => {
-    scope.addEventProcessor(event => {
+  Sentry.withScope((scope) => {
+    scope.addEventProcessor((event) => {
       return Sentry.Handlers.parseRequest(event, ctx.request);
     });
     // will call `Sentry.captureException(err);`

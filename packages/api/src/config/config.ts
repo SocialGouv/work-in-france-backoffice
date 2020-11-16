@@ -47,7 +47,7 @@ const configByEnvironment: {
     monthlyReportEmailRecepient: "",
     sentryEnabled: false,
     validityCheckCleanerCron: "0 15 6 * * *",
-    validityCheckCron: "0 15 * * * *"
+    validityCheckCron: "0 15 * * * *",
   }),
   "dev.local": (env: typeof process.env) => ({
     alertCron: asString(env, "ALERT_CRON", "0 0 5 * * *"),
@@ -65,7 +65,7 @@ const configByEnvironment: {
       "VALIDITY_CHECK_CLEANER_CRON",
       "0 15 6 * * *"
     ),
-    validityCheckCron: asString(env, "VALIDITY_CHECK_CRON", "0 0 * * * *")
+    validityCheckCron: asString(env, "VALIDITY_CHECK_CRON", "0 0 * * * *"),
   }),
   prod: () => ({
     alertCron: "0 15 * * * *",
@@ -75,8 +75,8 @@ const configByEnvironment: {
     monthlyReportEmailRecepient: "contact@workinfrance.beta.gouv.fr",
     sentryEnabled: true,
     validityCheckCleanerCron: "0 15 6 * * *",
-    validityCheckCron: "0 0 * * * *"
-  })
+    validityCheckCron: "0 0 * * * *",
+  }),
 };
 
 export const getConfiguration = (env: typeof process.env) => {
@@ -108,6 +108,6 @@ export const getConfiguration = (env: typeof process.env) => {
     sentryDSN: asString(env, "SENTRY_DSN", ""),
     sentryEnabled: envConfig.sentryEnabled,
     validityCheckCleanerCron: envConfig.validityCheckCleanerCron,
-    validityCheckCron: envConfig.validityCheckCron
+    validityCheckCron: envConfig.validityCheckCron,
   };
 };

@@ -4,7 +4,7 @@ import { from, Observable } from "rxjs";
 import { Stream } from "stream";
 import {
   MonthlyReport,
-  MonthlyReportCounter
+  MonthlyReportCounter,
 } from "../../model/monthly-report.model";
 import {
   addBorder,
@@ -12,7 +12,7 @@ import {
   createWorkbook,
   fontBold,
   fontTitle,
-  fontTitle2
+  fontTitle2,
 } from "../excel.util";
 
 class ExcelBuilder {
@@ -85,7 +85,7 @@ class ExcelBuilder {
     addBorder(titleCell, "thin");
     this.worksheet.mergeCells(row, col, row, col + 3);
     this.addData(row + 2, col, {
-      Acceptées: report.count
+      Acceptées: report.count,
     });
 
     const subTitleCell = this.cell(row + 4, col);
@@ -132,14 +132,14 @@ export const writeMonthlyReport: (
     Année: `${report.year}`,
     Mois: format(monthDate, "MMMM"),
     // tslint:disable-next-line: object-literal-sort-keys
-    Département: report.group.label
+    Département: report.group.label,
   });
 
   builder.addData(4, 7, {
     "APT acceptées":
       report.accepted.less3Months.count + report.accepted.more3Months.count,
     "APT refusées": report.refused.count,
-    "APT sans suite": report.withoutContinuation.count
+    "APT sans suite": report.withoutContinuation.count,
   });
 
   builder.addAPT("APT + 3mois", 10, 2, report.accepted.more3Months);

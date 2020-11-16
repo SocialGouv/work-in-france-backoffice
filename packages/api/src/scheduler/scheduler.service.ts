@@ -37,10 +37,10 @@ export const handleScheduler = (
       .subscribe({
         complete: () => {
           synchroHistoryService.update(scheduler, end).subscribe({
-            complete: () => completeProcess(scheduler)
+            complete: () => completeProcess(scheduler),
           });
         },
-        error: (err: any) => handleError(scheduler, err)
+        error: (err: any) => handleError(scheduler, err),
       });
   });
   logger.info(`[scheduler] ${scheduler} [${cron}] scheduled!`);
