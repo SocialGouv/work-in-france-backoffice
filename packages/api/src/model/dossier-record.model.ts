@@ -102,8 +102,15 @@ export const hasExpired = (dossier: DossierRecord): boolean => {
 
 export const getDateDebutAPTValue = (doc: DossierRecord) =>
   getPrivateFieldValue(doc, "Date de début APT");
-export const getDateFinAPTValue = (doc: DossierRecord) =>
-  getPrivateFieldValue(doc, "Date de fin APT");
+export const getDateFinAPTValue = (doc: DossierRecord) => {
+  try {
+    return getPrivateFieldValue(doc, "Date de fin APT");
+  } catch (error) {
+    // Throwing here means that it's not present...
+    return "";
+  }
+};
+
 export const getPrenomValue = (doc: DossierRecord) => {
   try {
     return getPublicFieldValue(doc, "Prénom");
