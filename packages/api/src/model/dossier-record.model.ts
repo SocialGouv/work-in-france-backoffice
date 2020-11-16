@@ -109,7 +109,7 @@ export const getDateFinAPTValue = (doc: DossierRecord) => {
     // Throwing here means that it's not present...
     return "";
   }
-}
+};
 
 export const getPrenomValue = (doc: DossierRecord) => {
   try {
