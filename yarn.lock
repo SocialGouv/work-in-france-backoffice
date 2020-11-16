@@ -1575,13 +1575,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/exceljs@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@types/exceljs/-/exceljs-0.5.3.tgz#bcf3b8192ed9050d5ccd7c71b27dc817c8c7d41c"
-  integrity sha512-a0PLZEJGbA4kHHoSS8cQ20ynIv17vCBV1reqsrX5ksQQb077YYvhEKC82lEq6/+mMufhk68KJ5jwugL3DKG8sQ==
-  dependencies:
-    "@types/node" "*"
-
 "@types/express-serve-static-core@*":
   version "4.16.7"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.16.7.tgz#50ba6f8a691c08a3dd9fa7fba25ef3133d298049"
@@ -7136,9 +7129,9 @@ prepend-http@^2.0.0:
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
 prettier@^1.17.0:
-  version "1.18.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
-  integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
+  integrity sha512-s7PoyDv/II1ObgQunCbB9PdLmUcBZcnWOcxDh7O0N/UwDEsHyqkW+Qh28jW+mVuCdx7gLB0BotYI1Y6uI9iyew==
 
 pretty-format@^26.0.0, pretty-format@^26.6.2:
   version "26.6.2"
