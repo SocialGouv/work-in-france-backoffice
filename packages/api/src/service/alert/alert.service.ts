@@ -237,7 +237,12 @@ const delayTooLong = (date: Date | null, maxDelay: number) => {
 };
 
 const isDateDebutAPTNotPresent = (dossier: DossierRecord) => {
-  return getDateDebutAPT(dossier) == null;
+  try {
+    return getDateDebutAPT(dossier) == null;
+  } catch (error) {
+    // Throwing here means that it's not present...
+    return false;
+  }
 };
 
 const isDateFinAPTNotPresent = (dossier: DossierRecord) => {

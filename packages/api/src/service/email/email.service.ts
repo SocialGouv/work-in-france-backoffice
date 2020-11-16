@@ -24,7 +24,7 @@ export interface Email {
   attachments?: Attachment[];
 }
 
-const transporter = createTransport({
+export const transporter = createTransport({
   host: configuration.mailHost,
   port: configuration.mailPort,
   // secure: configuration.mailUseTLS, // true for 465, false for other ports
@@ -47,7 +47,7 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   logger.info(`[EmailService.sendEmail] ${email.subject}`);
   const { bcc = [], subject, bodyText, to } = email;
   const message: Options = {
-    bcc: bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
+    cc: bcc.map((r: EmailAddress) => `"${r.name}" <${r.email}>`).join(","),
     from: configuration.mailFrom,
     subject,
     text: bodyText,

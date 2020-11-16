@@ -1,6 +1,6 @@
 {
   "name": "api",
-  "version": "2.2.22",
+  "version": "2.3.0",
   "main": "index.js",
   "author": "Incubateur des Ministères Sociaux <dsi-incubateur@sg.social.gouv.fr> (https://incubateur.social.gouv.fr)",
   "license": "Apache-2.0",
@@ -14,12 +14,13 @@
   },
   "dependencies": {
     "@koa/cors": "^3.1.0",
-    "@sentry/node": "5.24.2",
+    "@sentry/node": "^5.27.4",
+    "@sentry/tracing": "^5.27.4",
     "@types/exceljs": "^0.5.3",
     "date-fns": "^1.30.1",
     "dotenv": "^8.2.0",
     "exceljs": "^4.1.1",
-    "knex": "^0.21.7",
+    "knex": "^0.21.11",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^9.4.0",
@@ -27,7 +28,6 @@
     "nodemailer": "^6.4.14",
     "objection": "^2.2.3",
     "pg": "^8.3.3",
-    "raven": "^2.6.4",
     "rxjs": "^6.6.3",
     "stream-buffers": "^3.0.2",
     "tmp": "^0.2.1",
@@ -55,6 +55,6 @@
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   }
 }

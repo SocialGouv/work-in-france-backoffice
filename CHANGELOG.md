@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.3.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.24...v2.3.0) (2020-11-16)
+
+
+### Bug Fixes
+
+* **k8s:** move yaml files to manigfests folder ([#84](https://github.com/SocialGouv/work-in-france-backoffice/issues/84)) ([77a7a11](https://github.com/SocialGouv/work-in-france-backoffice/commit/77a7a11fc93e1b71a43534270c7021efd0a8a4cb))
+
+
+### Features
+
+* **gitlab:** update to SocialGouv/gitlab-ci-yml v18.11.0 ([#83](https://github.com/SocialGouv/work-in-france-backoffice/issues/83)) ([e68316b](https://github.com/SocialGouv/work-in-france-backoffice/commit/e68316b1237e80d73f9b83debdc0d2ac11543c3b))
+* **server:** use sentry node instead of raven ([#82](https://github.com/SocialGouv/work-in-france-backoffice/issues/82)) ([a3ff781](https://github.com/SocialGouv/work-in-france-backoffice/commit/a3ff7810786a033711ddfd102ceddc8fe7b6a3e0))
+
+
+
+
+
+## [2.2.24](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.23...v2.2.24) (2020-11-13)
+
+
+### Bug Fixes
+
+* **alert:** do not throw when testing presence ([#81](https://github.com/SocialGouv/work-in-france-backoffice/issues/81)) ([3fea972](https://github.com/SocialGouv/work-in-france-backoffice/commit/3fea972d1e1079a4fa96943abade15b9e6e0c458))
+
+
+
+
+
+## [2.2.23](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.22...v2.2.23) (2020-10-29)
+
+
+### Bug Fixes
+
+* **email:** use cc instead of bcc ([db23557](https://github.com/SocialGouv/work-in-france-backoffice/commit/db23557ddfe626a782eddd91cc400c474b23b274))
+
+
+
+
+
 ## [2.2.22](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.21...v2.2.22) (2020-10-09)
 
 
