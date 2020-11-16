@@ -53,7 +53,7 @@ deployment.spec.template.spec.initContainers = [
     name: "knex-migrate",
     image: deployment.spec.template.spec.containers[0].image,
     command: ["yarn"],
-    args: ["--cwd", "packages/api", "migrate"],
+    args: ["migrate"],
     resources: {
       requests: {
         cpu: "1000m",
