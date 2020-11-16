@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.2...v2.3.3) (2020-11-16)
+
+
+### Bug Fixes
+
+* **model:** returns invalid date if not present ([#85](https://github.com/SocialGouv/work-in-france-backoffice/issues/85)) ([474f401](https://github.com/SocialGouv/work-in-france-backoffice/commit/474f401ac8aaa85baf7e3b230d489eb6785bd1cf))
+
+
+
+
+
 ## [2.3.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.1...v2.3.2) (2020-11-16)
 
 **Note:** Version bump only for package api
