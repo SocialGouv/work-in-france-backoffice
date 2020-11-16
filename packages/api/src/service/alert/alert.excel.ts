@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { Column } from "exceljs";
 import { Stream } from "stream";
 import { Alert } from "../../model";
 import { asString } from "../../util";
@@ -23,10 +24,14 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
     { header: "Alerte", key: "message", width: 40 },
     { header: "Instructeurs", key: "instructors_history", width: 30 },
     { header: "Lien", key: "url", width: 30 },
-    { header: "Email - Date traitement", key: "email_processed_at", width: 30 },
+    {
+      header: "Email - Date traitement",
+      key: "email_processed_at",
+      width: 30,
+    },
     { header: "Email - Etat", key: "email_state", width: 30 },
     { header: "Email", key: "email", width: 100 },
-  ];
+  ] as Column[];
 
   alerts
     .map((alert: Alert) => exportRows(alert))
