@@ -52,8 +52,8 @@ deployment.spec.template.spec.initContainers = [
   {
     name: "knex-migrate",
     image: deployment.spec.template.spec.containers[0].image,
-    command: ["yarn"],
-    args: ["migrate"],
+    command: ["npx"],
+    args: ["knex migrate:latest"],
     resources: {
       requests: {
         cpu: "1000m",
