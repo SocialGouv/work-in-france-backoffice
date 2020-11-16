@@ -14,4 +14,4 @@ USER node
 
 ENV NODE_ENV=production
 
-CMD [ "node", "--enable-source-maps", "--unhandled-rejections=strict", "dist/server.js"]
+CMD [ "node", "--enable-source-maps", "--unhandled-rejections=strict", "dist/src/server.js"]
