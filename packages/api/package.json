@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon --watch 'src/**/*' -e ts --exec ts-node src/server.ts",
-    "build": "ncc build ./src/server.ts -o ./dist --source-map",
+    "build": "tsc",
     "migrate": "yarn knex migrate:latest",
     "lint": "tslint -p tsconfig.json -t stylish",
     "test": "jest"
@@ -48,7 +48,6 @@
     "@types/rx": "^4.1.2",
     "@types/stream-buffers": "^3.0.3",
     "@types/tmp": "^0.2.0",
-    "@vercel/ncc": "^0.25.1",
     "jest": "^26.6.3",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2",
