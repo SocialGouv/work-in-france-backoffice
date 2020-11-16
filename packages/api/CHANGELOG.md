@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.3.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.0...v2.3.1) (2020-11-16)
+
+
+### Bug Fixes
+
+* **database:** change path to knexfile ([7860dc7](https://github.com/SocialGouv/work-in-france-backoffice/commit/7860dc73b52736f7e6c778484399eef225d6cb03))
+* **docker:** use @socialgouv/yarn-workspace-focus-instal ([06f3900](https://github.com/SocialGouv/work-in-france-backoffice/commit/06f3900a148cce37caa97937b74227bea124fe53))
+
+
+
+
+
 # [2.3.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.2.24...v2.3.0) (2020-11-16)
 
 
