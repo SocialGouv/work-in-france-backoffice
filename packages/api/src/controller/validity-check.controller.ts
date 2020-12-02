@@ -21,6 +21,8 @@ export const validityCheckController = {
       ctx.body = {
         data: [
           {
+            champs: data.champs,
+            type: data.type,
             date_de_debut_apt: data.date_de_debut_apt,
             date_de_fin_apt: data.date_de_fin_apt,
             date_de_naissance: data.date_de_naissance,

@@ -31,11 +31,7 @@ export const initReport: (
   year: number,
   month: number,
   group: DSGroup
-) => MonthlyReport = (
-  year: number,
-  month: number,
-  group: { id: string; label: string }
-) => {
+) => MonthlyReport = (year: number, month: number, group: DSGroup) => {
   return {
     year,
     // tslint:disable-next-line: object-literal-sort-keys

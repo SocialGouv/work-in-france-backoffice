@@ -1,6 +1,8 @@
 import { IIdentifiable } from "../util/persistence";
+import { DSChamp, DSType } from "./dossier-record.model";
 
 export interface ValidityCheck extends IIdentifiable {
+  type: DSType;
   dossier_id: number;
   ds_key: string;
   siret: string;
@@ -11,6 +13,7 @@ export interface ValidityCheck extends IIdentifiable {
   date_de_debut_apt: string;
   date_de_fin_apt: string;
   fin_apt: Date;
+  champs: DSChamp[];
 }
 
 // "ds_id": 378335,

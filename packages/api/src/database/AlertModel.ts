@@ -11,6 +11,7 @@ class AlertModel extends Model implements Alert {
   public group: DSGroup = {
     id: "",
     label: "",
+    type: "autorisation",
   };
   public alert_type: AlertType = "closedWithoutDateDebutOrDateFin";
   public message: string = "";

@@ -1,9 +1,12 @@
 import { differenceInDays } from "date-fns";
 import { asDate, IIdentifiable, logger } from "../util";
 
+export type DSType = "introduction" | "autorisation";
+
 export interface DSGroup {
   id: string;
   label: string;
+  type: DSType;
 }
 
 export interface DSChamp {
@@ -90,10 +93,16 @@ const getPrivateFieldValue = (record: DossierRecord, libelle: string) => {
 };
 
 export const hasExpired = (dossier: DossierRecord): boolean => {
+  const type = getType(dossier);
+  if (type === "introduction") {
+    return false;
+  }
   const endDate = getDateFinAPT(dossier);
+
   if (!endDate) {
     return true;
   }
+
   if (endDate < new Date()) {
     return true;
   }
@@ -102,6 +111,7 @@ export const hasExpired = (dossier: DossierRecord): boolean => {
 
 export const getDateDebutAPTValue = (doc: DossierRecord) =>
   getPrivateFieldValue(doc, "Date de début APT");
+
 export const getDateFinAPTValue = (doc: DossierRecord) => {
   try {
     return getPrivateFieldValue(doc, "Date de fin APT");
@@ -132,6 +142,7 @@ export const getDateDebutInstruction = (doc: DossierRecord) =>
   asDate(doc.metadata.received_at);
 export const getDateDebutConstruction = (doc: DossierRecord) =>
   asDate(doc.metadata.initiated_at);
+export const getType = (doc: DossierRecord): DSType => doc.metadata.group.type;
 
 export const isLong = (doc: DossierRecord) => {
   const startDate = getDateDebutAPT(doc);
