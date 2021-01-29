@@ -10,7 +10,7 @@ import {
   isLong,
   isRefused,
   isWithoutContinuation,
-  ProcedureConfig
+  ProcedureConfig,
 } from "../../model";
 import { initReport, MonthlyReport } from "../../model/monthly-report.model";
 import { monthlyReportRepository } from "../../repository";

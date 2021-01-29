@@ -1,19 +1,19 @@
-ARG NODE_VERSION=10.15.3
-
-FROM node:${NODE_VERSION} as builder
-WORKDIR /app
-
-COPY packages/api /app
-COPY yarn.lock /app/yarn.lock
-
-RUN yarn
-RUN yarn build
-
-FROM node:${NODE_VERSION}
+FROM node:14.11.0-alpine
 
 WORKDIR /app
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/node_modules /app/node_modules
-COPY --from=builder /app/package.json /app/package.json
 
-CMD [ "node", "dist/server.js"]
+COPY package.json yarn.lock /app/
+COPY ./packages/api/package.json /app/packages/api/package.json
+
+RUN  npx @socialgouv/yarn-workspace-focus-install --cwd packages/api --production -- --cache-folder /dev/shm/yarn
+
+COPY ./packages/api/knexfile.js ./packages/api/knexfile-aggregator.js /app/packages/api/dist/
+COPY ./packages/api/knexfile.js ./packages/api/knexfile-aggregator.js /app/packages/api/
+COPY ./packages/api/migrations /app/packages/api/migrations/
+COPY ./packages/api/dist /app/packages/api/dist/
+
+USER node
+
+ENV NODE_ENV=production
+
+CMD [ "node", "--enable-source-maps", "--unhandled-rejections=strict", "/app/packages/api/dist/src/server.js"]

@@ -26,10 +26,10 @@ export interface Alert extends IIdentifiable {
   email_usager: string;
   email_instructors: string[];
   date_debut_apt: string;
-  processed_at: number | null;
+  processed_at: Date | null;
   email?: Email;
   email_state?: AlertEmailState;
-  email_processed_at?: number;
+  email_processed_at?: Date;
   state: string; // dossier state
 }
 
@@ -39,7 +39,7 @@ export interface AlertMessage {
 
 export const alertEmailShouldBeBlocked = (
   emailState: AlertEmailState | null,
-  processedAt: number | null
+  processedAt: Date | null
 ) => {
   if (!emailState) {
     return true;
@@ -72,5 +72,5 @@ export const alertMessages = {
 
   receivedAndDelayTooLong: "durée d'instruction de dossier dépassée",
 
-  initiatedAndDelayTooLong: "durée de construction de dossier dépassée"
+  initiatedAndDelayTooLong: "durée de construction de dossier dépassée",
 };

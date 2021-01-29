@@ -1,43 +1,45 @@
-import { Observable } from "rxjs";
-import { DeletedData } from "../lib";
+import { from, Observable } from "rxjs";
+import { AlertModel } from "../database/AlertModel";
 import { Alert, AlertEmailState } from "../model";
-import { KintoRepository } from "./kinto.repository";
 
-class AlertRepository extends KintoRepository<Alert> {
-  constructor() {
-    super("alerts");
-  }
-
+class AlertRepository {
   public all(): Observable<Alert[]> {
-    return this.collection.all();
+    return from(AlertModel.query());
   }
 
   public add(alert: Alert): Observable<Alert> {
-    return this.collection.add(alert);
+    return from(AlertModel.query().insert(alert));
   }
 
-  public deleteAll(): Observable<DeletedData[]> {
-    return this.collection.delete();
+  public deleteAll(): Observable<number> {
+    return from(AlertModel.query().delete());
   }
 
   public update(alert: Alert): Observable<Alert> {
     if (!alert.id) {
       throw new Error("try updating record without id.");
     }
-    return this.collection.update(alert.id, alert);
+    return from(AlertModel.query().patchAndFetchById(alert.id, alert));
   }
 
   public findByDSKeyAndCode(
     dsKey: string,
     alertType: string
   ): Observable<Alert[]> {
-    return this.collection.search(
-      `ds_key="${dsKey}"&alert_type="${alertType}"`
+    return from(
+      AlertModel.query().where({
+        alert_type: alertType,
+        ds_key: dsKey,
+      })
     );
   }
 
   public findByEmailState(state: AlertEmailState): Observable<Alert[]> {
-    return this.collection.search(`email_state="${state}"`);
+    return from(
+      AlertModel.query().where({
+        email_state: state,
+      })
+    );
   }
 }
 

@@ -1,6 +1,8 @@
+import { format } from "date-fns";
+import { Column } from "exceljs";
 import { Stream } from "stream";
 import { Alert } from "../../model";
-import { asDateString, asString } from "../../util";
+import { asString } from "../../util";
 import { createWorkbook } from "../excel.util";
 
 interface RowAlert {
@@ -22,10 +24,14 @@ export const exportAlertsInExcel = async (alerts: Alert[], stream: Stream) => {
     { header: "Alerte", key: "message", width: 40 },
     { header: "Instructeurs", key: "instructors_history", width: 30 },
     { header: "Lien", key: "url", width: 30 },
-    { header: "Email - Date traitement", key: "email_processed_at", width: 30 },
+    {
+      header: "Email - Date traitement",
+      key: "email_processed_at",
+      width: 30,
+    },
     { header: "Email - Etat", key: "email_state", width: 30 },
-    { header: "Email", key: "email", width: 100 }
-  ];
+    { header: "Email", key: "email", width: 100 },
+  ] as Column[];
 
   alerts
     .map((alert: Alert) => exportRows(alert))
@@ -40,13 +46,17 @@ const exportRows: (alert: Alert) => RowAlert = (alert: Alert) => {
   return {
     ds_key: alert.ds_key,
     email: alert.email ? JSON.stringify(alert.email, undefined, 2) : "",
-    email_processed_at: asDateString(alert.email_processed_at, "DD/MM/YYYY"),
+    email_processed_at: alert.email_processed_at
+      ? format(alert.email_processed_at, "DD/MM/YYYY")
+      : "",
     email_state: alert.email_state ? alert.email_state : "",
     group: alert.group.label,
     instructors_history: asString(alert.instructors_history, ", "),
     message: alert.message,
-    processed_at: asDateString(alert.processed_at, "DD/MM/YYYY"),
+    processed_at: alert.processed_at
+      ? format(alert.processed_at, "DD/MM/YYYY")
+      : "",
     state: alert.state,
-    url: alert.url
+    url: alert.url,
   };
 };

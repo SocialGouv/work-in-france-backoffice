@@ -1,6 +1,5 @@
 import { EMPTY, Observable } from "rxjs";
 import { map, mergeMap } from "rxjs/operators";
-import { DeletedData } from "../lib";
 import {
   DossierRecord,
   getDateDebutAPTValue,
@@ -10,7 +9,7 @@ import {
   getNomValue,
   getPrenomValue,
   hasExpired,
-  ValidityCheck
+  ValidityCheck,
 } from "../model";
 import { validityCheckRepository } from "../repository";
 import { obfuscate } from "../util";
@@ -38,7 +37,6 @@ class ValidityCheckService {
 
   public addIfNotExists(record: DossierRecord): Observable<ValidityCheck> {
     const dateFinAPT = getDateFinAPT(record);
-    const finAPTTimestamp = dateFinAPT ? dateFinAPT.getTime() : 0;
     const validityCheck = {
       dossier_id: record.ds_data.id,
       ds_key: record.ds_key,
@@ -50,9 +48,7 @@ class ValidityCheckService {
       has_expired: hasExpired(record),
       date_de_debut_apt: getDateDebutAPTValue(record),
       date_de_fin_apt: getDateFinAPTValue(record),
-      metadata: {
-        fin_apt: finAPTTimestamp
-      }
+      fin_apt: dateFinAPT ? dateFinAPT : new Date(0),
     };
     return validityCheckRepository.findByDSKey(validityCheck.ds_key).pipe(
       mergeMap((res: any) => {
@@ -64,11 +60,11 @@ class ValidityCheckService {
     );
   }
 
-  public deleteAll(): Observable<DeletedData[]> {
+  public deleteAll(): Observable<number> {
     return validityCheckRepository.deleteAll();
   }
 
-  public deleteByFinAPTBefore(timestamp: number): Observable<DeletedData[]> {
+  public deleteByFinAPTBefore(timestamp: Date): Observable<number> {
     return validityCheckRepository.deleteByFinAPTBefore(timestamp);
   }
 }

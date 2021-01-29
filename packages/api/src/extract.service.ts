@@ -34,13 +34,15 @@ class ExtractorService {
   }
 
   private initAllAlertSynchro() {
-    this.syncAllAlerts$.pipe(concatMap(() => addAlerts(0))).subscribe({
-      error: (error: Error) => logger.error(`[alerts synchro] error`, error),
-      next: (alert: Alert) =>
-        logger.info(
-          `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
-        )
-    });
+    this.syncAllAlerts$
+      .pipe(concatMap(() => addAlerts(new Date(0))))
+      .subscribe({
+        error: (error: Error) => logger.error(`[alerts synchro] error`, error),
+        next: (alert: Alert) =>
+          logger.info(
+            `[alerts synchro] alert added ${alert.ds_key} ${alert.message}`
+          ),
+      });
   }
 
   private initAllMonthlyReportSynchro() {
@@ -53,7 +55,7 @@ class ExtractorService {
         next: (next: MonthlyReport) =>
           logger.info(
             `[monthly reports synchro] report ${next.year}-${next.month} ${next.group.label} synchronised `
-          )
+          ),
       });
   }
 }

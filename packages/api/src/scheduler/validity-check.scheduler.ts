@@ -1,7 +1,6 @@
 import { addMinutes } from "date-fns";
 import { filter, flatMap, mergeMap, tap } from "rxjs/operators";
 import { configuration } from "../config";
-import { DeletedData } from "../lib";
 import { DossierRecord, ValidityCheck } from "../model";
 import { dossierRecordService, validityCheckService } from "../service";
 import { logger } from "../util";
@@ -12,10 +11,13 @@ export const validityCheckScheduler = {
     handleScheduler(
       configuration.validityCheckCron,
       "validity-check",
-      (start: number) => {
-        const startLess10Minutes = addMinutes(new Date(start), -10).getTime();
+      (start: Date) => {
+        const startLess10Minutes = addMinutes(start, -10).getTime();
         return dossierRecordService
-          .allByStateAndLastModifiedGreaterThan("closed", startLess10Minutes)
+          .allByStateAndLastModifiedGreaterThan(
+            "closed",
+            startLess10Minutes < 0 ? 0 : startLess10Minutes
+          )
           .pipe(
             tap((res: DossierRecord[]) =>
               logger.info(`[syncValidityChecks] ${res.length} dossiers fetched`)
@@ -38,15 +40,15 @@ export const validityCheckScheduler = {
       () => {
         const now = new Date();
         return validityCheckService
-          .deleteByFinAPTBefore(now.getTime())
+          .deleteByFinAPTBefore(now)
           .pipe(
-            tap((res: DeletedData[]) =>
+            tap((res: number) =>
               logger.info(
-                `[cleanValidityChecks] ${res.length} validity checks deleted`
+                `[cleanValidityChecks] ${res} validity checks deleted`
               )
             )
           );
       }
     );
-  }
+  },
 };

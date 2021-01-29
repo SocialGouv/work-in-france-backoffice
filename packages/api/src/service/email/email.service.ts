@@ -24,20 +24,20 @@ export interface Email {
   attachments?: Attachment[];
 }
 
-const transporter = createTransport({
+export const transporter = createTransport({
   host: configuration.mailHost,
   port: configuration.mailPort,
-  secure: configuration.mailUseTLS, // true for 465, false for other ports
+  // secure: configuration.mailUseTLS, // true for 465, false for other ports
   // tslint:disable-next-line: object-literal-sort-keys
   auth: {
     user: configuration.mailUsername,
     // tslint:disable-next-line: object-literal-sort-keys
-    pass: configuration.mailPassword
-  }
+    pass: configuration.mailPassword,
+  },
 });
 
 const fakeSentMessageInfo = {
-  messageId: "fakeSendMessageInfo.messageId"
+  messageId: "fakeSendMessageInfo.messageId",
 };
 
 // https://github.com/nodemailer/nodemailer/blob/master/examples/sendmail.js
@@ -45,19 +45,20 @@ export const sendEmail: (email: Email) => Observable<SentMessageInfo> = (
   email: Email
 ) => {
   logger.info(`[EmailService.sendEmail] ${email.subject}`);
+  const { bcc = [], subject, bodyText, to } = email;
   const message: Options = {
-    bcc: email.bcc.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
+    cc: bcc.map((r: EmailAddress) => `"${r.name}" <${r.email}>`).join(","),
     from: configuration.mailFrom,
-    subject: email.subject,
-    text: email.bodyText,
-    to: email.to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(",")
+    subject,
+    text: bodyText,
+    to: to.map((r: EmailAddress) => `${r.name} <${r.email}>`).join(","),
   };
 
   if (email.attachments) {
     message.attachments = email.attachments.map((a: Attachment) => ({
       cid: a.path, // should be as unique as possible
       filename: a.filename,
-      path: a.path
+      path: a.path,
     }));
   }
 

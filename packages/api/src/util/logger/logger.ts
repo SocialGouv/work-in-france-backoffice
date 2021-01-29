@@ -1,17 +1,24 @@
 import { format } from "logform";
-import { captureException, config } from "raven";
+import * as Sentry from "@sentry/node";
+import { version } from "../../../package.json";
 import { createLogger, transports } from "winston";
 import { configuration } from "../../config";
 
 if (configuration.sentryEnabled) {
-  config(configuration.sentryDSN).install();
+  Sentry.init({
+    dsn: configuration.sentryDSN,
+    environment: "production",
+    integrations: [new Sentry.Integrations.Http({ tracing: true })],
+    tracesSampleRate: 1.0,
+    release: version,
+  });
 }
 
 const appendErrorInfo = (info: any, error: Error) => {
   return {
     ...info,
     message: error.message,
-    stack: error.stack
+    stack: error.stack,
   };
 };
 
@@ -52,9 +59,9 @@ const wLogger = createLogger({
   transports: [
     new transports.Console({
       format: alignedWithColorsAndTime,
-      handleExceptions: true
-    })
-  ]
+      handleExceptions: true,
+    }),
+  ],
 });
 
 const logger = {
@@ -62,10 +69,10 @@ const logger = {
   error: (message: string, err: Error) => {
     wLogger.error(message, err);
     if (configuration.sentryEnabled) {
-      captureException(err);
+      Sentry.captureException(err);
     }
   },
-  info: (message: string) => wLogger.info(message)
+  info: (message: string) => wLogger.info(message),
 };
 
 export default logger;

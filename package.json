@@ -2,13 +2,14 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
+    "k8s": "yarn --silent --cwd .k8s",
     "lint": "lerna run lint --parallel",
     "start": "lerna run start --parallel",
     "test": "lerna run test --parallel",
     "coverage": "lerna run test --parallel -- --coverage"
   },
   "devDependencies": {
-    "lerna": "^3.13.4"
+    "lerna": "^3.22.1"
   },
   "workspaces": [
     "packages/*"

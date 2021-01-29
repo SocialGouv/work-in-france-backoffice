@@ -31,6 +31,6 @@ export const addBorder = (cell: Cell, style: BorderStyle) => {
     // tslint:disable-next-line: object-literal-sort-keys
     left: { style },
     bottom: { style },
-    right: { style }
+    right: { style },
   };
 };

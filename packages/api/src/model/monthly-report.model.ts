@@ -24,7 +24,7 @@ export interface MonthlyReport extends IIdentifiable {
 const initMonthlyReportCounter: () => MonthlyReportCounter = () => ({
   count: 0,
   countries: {},
-  dossiers: []
+  dossiers: [],
 });
 
 export const initReport: (
@@ -43,9 +43,9 @@ export const initReport: (
     group,
     accepted: {
       less3Months: initMonthlyReportCounter(),
-      more3Months: initMonthlyReportCounter()
+      more3Months: initMonthlyReportCounter(),
     },
     refused: initMonthlyReportCounter(),
-    withoutContinuation: initMonthlyReportCounter()
+    withoutContinuation: initMonthlyReportCounter(),
   };
 };

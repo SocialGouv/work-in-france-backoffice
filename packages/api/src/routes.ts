@@ -3,14 +3,24 @@ import { configuration } from "./config";
 import {
   alertController,
   monthlyReportController,
-  validityCheckController
+  validityCheckController,
 } from "./controller";
 
 const routeOptions: Router.IRouterOptions = {
-  prefix: "/api"
+  prefix: "/api",
 };
 
 const router = new Router(routeOptions);
+
+router.get("/liveness", (ctx, next) => {
+  ctx.body = "Live OK";
+  next();
+});
+
+router.get("/readiness", (ctx, next) => {
+  ctx.body = "Readi OK";
+  next();
+});
 
 const validityCheckURL = "/v1/apt_validity_check";
 router.get(`${validityCheckURL}/:ds_id/:date`, validityCheckController.get);
