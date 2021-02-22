@@ -5,6 +5,7 @@ const alert: Alert = {
   url: "URL",
   // tslint:disable-next-line: object-literal-sort-keys
   group: {
+    type: "autorisation",
     id: "75",
     label: "75 - Paris"
   },

@@ -12,6 +12,7 @@ class MonthlyReportModel extends Model implements MonthlyReport {
   public group: DSGroup = {
     id: "",
     label: "",
+    type: "autorisation",
   };
   public accepted: {
     more3Months: MonthlyReportCounter;

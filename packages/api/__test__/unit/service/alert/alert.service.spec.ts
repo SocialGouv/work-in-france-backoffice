@@ -1,4 +1,5 @@
 import { alertService } from "../../../../src/service/alert";
+import { DossierRecord } from "../../../../src/model";
 
 const dossier = {
   id: 502017,
@@ -28,10 +29,11 @@ const dossier = {
   champs: []
 };
 
-const record = {
+const record: DossierRecord = {
   ds_key: "14131-502017",
   metadata: {
     group: {
+      type: "autorisation",
       id: "75",
       label: "75 - Paris"
     },
