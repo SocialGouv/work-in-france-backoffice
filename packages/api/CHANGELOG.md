@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.4.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.6...v2.4.0) (2021-02-22)
+
+
+### Features
+
+* enable validity check on introductions ([#88](https://github.com/SocialGouv/work-in-france-backoffice/issues/88)) ([164ce06](https://github.com/SocialGouv/work-in-france-backoffice/commit/164ce060c8ac8a9eca0b3e19953d3f75d3754f06))
+
+
+
+
+
 ## [2.3.6](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.5...v2.3.6) (2020-11-16)
 
 
