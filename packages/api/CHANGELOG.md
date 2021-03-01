@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.1...v2.4.2) (2021-03-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency koa-router to v10 ([#96](https://github.com/SocialGouv/work-in-france-backoffice/issues/96)) ([a6c0af5](https://github.com/SocialGouv/work-in-france-backoffice/commit/a6c0af5552059710c2e2a1c32699e65efda1f6c3))
+
+
+
+
+
 ## [2.4.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.0...v2.4.1) (2021-03-01)
 
 
