@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.1](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.0...v2.4.1) (2021-03-01)
+
+
+### Bug Fixes
+
+* **deps:** update sentry monorepo to v6 ([#98](https://github.com/SocialGouv/work-in-france-backoffice/issues/98)) ([ebd15a4](https://github.com/SocialGouv/work-in-france-backoffice/commit/ebd15a43f8a10ef8b05744e3089416f033d13afb))
+
+
+
+
+
 # [2.4.0](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.3.6...v2.4.0) (2021-02-22)
 
 
