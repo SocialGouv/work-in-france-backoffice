@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.2...v2.4.3) (2021-04-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-cron to v3 ([#101](https://github.com/SocialGouv/work-in-france-backoffice/issues/101)) ([e08a713](https://github.com/SocialGouv/work-in-france-backoffice/commit/e08a713308ff754d21656dae670199eea55b80e6))
+
+
+
+
+
 ## [2.4.2](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.1...v2.4.2) (2021-03-01)
 
 
