@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.3...v2.4.4) (2021-04-06)
+
+
+### Bug Fixes
+
+* fix production ds_aggregator db connexion string ([#103](https://github.com/SocialGouv/work-in-france-backoffice/issues/103)) ([d2bedd2](https://github.com/SocialGouv/work-in-france-backoffice/commit/d2bedd25219b1c2d47b0396daf0cc92841ab4499))
+
+
+
+
+
 ## [2.4.3](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.2...v2.4.3) (2021-04-01)
 
 
