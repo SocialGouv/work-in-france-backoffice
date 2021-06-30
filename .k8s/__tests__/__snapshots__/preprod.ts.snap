@@ -7,7 +7,7 @@ kind: Namespace
 metadata:
   annotations:
     field.cattle.io/creatorId: gitlab
-    field.cattle.io/projectId: c-f8qps:p-46tj7
+    field.cattle.io/projectId: c-bd7z2:p-7ms8p
     git/branch: v1.2.3
     git/remote: >-
       https://gitlab-ci-token:[MASKED]@gitlab.factory.social.gouv.fr/SocialGouv/work-in-france-backoffice.git
