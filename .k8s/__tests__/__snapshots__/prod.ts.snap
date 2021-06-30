@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kosko generate --prod 1`] = `
+"---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: prod
+    app.gitlab.com/env.name: prod
+  labels:
+    app: api
+    application: work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+  name: api
+  namespace: work-in-france-backoffice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      annotations:
+        kapp.k14s.io/disable-default-ownership-label-rules: ''
+        kapp.k14s.io/disable-default-label-scoping-rules: ''
+        app.gitlab.com/app: socialgouv-work-in-france-backoffice
+        app.gitlab.com/env: prod
+        app.gitlab.com/env.name: prod
+      labels:
+        app: api
+        application: work-in-france-backoffice
+        owner: work-in-france-backoffice
+        team: work-in-france-backoffice
+    spec:
+      containers:
+        - image: harbor.fabrique.social.gouv.fr/wif/work-in-france-backoffice:1.2.3
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+          name: api
+          ports:
+            - containerPort: 4000
+              name: http
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /api/readiness
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 5m
+              memory: 16Mi
+          startupProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+    application: work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+  name: api
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: prod
+    app.gitlab.com/env.name: prod
+  namespace: work-in-france-backoffice
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4000
+  selector:
+    app: api
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/tls-acme: 'true'
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: prod
+    app.gitlab.com/env.name: prod
+  labels:
+    app: api
+    application: work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+  name: api
+  namespace: work-in-france-backoffice
+spec:
+  rules:
+    - host: work-in-france-backoffice.fabrique.social.gouv.fr
+      http:
+        paths:
+          - backend:
+              serviceName: api
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - work-in-france-backoffice.fabrique.social.gouv.fr
+      secretName: api-crt
+"
+`;

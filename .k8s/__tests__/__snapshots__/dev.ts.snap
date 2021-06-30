@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kosko generate --dev 1`] = `
+"---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    field.cattle.io/creatorId: gitlab
+    field.cattle.io/projectId: c-f8qps:p-46tj7
+    git/branch: master
+    git/remote: >-
+      https://gitlab-ci-token:[MASKED]@gitlab.factory.social.gouv.fr/SocialGouv/work-in-france-backoffice.git
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: master-dev42
+    app.gitlab.com/env.name: master-dev42
+  labels:
+    azure-pg-admin-user: work-in-france-backoffice
+    application: master-dev42-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: work-in-france-backoffice-85-master-dev42
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: master-dev42
+    app.gitlab.com/env.name: master-dev42
+  labels:
+    app: api
+    application: master-dev42-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  namespace: work-in-france-backoffice-85-master-dev42
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      annotations:
+        kapp.k14s.io/disable-default-ownership-label-rules: ''
+        kapp.k14s.io/disable-default-label-scoping-rules: ''
+        app.gitlab.com/app: socialgouv-work-in-france-backoffice
+        app.gitlab.com/env: master-dev42
+        app.gitlab.com/env.name: master-dev42
+      labels:
+        app: api
+        application: master-dev42-work-in-france-backoffice
+        owner: work-in-france-backoffice
+        team: work-in-france-backoffice
+        cert: wildcard
+    spec:
+      containers:
+        - image: >-
+            harbor.fabrique.social.gouv.fr/wif/work-in-france-backoffice:0123456789abcdefghijklmnopqrstuvwxyz0123
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+          name: api
+          ports:
+            - containerPort: 4000
+              name: http
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /api/readiness
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 5m
+              memory: 16Mi
+          startupProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+    application: master-dev42-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: master-dev42
+    app.gitlab.com/env.name: master-dev42
+  namespace: work-in-france-backoffice-85-master-dev42
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4000
+  selector:
+    app: api
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: master-dev42
+    app.gitlab.com/env.name: master-dev42
+  labels:
+    app: api
+    application: master-dev42-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  namespace: work-in-france-backoffice-85-master-dev42
+spec:
+  rules:
+    - host: master-dev42-work-in-france-backoffice.dev42.fabrique.social.gouv.fr
+      http:
+        paths:
+          - backend:
+              serviceName: api
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - master-dev42-work-in-france-backoffice.dev42.fabrique.social.gouv.fr
+      secretName: wildcard-crt
+"
+`;
