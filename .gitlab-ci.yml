@@ -26,8 +26,6 @@ Register image:
     - job: Build
       artifacts: true
   variables:
-    CONTEXT: .
     DOCKER_BUILD_ARGS: >-
-      --file ./packages/api/Dockerfile
-      --shm-size 256M
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/api
+      --dockerfile ./packages/api/Dockerfile
+    IMAGE_NAME: work-in-france-backoffice
