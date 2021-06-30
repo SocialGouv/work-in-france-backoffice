@@ -21,12 +21,7 @@ Build:
     paths:
       - packages/api/dist
 
-Register image:
-  needs:
-    - job: Build
-      artifacts: true
+Register Kaniko image:
   variables:
-    CONTEXT: .
     DOCKER_BUILD_ARGS: >-
       --dockerfile ./packages/api/Dockerfile
-    IMAGE_NAME: work-in-france-backoffice
