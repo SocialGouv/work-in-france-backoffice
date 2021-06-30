@@ -6,6 +6,7 @@ include:
 variables:
   AUTO_DEVOPS_RELEASE_AUTO: "🔖"
   AUTO_DEVOPS_PRODUCTION_AUTO: "🚀"
+  AUTO_DEVOPS_KANIKO: "🕹️"
 
 Release:
   variables:
