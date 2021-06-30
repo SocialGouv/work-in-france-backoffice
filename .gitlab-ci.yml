@@ -26,6 +26,7 @@ Register image:
     - job: Build
       artifacts: true
   variables:
+    CONTEXT: .
     DOCKER_BUILD_ARGS: >-
       --dockerfile ./packages/api/Dockerfile
     IMAGE_NAME: work-in-france-backoffice
