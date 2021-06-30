@@ -14,14 +14,13 @@ export const asNumber = (args: string | undefined, defaultValue: number) => {
   return Number.parseInt(args, 10);
 };
 
-export const asDate: (
-  args: number | string | undefined | null
-) => Date | null = (args: any) => {
-  if (!args) {
-    return null;
-  }
-  return new Date(args);
-};
+export const asDate: (args: number | string | undefined | null) => Date | null =
+  (args: any) => {
+    if (!args) {
+      return null;
+    }
+    return new Date(args);
+  };
 
 export const asString = (args: string[], separator: string) => {
   if (!args) {
