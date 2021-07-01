@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.6](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.5...v2.4.6) (2021-07-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v10 ([#117](https://github.com/SocialGouv/work-in-france-backoffice/issues/117)) ([8d13827](https://github.com/SocialGouv/work-in-france-backoffice/commit/8d138276e3640f8a2f8e7ee981dee09a73dd076d))
+
+
+
+
+
 ## [2.4.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.4...v2.4.5) (2021-07-01)
 
 
