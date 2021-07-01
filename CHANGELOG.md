@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.7](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.6...v2.4.7) (2021-07-01)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @socialgouv/kosko-charts to v7 ([#113](https://github.com/SocialGouv/work-in-france-backoffice/issues/113)) ([3868b0b](https://github.com/SocialGouv/work-in-france-backoffice/commit/3868b0b372bf0e70439587d6cb69d0af2394c9c6))
+* **deps:** update dependency rxjs to v7 ([#118](https://github.com/SocialGouv/work-in-france-backoffice/issues/118)) ([bf822d0](https://github.com/SocialGouv/work-in-france-backoffice/commit/bf822d0eacc29dac35e2f919c2e02ed0d8566915))
+
+
+### Reverts
+
+* Revert "fix(deps): update dependency rxjs to v7" (#122) ([7cf4f4c](https://github.com/SocialGouv/work-in-france-backoffice/commit/7cf4f4c97bfaef9b0cb4945a0a9e124f14ff28b0)), closes [#122](https://github.com/SocialGouv/work-in-france-backoffice/issues/122)
+
+
+
+
+
 ## [2.4.6](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.5...v2.4.6) (2021-07-01)
 
 
