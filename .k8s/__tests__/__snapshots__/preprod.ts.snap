@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`kosko generate --preprod 1`] = `
+"---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    field.cattle.io/creatorId: gitlab
+    field.cattle.io/projectId: c-bd7z2:p-7ms8p
+    git/branch: v1.2.3
+    git/remote: >-
+      https://gitlab-ci-token:[MASKED]@gitlab.factory.social.gouv.fr/SocialGouv/work-in-france-backoffice.git
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  labels:
+    azure-pg-admin-user: work-in-france-backoffice
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: work-in-france-backoffice-85-preprod-dev42
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  labels:
+    app: api
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  namespace: work-in-france-backoffice-85-preprod-dev42
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      annotations:
+        kapp.k14s.io/disable-default-ownership-label-rules: ''
+        kapp.k14s.io/disable-default-label-scoping-rules: ''
+        app.gitlab.com/app: socialgouv-work-in-france-backoffice
+        app.gitlab.com/env: preprod-dev42
+        app.gitlab.com/env.name: preprod-dev42
+      labels:
+        app: api
+        application: v1-2-3-work-in-france-backoffice
+        owner: work-in-france-backoffice
+        team: work-in-france-backoffice
+        cert: wildcard
+    spec:
+      containers:
+        - image: harbor.fabrique.social.gouv.fr/wif/work-in-france-backoffice:1.2.3
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+          name: api
+          ports:
+            - containerPort: 4000
+              name: http
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /api/readiness
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 5m
+              memory: 16Mi
+          startupProbe:
+            httpGet:
+              port: http
+              path: /api/liveness
+          envFrom:
+            - secretRef:
+                name: api-env
+            - configMapRef:
+                name: api-env
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  annotations:
+    sealedsecrets.bitnami.com/cluster-wide: 'true'
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  creationTimestamp: null
+  name: api-env
+  labels:
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  namespace: work-in-france-backoffice-85-preprod-dev42
+spec:
+  encryptedData:
+    AGGREGATOR_DATABASE_URL: >-
+      AgCKu2cShvXi7wPMUHLvZc2uE47kC1Mf6VABP+1P8OfWXpuQOY4RcbhU/Vz/VyAefgiZ0hLi7mIwCNjB9mNBx5JP77iTyVKB3uY6v+GMuaRRxxZJT9MehnA5Sccj+kBAcwaAd0n0YxkSkcJ4qB+ho2+VvyFR/riM8tU75Wnd7PV2r12i2F9kF0zoFyk1ALpb80K8bCKWpFyGmnhV1boUwrzmMH4VJ5kQAX0Wr+TJm6y250ewWdxDRgzgaLSsYTOXgp/VKd+ruJkv495x/EnofMdpZ7EqN6A9ijDiS6nw+HrYHB7HaB1LQIJvtnGMbvjy8ns/Qa5T5ociQdWB4eePNt5UJ2v7UV6BsrqKjeFLUwomYkq/u40VQN5wyLjqHxp6/Jh92mpb8f2q1JPgxzkd/qrDMsAOJ594trHz8yfpKhS4DvH8JBow0+l/YXZMss5xki2I1CprSrRp4NhgeAdVxdJum+pqYkN/Uejq6YWO1jM1d5AK7vYBovKNLHLmstyiM4efCd++CkK/D4F/QY0/v8Hs7684tqUmM3GlFKLROxEUBc7JTSF8q48F7j8YDHUbGccTP5Ku/XL6HHjHPUHKlDItbVwa/0GAUz41xhPbkpGIKYWa2JFapV6IyBcsHGISm47ek+0j8VSAwGrzN1Gphpat9E5rkVNWptibffYncVXA6O0jUjSxLc63ZlIJrLvHhG2qVyJdJBE7mDmvoL23fB+gMZIti46A0kr/UUl7vpcG7F8yQ6Q+Fa5DTA1ltg4TcFjBDZ+uRXZuFVG1Nu1xTS23Z4ydJ+LpRivzeFM2Kbi3hBhX6vynfKH3i95R4Rla/DLiScxCo6Z0oH1zxlOf/Ir9AaeCqsGfLENKhIgKS1lh8HloVtTD74oTPbyz
+    API_PREFIX: >-
+      AgAxPjV5xt1XAbhGtFsXr/D+sMC6mJqeSJq9WPFtfWckYOgWo9Bhj30WbMN8wgqHM3WAcnZqztOUGXwo9R0EpOlDL1qaoHxiHrE8i8eLuTvYRYtCZC+rveLMESO6y3kxSHoAACuU796V2JzcjIIdUwYNACZH3FaJWZWi5qQYZ7hFT0FTj8LjZ9LlMFK4G+L5bkDW2xHRkR+8QhCQzJLT4LCVgCuZ8Ms22c2e5vjlS5kMTqom9XcaCUDFZ3BuTI2HE1ZneoLqk7PRqKtsVxupS31h7ICxTQXOYqJUZ1/t19yHwuTjlVEGbgoXREQZprOQMO6P15Jxnr1WTh9hj/jKAsu4aJG2qrFmQ11BEjySYtBkkky1Xk/O/mC/NtgZ5HQu61f7EVeDpKzGMCtOcqlOOAielKju3XNh/hkj5TSlcOo182BH8nUMwc+vqSI99iV5sZIiCMJ18PKMIl13nQSJZCkxtMSJ9y83yd4LIM7b4pso1luQh5+DYjoAOJ++D/xte0O8tgTNffDibk24U++ZlpSNgxsJR8A3WescJNbAUqtV8S5MvsFeGhNo59QSA8ONfEXCGixzJPoY6rjRiG7if+SZzkVQF1Y5dy20hHBMLbOiF2lcwdDxIESiOX8dpXj7vHmUcRQo61HFEaSNWl3ewvdTL8B6YC2pvX/UMabsXuJsWkAvFN2b0v28TFaCgxB0MgsJUHBzX9h5/INUBDnO4ekj
+    DATABASE_URL: >-
+      AgDEc7s+hQ0Wy4R0TWUdbNM6X550WynK5vLLtEDrcXnrLCMprrrORMUTwDn6j62LpxTI3bVUBfoB+ObdZUprMATkRKvm4ZNx0xWUQJj/v9xVgVipixCXnMQhlAMSjHTRaj0vrjM8x2lFw9G52CzNCo2cvoGL5gdAk8vOR8wNRZCIqj9wD0yZYOZfX07vf+uPF77h6YPyZStNz7/RoboPZ7o7ZBg6Ep+lgvepeb8hLk+cN2gHS6SqUlyAgDsWVt2l1tmgEBTBy6E8YI5j8q8/isW9rYS/0d6+4Gj3AYsN6Vert+ejFkB+8P+In0GbqvGlND2jqHaOIQ3nXjvsTBvwhnQXx+iaxXjL+1J3ZjNpTTjrD6w5n5YonGJPYOsn1PLH3l0ADO8XQSAFv9cRfovyFpUmXeRmYEsO/j4bpvTniAUdnyisJdO6ZYAURkhDJg70wlEixhtbeuvMtcSwKu68H/e5xC6dKoHu6lHlLJ+jFj0G1R1zwfQjIyLxYbr97AUwm1vTDbLn7Ai3kz67qram1fktPQjna3ALOCl5KIXp5th0g3bFzO7cBlmek7X209hejD/lVSnFb6uDAliwUjTSQMzdanqlEIWyqsaAN53XCXwii769gS6OrXrGPRRvTQIExLqVr5/DQxAaN0SStj4MmTC0mJ57zNqAhFzCngMVzhd7BNX5TQUr1GbWjCg2nen9PH9QVEE54j1P8gt56qIUF660Rr06W9F5jlUizXvaoXGsxyZcYipJP9Ged1xB2sQMJDdP+tWkEam2RxNavlMi3PIyJCq1AQ3cIyVCy7LIyM4AhujNLah3EbbSamZGfR2Q3wXpB5MtL4yF3IuC6zTmBVEnmH0E9wq528W6JQHKehmlaN+nSelK32YypgeMRtvs7rOt6MrR4RrAMy/RXfYOoqRc/VpMQ9bwog==
+  template:
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/cluster-wide: 'true'
+        kapp.k14s.io/disable-default-ownership-label-rules: ''
+        kapp.k14s.io/disable-default-label-scoping-rules: ''
+        app.gitlab.com/app: socialgouv-work-in-france-backoffice
+        app.gitlab.com/env: preprod-dev42
+        app.gitlab.com/env.name: preprod-dev42
+      creationTimestamp: null
+      name: api-env
+      labels:
+        application: v1-2-3-work-in-france-backoffice
+        owner: work-in-france-backoffice
+        team: work-in-france-backoffice
+        cert: wildcard
+    type: Opaque
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-env
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  labels:
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  namespace: work-in-france-backoffice-85-preprod-dev42
+data:
+  ALERT_CRON: 0 0 4 * * *
+  ALERT_EMAIL_CRON: 0 30 6 * * *
+  API_PORT: '4000'
+  ENVIRONMENT_TYPE: prod
+  MAIL_ENABLED: 'false'
+  MAIL_FROM: Work In France <contact@workinfrance.beta.gouv.fr>
+  MAIL_HOST: smtp.sendgrid.net
+  MAIL_PASSWORD: '***'
+  MAIL_PORT: '465'
+  MAIL_USE_TLS: 'false'
+  MAIL_USERNAME: '***'
+  MONTHLY_REPORT_CRON: 0 0 8 1 * *
+  MONTHLY_REPORT_EMAIL_RECEPIENT: work-in-france@beta.gouv.fr
+  PGSSLMODE: require
+  SENTRY_ENABLED: 'false'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  annotations:
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  namespace: work-in-france-backoffice-85-preprod-dev42
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 4000
+  selector:
+    app: api
+  type: ClusterIP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kapp.k14s.io/disable-default-ownership-label-rules: ''
+    kapp.k14s.io/disable-default-label-scoping-rules: ''
+    app.gitlab.com/app: socialgouv-work-in-france-backoffice
+    app.gitlab.com/env: preprod-dev42
+    app.gitlab.com/env.name: preprod-dev42
+  labels:
+    app: api
+    application: v1-2-3-work-in-france-backoffice
+    owner: work-in-france-backoffice
+    team: work-in-france-backoffice
+    cert: wildcard
+  name: api
+  namespace: work-in-france-backoffice-85-preprod-dev42
+spec:
+  rules:
+    - host: preprod-work-in-france-backoffice.dev42.fabrique.social.gouv.fr
+      http:
+        paths:
+          - backend:
+              serviceName: api
+              servicePort: 80
+            path: /
+  tls:
+    - hosts:
+        - preprod-work-in-france-backoffice.dev42.fabrique.social.gouv.fr
+      secretName: wildcard-crt
+"
+`;

@@ -1,11 +1,12 @@
 include:
   - project: SocialGouv/gitlab-ci-yml
     file: /autodevops.yml
-    ref: v18.12.1
+    ref: v23.1.0
 
 variables:
   AUTO_DEVOPS_RELEASE_AUTO: "🔖"
   AUTO_DEVOPS_PRODUCTION_AUTO: "🚀"
+  AUTO_DEVOPS_KANIKO: "🕹️"
 
 Release:
   variables:
@@ -20,13 +21,7 @@ Build:
     paths:
       - packages/api/dist
 
-Register image:
-  needs:
-    - job: Build
-      artifacts: true
+Register Kaniko image:
   variables:
-    CONTEXT: .
     DOCKER_BUILD_ARGS: >-
-      --file ./packages/api/Dockerfile
-      --shm-size 256M
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/api
+      --dockerfile ./packages/api/Dockerfile
