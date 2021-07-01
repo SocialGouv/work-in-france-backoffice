@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.4.5](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.4...v2.4.5) (2021-07-01)
+
+
+### Bug Fixes
+
+* **deps:** update all dependencies ([#92](https://github.com/SocialGouv/work-in-france-backoffice/issues/92)) ([68d070f](https://github.com/SocialGouv/work-in-france-backoffice/commit/68d070f876ef6bb018bb2433402d8c07c9c812d4))
+* **deps:** update dependency date-fns to v2 ([#54](https://github.com/SocialGouv/work-in-france-backoffice/issues/54)) ([ac824c6](https://github.com/SocialGouv/work-in-france-backoffice/commit/ac824c6021759cdf1b5b099f945d1a12072d53ec))
+* **deps:** update kosko monorepo ([#97](https://github.com/SocialGouv/work-in-france-backoffice/issues/97)) ([7693dd0](https://github.com/SocialGouv/work-in-france-backoffice/commit/7693dd0f3095904fdb5e110671e2610b3af057f8))
+
+
+
+
+
 ## [2.4.4](https://github.com/SocialGouv/work-in-france-backoffice/compare/v2.4.3...v2.4.4) (2021-04-06)
 
 
